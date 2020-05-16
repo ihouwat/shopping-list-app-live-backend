@@ -2,7 +2,7 @@ const handleDeleteItem = (req, res, db) => {
   const {name, id, note} = req.body.item
   const listName = req.body.listName.toLowerCase() // lowercase matches db table names
   // Identify the deleted item in the table and delete it
-  db(listName).where('id', '=', id).del()
+  db(listName).where('name', '=', name).del()
   .then(response => {
     // Get the table that was just updated
     return db.select().from(listName)
