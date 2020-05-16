@@ -1,4 +1,5 @@
 const handleDeleteItem = (req, res, db) => {
+  console.log(req.body)
   const {name, id, note} = req.body.item
   const listName = req.body.listName.toLowerCase() // lowercase matches db table names
   // Identify the deleted item in the table and delete it
