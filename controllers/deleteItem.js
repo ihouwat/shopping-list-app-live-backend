@@ -9,10 +9,10 @@ const handleDeleteItem = (req, res, db) => {
     .then(list => {
       // Send the table and table name to the front end
       console.log(listName, list)
-      // res.json({
-      //   listName: listName,
-      //   updatedList: list,
-      // })
+      res.json({
+        listName: listName,
+        updatedList: list,
+      })
     })
   })
   .catch(err => res.status(400).json('could not delete item'))
