@@ -38,7 +38,7 @@ app.put('/recoverallcompleted', (req, res) => {recoverallcompleted.handleRecover
 app.post('/openmodal', (req, res) => {openmodal.handleOpenModal(req, res, db)}) // Open modal and fetch item name note
 app.put('/addnote', (req, res) => {addnote.handleAddNote(req, res, db)}) // Add note to grocery item on modal close
 
-app.listen(port, () => console.log(`app is running http://localhost:${port}`))
+app.listen(process.env.PORT || 3000, () => console.log(`app is running on port ${process.env.PORT}`))
 
 /* ROUTES to build
 /DONE getitemslists --> GET = success/fail for items, completed items, and favorites (top 10 count)
