@@ -20,6 +20,10 @@ const db = knex({
   }
 });
 
+db.select('*').from('groceriestemplate').then(data => {
+  console.log(data);
+});
+
 const app = express(); // Start app
 app.use(cors()); // for CORS
 app.use(bodyParser.json()) // for parsing application/json
