@@ -15,10 +15,8 @@ const openmodal = require('./controllers/openModal');
 const db = knex({
   client: 'pg',
   connection: {
-    host : 'postgresql-silhouetted-46575',
-    user : 'kouhlthytxhvsc',
-    password : '23b64869d83e13d06693d7ec9f737c76cc4cdf4a834c5807b7af8c8974510299',
-    database : 'd11pu7j7e32ppr'
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
   }
 });
 
