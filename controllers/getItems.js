@@ -17,7 +17,7 @@ const getItemsOnLoad = (req, res, db) => {
               favoriteItems.push(obj)
             }
           })
-          res.json({
+          res.send({
             // The grocery list
             items: items,
             // The completed items list
