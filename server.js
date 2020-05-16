@@ -12,6 +12,7 @@ const recoverallcompleted = require('./controllers/recoverAllCompleted');
 const addnote = require('./controllers/addNote');
 const openmodal = require('./controllers/openModal');
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 const db = knex({
   client: 'pg',
   connection: {
