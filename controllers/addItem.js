@@ -4,11 +4,11 @@ const handleAddItem = (req, res, db) => {
   // Insert a new item in the database
   db('items').insert([{name: item.name, id: number, note: '', count: 1} ])
   .then(function(result){
-    // Get the items list from the database
-    db.select().from('items')
+    // Get the added item from the database
+    db.select().from('items').where('name', item.name)
     .then(function(result){
-      //Send the list to the frontend
-      res.json({ items: result })
+      // Send the added item to the frontend
+      res.json({ addedItem: result })
     })
   })
   .catch(err => res.status(400).json('could not add item'))

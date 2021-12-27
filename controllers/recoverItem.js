@@ -8,19 +8,9 @@ const handleRecoverItem = (req, res, db) => {
         return trx('completeditems').where('id', '=', id[0]).del().returning('*')
       })
       .then(response => {
-        return trx('items')
-        .then (items => {
-          return trx('completeditems')
-          .then(completeditems => {
-            res.json({
-              items: items,
-              completedItems: completeditems
-            })
-          })
-        })
-      })
-      .then(trx.commit)
-      .catch(trx.rollback)
+        // Send back recovered item to frontend
+        res.json({ recoveredItem: response })
+    })
   })
   .catch(err => res.status(400).json('could not recover item'))
 }

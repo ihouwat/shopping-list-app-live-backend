@@ -1,17 +1,13 @@
 const handleDeleteItem = (req, res, db) => {
-  const {name, id, note} = req.body.item
+  const {name} = req.body.item
   const listName = req.body.listName.toLowerCase() // lowercase matches db table names
   // Identify the deleted item in the table and delete it
   db(listName).where('name', '=', name).del()
-  .then(response => {
-    // Get the table that was just updated
-    return db.select().from(listName)
-    .then(list => {
-      // Send the table and table name to the front end
-      res.json({
-        listName: listName,
-        updatedList: list,
-      })
+  .then(() => {
+    // Send the list name and deleted item back to frontend
+    res.json({
+      listName: listName,
+      deletedItem: req.body.item,
     })
   })
   .catch(err => res.status(400).json('could not delete item'))

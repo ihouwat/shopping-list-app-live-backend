@@ -1,8 +1,8 @@
 const handleCompleteItem = (req, res, db) => {
   db.transaction(trx => {
-    const {name, id, note} = req.body.item
+    const {name, id, note, count} = req.body.item
     // Push item to completed items list and return id
-    return trx('completeditems').insert({name: name, id: id, note: note})
+    return trx('completeditems').insert({name: name, id: id, note: note, count: count})
     .returning('id')
     .then(id => { 
       // Delete same item from grocery list and return name
@@ -12,22 +12,13 @@ const handleCompleteItem = (req, res, db) => {
       // If name in groceriestemplate, increment count by 1
       // This will be used to generate top ten faves on app load
       return trx('groceriestemplate').returning('*').where('name', '=', name[0]).increment('count', 1).returning('*')
-      .then(groceriestemplate => {
-        return trx('items')
-        .then(items => {
-          return trx('completeditems')
-          .then(completeditems => {
-            // Fetch items and completeditems tables and send to front-end
-            res.json({ 
-              items: items, 
-              completedItems: completeditems 
-            }); 
-          })
-        })
+      .then(() => {
+        // Send back item id to frontend
+        res.json({ completedItemId: id }); 
       })
     })
-      .then(trx.commit)
-      .catch(trx.rollback)
+    .then(trx.commit)
+    .catch(trx.rollback)
   })
   .catch(err => res.status(400).json('could not complete getting item'))
 }

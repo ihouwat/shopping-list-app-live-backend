@@ -18,7 +18,7 @@ Create a PostgreSQL database called 'quickshopper' on your local machine. It inc
     * note (varchar)
     * count (smallint)
 
-* **completeditems**: stores the completed items. It includes three columns, same as above.
+* **completeditems**: stores the completed items. It includes four columns, same as above.
 
 * **groceriestemplate**: is used to fetch top 10 favorites on app load and to populate the autocomplete search input. It includes two columns:
 
