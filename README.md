@@ -9,7 +9,7 @@ We've all visited grocery stores and found ourselves retracing our steps or revi
 
 ### Database
 
-Create a PostgreSQL database called 'quickshopper' on your local machine. It includes three tables:
+Create a PostgreSQL database called 'quickshopper' on your local machine (see db starter scripts). It includes four tables:
 
 * **items**: stores the added grocery items. It includes four columns:
 
@@ -24,6 +24,12 @@ Create a PostgreSQL database called 'quickshopper' on your local machine. It inc
 
     * name (varchar - primary key)
     * count (integer - not null)
+
+* **grocerystoremodel**: is used to fetch and update store layouts. It includes three columns:
+
+    * id (integer - primary key)
+    * storeName (varchar)
+    * storeCategories (jsonb)
 
 ### Customize the app
 
