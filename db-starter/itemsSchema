@@ -2,10 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.1
+-- Dumped from database version 12.9 (Ubuntu 12.9-2.heroku1+1)
 -- Dumped by pg_dump version 14.1
 
--- Started on 2021-12-27 13:57:02
+-- Started on 2021-12-27 19:27:26
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,8 +23,8 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 210 (class 1259 OID 16416)
--- Name: items; Type: TABLE; Schema: public; Owner: postgres
+-- TOC entry 202 (class 1259 OID 20300249)
+-- Name: items; Type: TABLE; Schema: public; Owner: kouhlthytxhvsc
 --
 
 CREATE TABLE public.items (
@@ -34,10 +34,10 @@ CREATE TABLE public.items (
     count smallint
 );
 
+ALTER TABLE ONLY public.items
+    ADD CONSTRAINT items_pkey PRIMARY KEY (id);
 
-ALTER TABLE public.items OWNER TO postgres;
-
--- Completed on 2021-12-27 13:57:02
+-- Completed on 2021-12-27 19:27:28
 
 --
 -- PostgreSQL database dump complete

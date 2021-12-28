@@ -5,7 +5,7 @@
 -- Dumped from database version 12.9 (Ubuntu 12.9-2.heroku1+1)
 -- Dumped by pg_dump version 14.1
 
--- Started on 2021-12-27 13:59:11
+-- Started on 2021-12-27 19:25:53
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -32,28 +32,10 @@ CREATE TABLE public.groceriestemplate (
     count integer DEFAULT 0
 );
 
-
-ALTER TABLE public.groceriestemplate OWNER TO kouhlthytxhvsc;
-
---
--- TOC entry 3711 (class 2606 OID 20300265)
--- Name: groceriestemplate groceriestemplate_pkey; Type: CONSTRAINT; Schema: public; Owner: kouhlthytxhvsc
---
-
 ALTER TABLE ONLY public.groceriestemplate
     ADD CONSTRAINT groceriestemplate_pkey PRIMARY KEY (name);
 
-
---
--- TOC entry 3843 (class 0 OID 0)
--- Dependencies: 632
--- Name: LANGUAGE plpgsql; Type: ACL; Schema: -; Owner: postgres
---
-
-GRANT ALL ON LANGUAGE plpgsql TO kouhlthytxhvsc;
-
-
--- Completed on 2021-12-27 13:59:15
+-- Completed on 2021-12-27 19:25:55
 
 --
 -- PostgreSQL database dump complete

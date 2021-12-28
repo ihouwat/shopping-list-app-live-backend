@@ -2,10 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.1
+-- Dumped from database version 12.9 (Ubuntu 12.9-2.heroku1+1)
 -- Dumped by pg_dump version 14.1
 
--- Started on 2021-12-27 13:57:49
+-- Started on 2021-12-27 19:24:30
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,8 +23,8 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 209 (class 1259 OID 16411)
--- Name: completeditems; Type: TABLE; Schema: public; Owner: postgres
+-- TOC entry 204 (class 1259 OID 20300268)
+-- Name: completeditems; Type: TABLE; Schema: public; Owner: kouhlthytxhvsc
 --
 
 CREATE TABLE public.completeditems (
@@ -34,10 +34,10 @@ CREATE TABLE public.completeditems (
     count smallint
 );
 
+ALTER TABLE ONLY public.completeditems
+    ADD CONSTRAINT completeditems_pkey PRIMARY KEY (id);
 
-ALTER TABLE public.completeditems OWNER TO postgres;
-
--- Completed on 2021-12-27 13:57:49
+-- Completed on 2021-12-27 19:24:32
 
 --
 -- PostgreSQL database dump complete
