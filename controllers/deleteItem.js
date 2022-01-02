@@ -10,7 +10,7 @@ const handleDeleteItem = (req, res, db) => {
       deletedItem: req.body.item,
     })
   })
-  .catch(err => res.status(400).json('could not delete item'))
+  .catch(err => res.status(400).json({errorMessage: 'Could not delete item.', statusCode: res.status(400).statusCode}));
 }
 
 module.exports = {

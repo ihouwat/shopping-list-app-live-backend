@@ -35,7 +35,7 @@ const getItemsOnLoad = (req, res, db) => {
           })
         });
       });
-  }).catch(err => res.status(400).json('could not GET lists'))
+  }).catch(err => res.status(400).json({errorMessage: 'Could not get lists.', statusCode: res.status(400).statusCode}));
 };
 
 module.exports = {

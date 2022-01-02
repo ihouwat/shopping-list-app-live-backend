@@ -12,7 +12,7 @@ const handleRecoverItem = (req, res, db) => {
         res.json({ recoveredItem: response })
     })
   })
-  .catch(err => res.status(400).json('could not recover item'))
+  .catch(err => res.status(400).json({errorMessage: 'Could not recover item from completed list.', statusCode: res.status(400).statusCode}));
 }
 
 module.exports = {

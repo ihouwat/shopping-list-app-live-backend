@@ -20,7 +20,7 @@ const handleCompleteItem = (req, res, db) => {
     .then(trx.commit)
     .catch(trx.rollback)
   })
-  .catch(err => res.status(400).json('could not complete getting item'))
+  .catch(err => res.status(400).json({errorMessage: 'Could not add item to completed list.', statusCode: res.status(400).statusCode}));
 }
 
 module.exports = {

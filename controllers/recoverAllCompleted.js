@@ -23,7 +23,7 @@ const handleRecoverAllCompleted = (req, res, db) => {
             })
           })
       })
-    .catch(err => res.status(400).json('could not recover all completed items'))
+    .catch(err => res.status(400).json({errorMessage: 'Could not recover all completed items.', statusCode: res.status(400).statusCode}));
   }
 
 module.exports = {

@@ -44,7 +44,8 @@ const handleUpdateStoreCategories = (req, res, db) => {
   .then(res => updateModel(res, stores))
   .then(collection => batchUpdate('grocerystoremodel', collection))
   .then(() => db.select().from('grocerystoremodel').orderBy('id', 'asc'))
-  .then(updatedModel => res.send({updatedModel  : updatedModel}))
+  .then(updatedModel => res.send({updatedModel: updatedModel}))
+  .catch(err => res.status(400).json({errorMessage: 'Could not update grocery store categories.', statusCode: res.status(400).statusCode}));
 }
 
 module.exports = {

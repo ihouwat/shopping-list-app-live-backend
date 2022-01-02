@@ -11,7 +11,7 @@ const handleAddItem = (req, res, db) => {
       res.json({ addedItem: result })
     })
   })
-  .catch(err => res.status(400).json('could not add item'))
+  .catch(err => res.status(400).json({errorMessage: 'Could not add item to list.', statusCode: res.status(400).statusCode}));
  };
 
 module.exports={

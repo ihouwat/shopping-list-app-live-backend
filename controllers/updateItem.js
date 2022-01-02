@@ -10,7 +10,7 @@ const handleUpdateItem = (req, res, db) => {
       res.json ({ updatedItem: item })
     })
   })
-  .catch(err => res.status(400).json('could not add note to item'))
+  .catch(err => res.status(400).json({errorMessage: 'Could not update item info.', statusCode: res.status(400).statusCode}));
 }
 
 module.exports = {

@@ -9,7 +9,7 @@ const handleDeleteAllCompleted = (req, res, db) => {
       res.json({completeditems: completeditems})
     })
   })
-  .catch(err => res.status(400).json('could not delete all completed items'))
+  .catch(err => res.status(400).json({errorMessage: 'Could not delete all completed items.', statusCode: res.status(400).statusCode}));
 }
 
 module.exports = {
