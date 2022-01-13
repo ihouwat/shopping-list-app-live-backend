@@ -29,7 +29,7 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 
 ### Customize the database connection
 
-* In `/ backend / server.js`, edit the server credentials
+* In `server.js`, edit the server credentials
 
 ### Start the server
 
