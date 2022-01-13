@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const cors = require('cors');
-const knex = require('knex')
+const knex = require('knex');
+const winston = require('./config/winston');
+const morgan = require('morgan');
 const getitems = require('./controllers/getItems');
 const addItem = require('./controllers/addItem');
 const completeitem = require('./controllers/completeItem');
@@ -34,6 +36,7 @@ const db = knex({
 
 const app = express(); // Start app
 const PORT = process.env.PORT || 3000;
+app.use(morgan('combined', { stream: winston.stream })); // for logging
 app.use(cors()); // for CORS
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -49,5 +52,5 @@ app.put('/updateitem', (req, res) => {updateItem.handleUpdateItem(req, res, db)}
 app.put('/updatestorecategories', (req, res) => {updateStoreCategories.handleUpdateStoreCategories(req, res, db)}) // Update item
 
 app.listen(PORT, () => {
-  console.log(`app is running on port ${PORT}` );
+  winston.info(`app is running on port ${PORT}`);
 });
