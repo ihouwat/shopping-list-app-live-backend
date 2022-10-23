@@ -11,10 +11,10 @@ const getItemsOnLoad = (req, res, db) => {
           // in descending order by count number
           db.select('name').from('groceriestemplate').orderBy('count', 'desc')
           .then(groceriestemplate =>{
-            // Put the top twenty items in the favoriteItems array
+            // Put the top favorite items in the favoriteItems array
             let favoriteItems = [] 
             groceriestemplate.map((item, index) => {
-              if (index < 20) {
+              if (index < 25) {
                 let obj = {name: item.name.trim(), isChecked: false} // trim removes whitespaces from db
                 favoriteItems.push(obj)
               }
