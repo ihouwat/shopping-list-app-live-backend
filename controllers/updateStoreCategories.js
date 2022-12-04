@@ -1,5 +1,4 @@
 const handleUpdateStoreCategories = (req, res, db) => {
-  // const [item, stores] = req.body;
   const item = req.body.itemName;
   const stores = req.body.stores;
 
