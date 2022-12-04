@@ -27,7 +27,7 @@ jest.mock('../server', () => {
   return jest.fn(() => mKnex);
 });
 
-const req = { body: { name: 'item' }}
+const req = {};
 const res = {};
 
 describe('testing add item', () => {
