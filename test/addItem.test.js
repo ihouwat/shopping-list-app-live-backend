@@ -27,12 +27,12 @@ jest.mock('../server', () => {
   return jest.fn(() => mKnex);
 });
 
-const req = { body: { name: 'item' }}
+const req = { body: { name: 'item' }};
 const res = {};
 
-describe('testing add item', () => {
+describe('add item', () => {
   
-  test('testing this', async () => {
+  test('', async () => {
     db().then.mockResolvedValueOnce(expected)
     const actual = await addItem.handleAddItem(req, res, db())
     expect(actual).toEqual(expected);
