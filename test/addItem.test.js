@@ -1,6 +1,15 @@
 const addItem = require('../controllers/addItem');
 const db = require('../server');
 
+const expected = [
+  {
+    "name": "Pasta",
+    "id": "50jzy696i",
+    "note": "",
+    "count": 1
+  }
+];
+
 jest.mock('../server', () => {
   const mKnex = { 
     count: jest.fn(),
@@ -24,14 +33,6 @@ const res = {};
 describe('testing add item', () => {
   
   test('testing this', async () => {
-    const expected = [
-      {
-        "name": "Pasta",
-        "id": "50jzy696i",
-        "note": "",
-        "count": 1
-      }
-    ]
     db().then.mockResolvedValueOnce(expected)
     const actual = await addItem.handleAddItem(req, res, db())
     expect(actual).toEqual(expected);
