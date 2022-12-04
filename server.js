@@ -54,3 +54,5 @@ app.put('/updatestorecategories', (req, res) => {updateStoreCategories.handleUpd
 app.listen(PORT, () => {
   winston.info(`app is running on port ${PORT}`);
 });
+
+module.exports = { db };
