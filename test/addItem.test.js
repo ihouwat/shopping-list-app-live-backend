@@ -20,7 +20,7 @@ jest.mock('../server', () => {
     insert: jest.fn().mockReturnThis(),
     raw: jest.fn().mockReturnThis(),
     then: jest.fn(function (done) {
-      done({addedItem: 'item'})
+      done()
     }),
     catch: jest.fn().mockReturnThis(),
     items: () => jest.fn().mockReturnThis(), };
