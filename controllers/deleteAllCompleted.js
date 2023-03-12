@@ -1,6 +1,6 @@
 const handleDeleteAllCompleted = (req, res, db) => {
   // Empty completeditems table
-  db('completeditems').del().returning('*')
+  return db('completeditems').del().returning('*')
   .then(response => {
     // Select completed items table
     db.select().from('completeditems')

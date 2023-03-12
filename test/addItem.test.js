@@ -8,12 +8,12 @@ const res = { status: (status) => ({statusCode: status, json: (data) => data}), 
 
 describe('add item', () => {
   test('should return item after successful insert', async () => {
-    const expected = [{
+    const expected = [{addedItem: {
       "name": "Pasta",
       "id": "50jzy696i",
       "note": "",
       "count": 1
-    }];
+    }}];
     db().then.mockResolvedValueOnce(expected);
     const actual = await addItem.handleAddItem(req, res, db());
     expect(actual).toEqual(expected);
