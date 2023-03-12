@@ -1,22 +1,7 @@
-const addItem = require('../controllers/addItem');
+const mockKnex = require('./testSetup');
 const db = require('../server');
-
-jest.mock('../server', () => {
-  const mKnex = { 
-    count: jest.fn(),
-    select: jest.fn().mockReturnThis(),
-    from: jest.fn().mockReturnThis(),
-    where: jest.fn().mockReturnThis(),
-    first: jest.fn().mockReturnThis(),
-    insert: jest.fn().mockReturnThis(),
-    raw: jest.fn().mockReturnThis(),
-    then: jest.fn(function (done) {
-      done()
-    }),
-    catch: jest.fn().mockReturnThis(),
-    items: () => jest.fn().mockReturnThis(), };
-  return jest.fn(() => mKnex);
-});
+jest.mock('../server', () => mockKnex);
+const addItem = require('../controllers/addItem');
 
 const req = { body: { name: 'item' }};
 const res = { status: (status) => ({statusCode: status, json: (data) => data}), statusCode: 200};
