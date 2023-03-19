@@ -1,0 +1,34 @@
+const mockKnex = require('./testSetup');
+let db = require('../server');
+jest.mock('../server', () => mockKnex);
+const deleteItem = require('../controllers/deleteItem');
+
+const item = {deletedItem: {name: 'item1', id: '123456789', note: '', count: 1}};
+const req = {
+  body: {
+    item: item,
+    listName: 'someListName'
+  }
+};
+const res = { status: (status) => ({statusCode: status, json: (data) => data}), statusCode: 200};
+
+describe('delete item', () => {
+  test('should return the deleted item when the database successfully deletes the item', async () => {
+    const expected = {listName: req.body.listName, deletedItem: req.body.item};
+    db().then.mockResolvedValueOnce(expected);
+    const actual = await deleteItem.handleDeleteItem(req, res, db);
+    expect(actual).toEqual(expected);
+  });
+
+  test('should return an error message when the database fails to delete the item', async () => {
+    const expected = {errorMessage: 'Could not delete item.', statusCode: 400};
+    db().then.mockRejectedValueOnce('error');
+    const actual = await deleteItem.handleDeleteItem(req, res, db);
+    expect(actual).toEqual(expected);
+  });
+
+  test('should call the correct functions', async () => {
+    expect(db().where).toBeCalled();
+    expect(db().del).toBeCalled();
+  });
+});
