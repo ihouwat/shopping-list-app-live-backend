@@ -35,6 +35,9 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 
 * `npx nodemon server.js` starts the server on port 3000
 
+### Run unit tests
+`npm run test -- --watch`
+
 ## Technologies Used 
 * [body-parser](https://www.npmjs.com/package/body-parser): Node.js body parsing middleware
 * [cors](https://www.npmjs.com/package/cors): to provide a Connect/Express middleware that can be used to enable CORS
