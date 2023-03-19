@@ -1,10 +1,10 @@
-const mockKnex = require('./testSetup');
+const mockKnex = require('./testSetup').mockKnex;
+const res = require('./testSetup').res;
 const db = require('../server');
 jest.mock('../server', () => mockKnex);
 const addItem = require('../controllers/addItem');
 
 const req = { body: { name: 'Pasta' }};
-const res = { status: (status) => ({statusCode: status, json: (data) => data}), statusCode: 200};
 
 describe('add item', () => {
   test('should return item after successful insert', async () => {

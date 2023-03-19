@@ -1,4 +1,5 @@
-const mockKnex = require('./testSetup');
+const mockKnex = require('./testSetup').mockKnex;
+const res = require('./testSetup').res;
 let db = require('../server');
 jest.mock('../server', () => mockKnex);
 const deleteItem = require('../controllers/deleteItem');
@@ -10,7 +11,6 @@ const req = {
     listName: 'someListName'
   }
 };
-const res = { status: (status) => ({statusCode: status, json: (data) => data}), statusCode: 200};
 
 describe('delete item', () => {
   test('should return the deleted item when the database successfully deletes the item', async () => {

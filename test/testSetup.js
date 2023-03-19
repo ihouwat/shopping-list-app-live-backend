@@ -16,5 +16,6 @@ const mKnex = {
 };
 
 const mockKnex = jest.fn(() => mKnex);
+const res = { status: (status) => ({statusCode: status, json: (data) => data}), statusCode: 200};
 
-module.exports = mockKnex;
+module.exports = {mockKnex, res};

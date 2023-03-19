@@ -1,10 +1,10 @@
-const mockKnex = require('./testSetup');
+const mockKnex = require('./testSetup').mockKnex;
+const res = require('./testSetup').res;
 let db = require('../server');
 jest.mock('../server', () => mockKnex);
 const deleteAllCompleted = require('../controllers/deleteAllCompleted');
 
 const req = {};
-const res = { status: (status) => ({statusCode: status, json: (data) => data}), statusCode: 200};
 
 describe('delete all completed', () => {
   test('should return the completed items table when the database successfully deletes all completed items', async () => {
