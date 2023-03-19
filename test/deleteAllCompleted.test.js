@@ -14,7 +14,7 @@ describe('delete all completed', () => {
     expect(actual).toEqual(expected);
   });
 
-  test('should return an error message when the database fails to delete all completed items', async () => {
+  test('should return an error message and correct status code  when the database fails to delete all completed items', async () => {
     const expected = {errorMessage: 'Could not delete all completed items.', statusCode: 400};
     db().then.mockRejectedValueOnce('error');
     const actual = await deleteAllCompleted.handleDeleteAllCompleted(req, res, db);

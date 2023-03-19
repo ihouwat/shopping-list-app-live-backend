@@ -22,10 +22,10 @@ describe('add item', () => {
     expect(actual).toEqual(expected);
   });
 
-  test('should return an error message when the database fails to insert the item', async () => {
+  test('should return an error message and correct status code when the database fails to insert the item', async () => {
+    const expected = {errorMessage: 'Could not add item to list.', statusCode: 400};
     db().then.mockRejectedValueOnce('error');
     const actual = await addItem.handleAddItem(req, res, db());
-    const expected = {errorMessage: 'Could not add item to list.', statusCode: 400};
     expect(actual).toEqual(expected);
   });
 });

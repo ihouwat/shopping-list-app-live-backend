@@ -20,7 +20,7 @@ describe('delete item', () => {
     expect(actual).toEqual(expected);
   });
 
-  test('should return an error message when the database fails to delete the item', async () => {
+  test('should return an error message and correct status code when the database fails to delete the item', async () => {
     const expected = {errorMessage: 'Could not delete item.', statusCode: 400};
     db().then.mockRejectedValueOnce('error');
     const actual = await deleteItem.handleDeleteItem(req, res, db);
