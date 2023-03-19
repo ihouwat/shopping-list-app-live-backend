@@ -8,7 +8,7 @@ const res = { status: (status) => ({statusCode: status, json: (data) => data}), 
 
 describe('delete all completed', () => {
   test('should return the completed items table when the database successfully deletes all completed items', async () => {
-    const expected = [{completedItems: {name: 'item1', id: '123456789', note: '', count: 1}}];
+    const expected = {completedItems: []};
     db().then.mockResolvedValueOnce(expected);
     const actual = await deleteAllCompleted.handleDeleteAllCompleted(req, res, db);
     expect(actual).toEqual(expected);
