@@ -8,6 +8,7 @@ const mKnex = {
   first: jest.fn().mockReturnThis(),
   insert: jest.fn().mockReturnThis(),
   raw: jest.fn().mockReturnThis(),
+  update: jest.fn().mockReturnThis(),
   then: jest.fn(function (done) {
     done()
   }),
