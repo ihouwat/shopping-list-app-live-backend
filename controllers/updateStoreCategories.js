@@ -15,7 +15,7 @@ const handleUpdateStoreCategories = (req, res, db) => {
 				let categoryToUpdate = storeModel.categories.find(cat => cat.category === store.category);
 				// only add if item not already in category
 				if(!categoryToUpdate.items.find(it => it.toLowerCase() === item.toLowerCase())) {
-					updatedItems = {...categoryToUpdate, ...categoryToUpdate.items.push(item)};
+					const updatedItems = {...categoryToUpdate, ...categoryToUpdate.items.push(item)};
 					tripleArray.push([item, store.storeName, storeModel.categories.map(cat => cat === categoryToUpdate ? cat = updatedItems : cat)]);
 				}
 			}
@@ -28,7 +28,7 @@ const handleUpdateStoreCategories = (req, res, db) => {
 		// collection is an array of arrays of item name, store name, and updated categories, each representing a category to update for a store model
 		return db.transaction(trx => {
 			const queries = collection.map(tuple => {
-				[itemName, storeName, updatedCategories] = tuple;
+				const [, storeName, updatedCategories] = tuple;
 				return db(table)
 					.where('name', storeName)
 					.update('categories', JSON.stringify(updatedCategories))
@@ -51,7 +51,7 @@ const handleUpdateStoreCategories = (req, res, db) => {
 		.then(collection => batchUpdate('grocerystoremodel', collection))
 		.then(() => db.select().from('grocerystoremodel').orderBy('id', 'asc'))
 		.then(updatedModel => res.send({updatedModel: updatedModel}))
-		.catch(err => res.status(400).json({errorMessage: 'Could not update grocery store categories.', statusCode: res.status(400).statusCode}));
+		.catch(() => res.status(400).json({errorMessage: 'Could not update grocery store categories.', statusCode: res.status(400).statusCode}));
 };
 
 module.exports = {

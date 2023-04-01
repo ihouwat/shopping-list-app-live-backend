@@ -17,6 +17,7 @@ const logger = new winston.createLogger({
 });
 
 logger.stream = {
+	// eslint-disable-next-line no-unused-vars
 	write: function(message, encoding) {
 		// use the 'info' log level so the output will be picked up by both transports (file and console)
 		logger.info(message);
