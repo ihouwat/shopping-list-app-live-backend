@@ -1,6 +1,6 @@
 const getItemsOnLoad = (req, res, db) => {
   // Get the items table
-  db.select().from('items') 
+  return db.select().from('items') 
   .then(items => {
     // Get the completed items table
       db.select().from('completeditems') 
