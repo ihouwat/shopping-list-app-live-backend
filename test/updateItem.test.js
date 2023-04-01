@@ -8,33 +8,33 @@ const updateItem = require('../controllers/updateItem');
 const req = { body: { id: '50jzy696i', note: 'Pasta', count: 2 }};
 
 describe('update item', () => {
-  test('should return item after successful update', async () => {
-    const expected = {
-      updatedItem: [{
-        "id": req.body.id,
-        "note": req.body.note,
-        "count": req.body.count
-      }]
-    };
+	test('should return item after successful update', async () => {
+		const expected = {
+			updatedItem: [{
+				'id': req.body.id,
+				'note': req.body.note,
+				'count': req.body.count
+			}]
+		};
     
-    db().then.mockResolvedValueOnce(expected);
-    const actual = await updateItem.handleUpdateItem(req, res, db());
-    expect(actual).toEqual(expected);
-  });
+		db().then.mockResolvedValueOnce(expected);
+		const actual = await updateItem.handleUpdateItem(req, res, db());
+		expect(actual).toEqual(expected);
+	});
 
-  test('should return an error message and correct status code when the database fails to update the item', async () => {
-    const expected = {errorMessage: 'Could not update item info.', statusCode: 400};
-    db().then.mockRejectedValueOnce('error');
-    const actual = await updateItem.handleUpdateItem(req, res, db());
-    expect(actual).toEqual(expected);
-  });
+	test('should return an error message and correct status code when the database fails to update the item', async () => {
+		const expected = {errorMessage: 'Could not update item info.', statusCode: 400};
+		db().then.mockRejectedValueOnce('error');
+		const actual = await updateItem.handleUpdateItem(req, res, db());
+		expect(actual).toEqual(expected);
+	});
 
-  test('should call the correct functions', async () => {
-    expect(db().select).toBeCalled();
-    expect(db().from).toBeCalled();
-    expect(db().where).toBeCalled();
-    expect(db().update).toBeCalled();
-    expect(db().returning).toBeCalled();
-    expect(db().then).toBeCalled();
-  });
+	test('should call the correct functions', async () => {
+		expect(db().select).toBeCalled();
+		expect(db().from).toBeCalled();
+		expect(db().where).toBeCalled();
+		expect(db().update).toBeCalled();
+		expect(db().returning).toBeCalled();
+		expect(db().then).toBeCalled();
+	});
 });
