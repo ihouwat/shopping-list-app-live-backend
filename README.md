@@ -41,6 +41,10 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 ### Run linter
 `npm run lint`
 
+### Remote debugging
+Port is exposed through the Procfile. To forward the port, run:
+`heroku ps:forward 9090 -a {{app_name}}`
+
 ## Technologies Used 
 * [body-parser](https://www.npmjs.com/package/body-parser): Node.js body parsing middleware
 * [cors](https://www.npmjs.com/package/cors): to provide a Connect/Express middleware that can be used to enable CORS

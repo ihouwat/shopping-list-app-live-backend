@@ -4,14 +4,14 @@ const handleCompleteItem = (req, res, db) => {
 		// Push item to completed items list and return id
 		return trx('completeditems').insert({name: name, id: id, note: note, count: count})
 			.returning('id')
-			.then(id => { 
+			.then(responseId => { 
 				// Delete same item from grocery list and return name
-				return trx('items').where('id', '=', id[0]).del().returning('name');
+				return trx('items').where('id', '=', responseId[0].id).del().returning('name');
 			})
-			.then(name => {
+			.then(responseName => {
 				// If name in groceriestemplate, increment count by 1
 				// This will be used to generate top ten faves on app load
-				return trx('groceriestemplate').returning('*').where('name', '=', name[0]).increment('count', 1).returning('*')
+				return trx('groceriestemplate').returning('*').where('name', '=', responseName[0].name).increment('count', 1).returning('*')
 					.then(() => {
 						// Send back item id to frontend
 						res.json({ completedItemId: id }); 
