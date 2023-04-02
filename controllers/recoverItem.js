@@ -3,9 +3,9 @@ const handleRecoverItem = (req, res, db) => {
 		const {name, id, note, count} = req.body.item;
 		// Readd item to grocery list and return id
 		return trx('items').insert([{name: name, id: id, note: note, count: count}]).returning('id')
-			.then(id => {
+			.then(responseId => {
 				// Remove item from completed items list
-				return trx('completeditems').where('id', '=', id[0]).del().returning('*');
+				return trx('completeditems').where('id', '=', responseId[0].id).del().returning('*');
 			})
 			.then(response => {
 				// Send back recovered item to frontend

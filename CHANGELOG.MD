@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [0.1.4] - 2023-04-02
 ### Fixed
 - Complete items was not working due to knex syntax error, following the update to knex
+- Recover items was not working due to knex syntax error, following the update to knex
 
 ### Added
 - Procfile for Heroku deployment
