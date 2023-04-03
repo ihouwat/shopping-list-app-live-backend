@@ -16,20 +16,20 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Install dependencies
         run: npm ci
 
       - name: Snyk scan
-        uses: snyk/actions/node@v3
+        uses: snyk/actions/node@v1
         with:
           args: snyk test --file=package.json --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Snyk code scan
-        uses: snyk/actions/scan@v2
+        uses: snyk/actions/node@v1
         with:
           args: snyk test
         env:
