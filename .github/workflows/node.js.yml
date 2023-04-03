@@ -13,16 +13,27 @@ jobs:
 
   security:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@master
-    - uses: snyk/actions/setup@master
-    - uses: actions/setup-go@v1
-      with:
-        go-version: "1.13"
-    - name: Snyk test
-      run: snyk test
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Snyk scan
+        uses: snyk/actions/node@v3
+        with:
+          args: snyk test --file=package.json
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Snyk code scan
+        uses: snyk/actions/scan@v2
+        with:
+          args: snyk test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   build:
     runs-on: ubuntu-latest
