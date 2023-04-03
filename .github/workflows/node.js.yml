@@ -22,14 +22,14 @@ jobs:
         run: npm ci
 
       - name: Snyk scan
-        uses: snyk/actions/node@v1
+        uses: snyk/actions/node@master
         with:
           args: snyk test --file=package.json --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Snyk code scan
-        uses: snyk/actions/node@v1
+        uses: snyk/actions/node@master
         with:
           args: snyk test
         env:
