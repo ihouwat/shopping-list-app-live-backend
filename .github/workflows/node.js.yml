@@ -31,7 +31,7 @@ jobs:
       - name: Snyk code scan
         uses: snyk/actions/node@master
         with:
-          args: snyk test
+          args: snyk code test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
