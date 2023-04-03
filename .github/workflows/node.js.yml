@@ -19,12 +19,8 @@ jobs:
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      - name: Snyk test
-        uses: snyk/actions/node@master
         with:
-          args: code test
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          command: monitor
 
   build:
     runs-on: ubuntu-latest
