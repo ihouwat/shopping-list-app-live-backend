@@ -44,12 +44,12 @@ jobs:
     - run: npm run build --if-present
 
   rainforest:
-      needs: build
-      runs-on: ubuntu-latest
-      name: Run Rainforest
-      steps:
-        - name: Rainforest
-          uses: rainforestapp/github-action@master
-          with:
-            token: ${{ secrets.RAINFOREST_API_TOKEN }}
-            run_group_id: 14268
+    needs: build
+    runs-on: ubuntu-latest
+    name: Run Rainforest
+    steps:
+      - name: Rainforest
+        uses: rainforestapp/github-action@master
+        with:
+          token: ${{ secrets.RAINFOREST_API_TOKEN }}
+          run_group_id: 14268
