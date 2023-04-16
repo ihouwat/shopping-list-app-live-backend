@@ -1,5 +1,4 @@
-const { mockKnexFromLib, res } = require('./testSetup');
-
+const { mockKnex, res } = require('./testSetup');
 const complete = require('../controllers/completeItem');
 
 const req = {
@@ -14,18 +13,18 @@ const req = {
 };
 
 describe('complete item', () => {
-	test('should return the completed item ID table when the database successfully completes an item', async () => {
-		const expected = { completedItemId: '50jzy696i' };
-		const db = mockKnexFromLib;
-		const res = { json: jest.fn().mockReturnValueOnce(expected), status: jest.fn().mockReturnThis() };
-		const actual = await complete.handleCompleteItem(req, res, db);
-		expect(actual).toEqual(expected);
+	const db = mockKnex().instance;
+
+	test('should return the completed item ID when the database successfully completes an item', async () => {
+		const successResponse = { completedItemId: '50jzy696i' };
+		const actual = await complete.handleCompleteItem(req, res({ successResponse }), db);
+		expect(actual).toEqual(successResponse);
 	});
 
 	test('should return an error message and correct status code when the database fails to complete an item', async () => {
-		const expected = {errorMessage: 'Could not add item to completed list.', statusCode: 400};
-		const actual = await complete.handleCompleteItem(req, res, mockKnexFromLib);
-		expect(actual).toEqual(expected);
+		const errorResponse = {errorMessage: 'Could not add item to completed list.', statusCode: 400};
+		const actual = await complete.handleCompleteItem(req, res({ errorResponse }), db);
+		expect(actual).toEqual(errorResponse);
 	});
 
 });

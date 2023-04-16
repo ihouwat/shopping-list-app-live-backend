@@ -3,13 +3,13 @@ const getItemsOnLoad = (req, res, db) => {
 	return db.select().from('items') 
 		.then(items => {
 			// Get the completed items table
-			db.select().from('completeditems') 
+			return db.select().from('completeditems') 
 				.then(completeditems => {
-					db.select().from('grocerystoremodel')
+					return db.select().from('grocerystoremodel')
 						.then(groceryStoreModel => {
 							// Get the name column of the groceriestemplate table
 							// in descending order by count number
-							db.select('name').from('groceriestemplate').orderBy('count', 'desc')
+							return db.select('name').from('groceriestemplate').orderBy('count', 'desc')
 								.then(groceriestemplate =>{
 									// Put the top favorite items in the favoriteItems array
 									let favoriteItems = []; 
@@ -19,7 +19,7 @@ const getItemsOnLoad = (req, res, db) => {
 											favoriteItems.push(obj);
 										}
 									});
-									res.send({
+									return res.send({
 										// The grocery list
 										items: items,
 										// The completed items list

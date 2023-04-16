@@ -1,5 +1,5 @@
 const handleRecoverItem = (req, res, db) => {
-	db.transaction(trx => {
+	return db.transaction(trx => {
 		const {name, id, note, count} = req.body.item;
 		// Readd item to grocery list and return id
 		return trx('items').insert([{name: name, id: id, note: note, count: count}]).returning('id')
@@ -9,7 +9,7 @@ const handleRecoverItem = (req, res, db) => {
 			})
 			.then(response => {
 				// Send back recovered item to frontend
-				res.json({ recoveredItem: response });
+				return res.json({ recoveredItem: response });
 			});
 	})
 		.catch(() => res.status(400).json({errorMessage: 'Could not recover item from completed list.', statusCode: res.status(400).statusCode}));

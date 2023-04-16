@@ -1,15 +1,14 @@
-const mockKnex = require('./testSetup').mockKnex;
-const res = require('./testSetup').res;
-const db = require('../server');
-jest.mock('../server', () => mockKnex);
+const { mockKnex, res } = require('./testSetup');
 const updateItem = require('../controllers/updateItem');
 
 
 const req = { body: { id: '50jzy696i', note: 'Pasta', count: 2 }};
 
 describe('update item', () => {
+	const db = mockKnex().instance;
+
 	test('should return item after successful update', async () => {
-		const expected = {
+		const successResponse = {
 			updatedItem: [{
 				'id': req.body.id,
 				'note': req.body.note,
@@ -17,16 +16,14 @@ describe('update item', () => {
 			}]
 		};
     
-		db().then.mockResolvedValueOnce(expected);
-		const actual = await updateItem.handleUpdateItem(req, res, db());
-		expect(actual).toEqual(expected);
+		const actual = await updateItem.handleUpdateItem(req, res({ successResponse }), db);
+		expect(actual).toEqual(successResponse);
 	});
 
 	test('should return an error message and correct status code when the database fails to update the item', async () => {
-		const expected = {errorMessage: 'Could not update item info.', statusCode: 400};
-		db().then.mockRejectedValueOnce('error');
-		const actual = await updateItem.handleUpdateItem(req, res, db());
-		expect(actual).toEqual(expected);
+		const errorResponse = {errorMessage: 'Could not update item info.', statusCode: 400};
+		const actual = await updateItem.handleUpdateItem(req, res({ errorResponse }), db);
+		expect(actual).toEqual(errorResponse);
 	});
 
 });

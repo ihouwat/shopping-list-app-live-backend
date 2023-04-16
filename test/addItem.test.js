@@ -1,14 +1,13 @@
-const mockKnex = require('./testSetup').mockKnex;
-const res = require('./testSetup').res;
-const db = require('../server');
-jest.mock('../server', () => mockKnex);
+const { mockKnex, res } = require('./testSetup');
 const addItem = require('../controllers/addItem');
 
 const req = { body: { name: 'Pasta' }};
 
 describe('add item', () => {
+	const db = mockKnex().instance;
+
 	test('should return item after successful insert', async () => {
-		const expected = {
+		const successResponse = {
 			addedItem: [{
 				'name': req.body.name,
 				'id': '50jzy696i',
@@ -17,15 +16,13 @@ describe('add item', () => {
 			}]
 		};
     
-		db().then.mockResolvedValueOnce(expected);
-		const actual = await addItem.handleAddItem(req, res, db());
-		expect(actual).toEqual(expected);
+		const actual = await addItem.handleAddItem(req, res({ successResponse }), db);
+		expect(actual).toEqual(successResponse);
 	});
 
 	test('should return an error message and correct status code when the database fails to insert the item', async () => {
-		const expected = {errorMessage: 'Could not add item to list.', statusCode: 400};
-		db().then.mockRejectedValueOnce('error');
-		const actual = await addItem.handleAddItem(req, res, db());
-		expect(actual).toEqual(expected);
+		const errorResponse = {errorMessage: 'Could not add item to list.', statusCode: 400};
+		const actual = await addItem.handleAddItem(req, res({ errorResponse }), db);
+		expect(actual).toEqual(errorResponse);
 	});
 });
