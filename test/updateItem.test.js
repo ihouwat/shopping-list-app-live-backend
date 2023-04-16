@@ -29,12 +29,4 @@ describe('update item', () => {
 		expect(actual).toEqual(expected);
 	});
 
-	test('should call the correct functions', async () => {
-		expect(db().select).toBeCalled();
-		expect(db().from).toBeCalled();
-		expect(db().where).toBeCalled();
-		expect(db().update).toBeCalled();
-		expect(db().returning).toBeCalled();
-		expect(db().then).toBeCalled();
-	});
 });

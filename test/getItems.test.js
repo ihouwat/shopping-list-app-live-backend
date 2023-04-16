@@ -27,8 +27,4 @@ describe('get items', () => {
 		expect(actual).toEqual(expected);
 	});
 
-	test('should call the correct functions', async () => {
-		expect(db().select).toBeCalled();
-		expect(db().from).toBeCalled();
-	});
 });

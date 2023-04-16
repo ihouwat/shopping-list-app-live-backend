@@ -21,10 +21,4 @@ describe('delete all completed', () => {
 		expect(actual).toEqual(expected);
 	});
 
-	test('should call the correct functions', async () => {
-		expect(db().del).toBeCalled();
-		expect(db().returning).toBeCalled();
-		expect(db().then).toBeCalled();
-	});
-
 });

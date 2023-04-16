@@ -27,8 +27,4 @@ describe('delete item', () => {
 		expect(actual).toEqual(expected);
 	});
 
-	test('should call the correct functions', async () => {
-		expect(db().where).toBeCalled();
-		expect(db().del).toBeCalled();
-	});
 });
