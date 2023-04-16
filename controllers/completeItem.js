@@ -1,5 +1,5 @@
 const handleCompleteItem = (req, res, db) => {
-	db.transaction(trx => {
+	return db.transaction(trx => {
 		const {name, id, note, count} = req.body.item;
 		// Push item to completed items list and return id
 		return trx('completeditems').insert({name: name, id: id, note: note, count: count})

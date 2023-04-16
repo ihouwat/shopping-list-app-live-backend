@@ -17,7 +17,15 @@ const mKnex = {
 	items: () => jest.fn().mockReturnThis()
 };
 
-const mockKnex = jest.fn(() => mKnex);
+const mockKnexCustom = jest.fn(() => mKnex);
 const res = { status: (status) => ({statusCode: status, json: (data) => data})};
 
-module.exports = {mockKnex, res};
+// Using the library mock-knex
+const MockKnex = require('mock-knex');
+const knex = require('knex');
+
+const mockKnexFromLib = knex({ client: 'pg' });
+MockKnex.mock(mockKnexFromLib);
+const tracker = MockKnex.getTracker();
+
+module.exports = { mockKnex: mockKnexCustom, res, mockKnexFromLib, tracker };
