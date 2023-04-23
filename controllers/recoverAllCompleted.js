@@ -1,6 +1,6 @@
 const handleRecoverAllCompleted = (req, res, db) => {
 	// Find all items in completed list
-	db.select().from('completeditems')
+	return db.select().from('completeditems')
 		.then(items => {
 			// Add all items to grocery list
 			return db('items').insert(items).returning('*');
@@ -15,7 +15,7 @@ const handleRecoverAllCompleted = (req, res, db) => {
 							return db('items') 
 								.then(items => {
 									//Send to front end
-									res.json({
+									return res.json({
 										items: items,
 										completedItems: completeditems
 									});
