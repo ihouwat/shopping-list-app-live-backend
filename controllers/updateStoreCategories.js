@@ -46,7 +46,7 @@ const handleUpdateStoreCategories = (req, res, db) => {
 		});
 	};
 
-	db.select().from('grocerystoremodel')
+	return db.select().from('grocerystoremodel')
 		.then(res => updateModel(res, stores))
 		.then(collection => batchUpdate('grocerystoremodel', collection))
 		.then(() => db.select().from('grocerystoremodel').orderBy('id', 'asc'))
