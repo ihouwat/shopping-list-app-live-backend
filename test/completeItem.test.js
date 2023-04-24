@@ -14,20 +14,20 @@ const req = {
 
 const db = mockKnex().instance;
 
-// describe('complete item', () => {
+describe('complete item', () => {
 
-// 	test('should return the completed item ID when the database successfully completes an item', async () => {
-// 		const successResponse = { completedItemId: '50jzy696i' };
-// 		const actual = await complete.handleCompleteItem(req, res({ successResponse }), db);
-// 		expect(actual).toEqual(successResponse);
-// 	});
+	test('should return the completed item ID when the database successfully completes an item', async () => {
+		const successResponse = { completedItemId: '50jzy696i' };
+		const actual = await complete.handleCompleteItem(req, res({ successResponse }), db);
+		expect(actual).toEqual(successResponse);
+	});
 
-// 	test('should return an error message and correct status code when the database fails to complete an item', async () => {
-// 		const errorResponse = {errorMessage: 'Could not add item to completed list.', statusCode: 400};
-// 		const actual = await complete.handleCompleteItem(req, res({ errorResponse }), db);
-// 		expect(actual).toEqual(errorResponse);
-// 	});
-// });
+	test('should return an error message and correct status code when the database fails to complete an item', async () => {
+		const errorResponse = {errorMessage: 'Could not add item to completed list.', statusCode: 400};
+		const actual = await complete.handleCompleteItem(req, res({ errorResponse }), db);
+		expect(actual).toEqual(errorResponse);
+	});
+});
 
 describe('handleCompleteItem with tracker', () => {
 	const tracker = mockKnex().tracker;

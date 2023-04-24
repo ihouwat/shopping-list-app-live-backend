@@ -41,7 +41,7 @@ describe('handleAddItem with tracker', () => {
 		done();
 	});
 
-	it('should add an item and return the added item', async () => {
+	test('should add an item and return the added item', async () => {
 		const req = {
 			body: {
 				name: 'Item A',
@@ -71,7 +71,7 @@ describe('handleAddItem with tracker', () => {
 		expect(res.status).not.toHaveBeenCalled();
 	});
 
-	it('should handle errors and return an error message', async () => {
+	test('should handle errors and return an error message', async () => {
 		const req = {
 			body: {
 				name: 'Item A',
