@@ -16,6 +16,12 @@ const res = (options = {}) => {
 	}
 };
 
+const createRes = (data, statusCode = 200) => ({
+	json: jest.fn().mockReturnValueOnce(data),
+	status: jest.fn().mockReturnThis(),
+	statusCode: statusCode
+});
+
 const mockKnex = () => {
 	const instance = knex({ client: 'pg' });
 	MockKnex.mock(instance);
@@ -23,4 +29,4 @@ const mockKnex = () => {
 	return { instance, tracker };
 };
 
-module.exports = { res, mockKnex };
+module.exports = { res, mockKnex, createRes };
