@@ -90,7 +90,7 @@ describe('handleCompleteItem with tracker', () => {
 		expect(res.json).toHaveBeenCalledWith({ completedItemId: '50jzy696i' });
 	});
 
-	test('should return an error message and correct status code when the database fails to complete an item', async (done) => {
+	test('should return an error message and correct status code when the database fails to complete an item', async () => {
 		const req = {
 			body: {
 				item: {
