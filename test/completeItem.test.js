@@ -83,6 +83,7 @@ describe('handleCompleteItem with tracker', () => {
 				query.response([]);
 			} else if (step === 5) {
 				expect(query.sql).toBe('COMMIT;');
+				query.response([]);
 			}
 		});
 
@@ -113,7 +114,7 @@ describe('handleCompleteItem with tracker', () => {
 				expect(query.method).toBe('insert');
 				expect(query.bindings).toEqual([ 1, '50jzy696i', 'Item A', 'red' ]);
 				expect(query.returning).toBe('id');
-				query.reject('Some error occurred.').catch(() => {});
+				query.reject('Error');
 			} else if (step === 3) {
 				expect(query.sql).toBe('ROLLBACK;');
 				query.response([]);
@@ -121,8 +122,7 @@ describe('handleCompleteItem with tracker', () => {
 		});
 
 		await complete.handleCompleteItem(req, res, db);
-
 		expect(res.status).toHaveBeenCalledWith(400);
-		expect(res.json).toHaveBeenCalledWith({ errorMessage: 'Could not add item to completed list.', statusCode: 400 });
+		expect(res.json).toHaveBeenCalledWith({errorMessage: 'Could not add item to completed list.', statusCode: 400});
 	});
 });
