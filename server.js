@@ -8,7 +8,7 @@ const getItems = require('./routes/getItems');
 const addItem = require('./routes/addItem');
 const completeItem = require('./routes/completeItem');
 const deleteItem = require('./routes/deleteItem');
-const recoveritem = require('./controllers/recoverItem');
+const recoverItem = require('./routes/recoverItem');
 const deleteallcompleted = require('./controllers/deleteAllCompleted');
 const recoverallcompleted = require('./controllers/recoverAllCompleted');
 const updateItem = require('./controllers/updateItem');
@@ -31,7 +31,7 @@ app.use('/', getItems); // Get lists
 app.use('/additem', addItem);  // Add item to grocery list
 app.use('/completeitem', completeItem); // Complete item from grocery list
 app.use('/deleteitem', deleteItem); // Delete item from list
-app.put('/recoveritem', (req, res) => {recoveritem.handleRecoverItem(req, res, db);}); // Recover item from completed list to grocery list
+app.use('/recoveritem', recoverItem); // Recover item from completed list to grocery list
 app.delete('/deleteallcompleted', (req, res) => {deleteallcompleted.handleDeleteAllCompleted(req, res, db);}); // Delete all the completed items
 app.put('/recoverallcompleted', (req, res) => {recoverallcompleted.handleRecoverAllCompleted(req, res, db);}); // Recover all the completed items back to grocery list
 app.put('/updateitem', (req, res) => {updateItem.handleUpdateItem(req, res, db);}); // Update item
