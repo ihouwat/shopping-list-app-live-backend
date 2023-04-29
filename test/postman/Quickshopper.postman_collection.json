@@ -59,7 +59,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"item\": {\r\n        \"name\": \"Pasta\",\r\n        \"id\": \"gopuz0bsd\",\r\n        \"note\": \"\",\r\n        \"count\": 1\r\n    }\r\n}",
+					"raw": "{\r\n    \"item\": {\r\n        \"name\": \"test101\",\r\n        \"id\": \"miqlewf6r\",\r\n        \"note\": \"\",\r\n        \"count\": 1\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -227,7 +227,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[{\"storeName\": \"Generic Store\", \"itemName\": \"Apples\", \"category\": \"Uncategorized Items\"}]",
+					"raw": "{\r\n    \"itemName\": \"Apples\", \r\n    \"stores\": [\r\n        {\r\n            \"storeName\": \"Generic Store\", \r\n            \"category\": \"Uncategorized Items\"\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
