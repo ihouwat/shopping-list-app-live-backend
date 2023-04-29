@@ -3,15 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const winston = require('./config/winston');
 const morgan = require('morgan');
-const getItems = require('./routes/getItems');
-const addItem = require('./routes/addItem');
-const completeItem = require('./routes/completeItem');
-const deleteItem = require('./routes/deleteItem');
-const recoverItem = require('./routes/recoverItem');
-const deleteAllCompleted = require('./routes/deleteAllCompleted');
-const recoverAllCompleted = require('./routes/recoverAllCompleted');
-const updateItem = require('./routes/updateItem');
-const updateStoreCategories = require('./routes/updateStoreCategories');
+const routes = require('./routes/index');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swaggerFile');
 
@@ -26,15 +18,15 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // Swagger API documentation
 
 // Routes
-app.use('/', getItems); // Get lists
-app.use('/additem', addItem);  // Add item to grocery list
-app.use('/completeitem', completeItem); // Complete item from grocery list
-app.use('/deleteitem', deleteItem); // Delete item from list
-app.use('/recoveritem', recoverItem); // Recover item from completed list to grocery list
-app.use('/deleteallcompleted', deleteAllCompleted); // Delete all the completed items
-app.use('/recoverallcompleted', recoverAllCompleted); // Recover all the completed items back to grocery list
-app.use('/updateitem', updateItem); // Update item
-app.use('/updatestorecategories', updateStoreCategories); // Update item
+app.use('/', routes.getItems); // Get lists
+app.use('/additem', routes.addItem);  // Add item to grocery list
+app.use('/completeitem', routes.completeItem); // Complete item from grocery list
+app.use('/deleteitem', routes.deleteItem); // Delete item from list
+app.use('/recoveritem', routes.recoverItem); // Recover item from completed list to grocery list
+app.use('/deleteallcompleted', routes.deleteAllCompleted); // Delete all the completed items
+app.use('/recoverallcompleted', routes.recoverAllCompleted); // Recover all the completed items back to grocery list
+app.use('/updateitem', routes.updateItem); // Update item
+app.use('/updatestorecategories', routes.updateStoreCategories); // Update item
 
 app.listen(PORT, () => {
 	winston.info(`app is running on port ${PORT}`);
