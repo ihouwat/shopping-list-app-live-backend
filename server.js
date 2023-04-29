@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const knex = require('knex');
+const db = require('./config/knexFile');
 const winston = require('./config/winston');
 const morgan = require('morgan');
 const getitems = require('./controllers/getItems');
@@ -15,24 +15,6 @@ const updateItem = require('./controllers/updateItem');
 const updateStoreCategories = require('./controllers/updateStoreCategories');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
-const db = knex({
-	client: 'pg',
-	connection: {
-		connectionString: process.env.DATABASE_URL,
-		ssl: true,
-	}
-});
-
-// // For local
-// const db = knex({
-//   client: 'pg',
-//   connection: {
-//     host : '127.0.0.1',
-//     user : 'postgres',
-//     password : 'admin',
-//     database : 'quickshopper'
-//   }
-// });
 
 const app = express(); // Start app
 const PORT = process.env.PORT || 3000;
@@ -54,5 +36,3 @@ app.put('/updatestorecategories', (req, res) => {updateStoreCategories.handleUpd
 app.listen(PORT, () => {
 	winston.info(`app is running on port ${PORT}`);
 });
-
-module.exports = { db };
