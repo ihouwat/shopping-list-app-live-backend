@@ -1,7 +1,7 @@
 # Quick Shopper
 Backend for shopping list app with Lauren, for personal use. Pairs with frontend [found here](https://github.com/ihouwat/shopping-list-app-live).
 
-This project is a live app I use personally, and I use it as a sandbox for practices like CI/CD, testing, security. For more, see [project goals](./project-goals.md)
+This project is a live app I use personally, and I use it as a sandbox for practices like CI/CD, testing, security. For more, see [project goals](./projectGoals.md)
 
 ## Setup 
 
