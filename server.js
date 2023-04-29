@@ -13,6 +13,8 @@ const deleteallcompleted = require('./controllers/deleteAllCompleted');
 const recoverallcompleted = require('./controllers/recoverAllCompleted');
 const updateItem = require('./controllers/updateItem');
 const updateStoreCategories = require('./controllers/updateStoreCategories');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swaggerFile');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 
@@ -22,6 +24,8 @@ app.use(morgan('combined', { stream: winston.stream })); // for logging
 app.use(cors()); // for CORS
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // Swagger API documentation
+
 
 app.use('/', getItems); // Get lists
 app.use('/additem', addItem);  // Add item to grocery list
