@@ -1,0 +1,10 @@
+const parse = require('joi-to-json');
+const validationSchemas = require('./validationSchemas');
+
+module.exports = {
+	itemNameSchema: parse(validationSchemas.itemNameSchema, 'open-api'),
+	itemSchema: parse(validationSchemas.itemSchema, 'open-api'),
+	deleteItemSchema: parse(validationSchemas.deleteItemSchema, 'open-api'),
+	updateItemSchema: parse(validationSchemas.updateItemSchema, 'open-api'),
+	updateStoreCategoriesSchema: parse(validationSchemas.updateStoreCategoriesSchema, 'open-api'),
+};
