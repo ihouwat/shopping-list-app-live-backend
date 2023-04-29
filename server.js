@@ -24,7 +24,7 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get('/', (req, res) => {getitems.getItemsOnLoad(req, res, db);}); // Get lists
-app.post('/additem', (req, res) => {addItem.handleAddItem(req, res, db);}); // Add item to grocery list
+app.use('/additem', addItem);  // Add item to grocery list
 app.put('/completeitem', (req, res) => {completeitem.handleCompleteItem(req, res ,db);}); // Complete item from grocery list
 app.delete('/deleteitem', (req, res) => {deleteitem.handleDeleteItem(req, res ,db);}); // Delete item from list
 app.put('/recoveritem', (req, res) => {recoveritem.handleRecoverItem(req, res, db);}); // Recover item from completed list to grocery list
