@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Swagger configs
 - Begin adding swagger documentation
 - Basic schema validation for requests
+- Project goals file
 
 ### Changed
 - Extract DB to knex file
