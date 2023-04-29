@@ -26,6 +26,12 @@
         "semi": [
             "error",
             "always"
+        ],
+        "jsdoc/check-tag-names": [
+            "error",
+            {
+                "definedTags": ["swagger"]
+            }
         ]
     }
 }
