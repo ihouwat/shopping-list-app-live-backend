@@ -11,7 +11,7 @@ const deleteItem = require('./routes/deleteItem');
 const recoverItem = require('./routes/recoverItem');
 const deleteAllCompleted = require('./routes/deleteAllCompleted');
 const recoverAllCompleted = require('./routes/recoverAllCompleted');
-const updateItem = require('./controllers/updateItem');
+const updateItem = require('./routes/updateItem');
 const updateStoreCategories = require('./controllers/updateStoreCategories');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swaggerFile');
@@ -33,8 +33,8 @@ app.use('/completeitem', completeItem); // Complete item from grocery list
 app.use('/deleteitem', deleteItem); // Delete item from list
 app.use('/recoveritem', recoverItem); // Recover item from completed list to grocery list
 app.use('/deleteallcompleted', deleteAllCompleted); // Delete all the completed items
-app.put('/recoverallcompleted', recoverAllCompleted); // Recover all the completed items back to grocery list
-app.put('/updateitem', (req, res) => {updateItem.handleUpdateItem(req, res, db);}); // Update item
+app.use('/recoverallcompleted', recoverAllCompleted); // Recover all the completed items back to grocery list
+app.use('/updateitem', updateItem); // Update item
 app.put('/updatestorecategories', (req, res) => {updateStoreCategories.handleUpdateStoreCategories(req, res, db);}); // Update item
 
 app.listen(PORT, () => {
