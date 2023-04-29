@@ -12,7 +12,7 @@ const recoverItem = require('./routes/recoverItem');
 const deleteAllCompleted = require('./routes/deleteAllCompleted');
 const recoverAllCompleted = require('./routes/recoverAllCompleted');
 const updateItem = require('./routes/updateItem');
-const updateStoreCategories = require('./controllers/updateStoreCategories');
+const updateStoreCategories = require('./routes/updateStoreCategories');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swaggerFile');
 
@@ -35,7 +35,7 @@ app.use('/recoveritem', recoverItem); // Recover item from completed list to gro
 app.use('/deleteallcompleted', deleteAllCompleted); // Delete all the completed items
 app.use('/recoverallcompleted', recoverAllCompleted); // Recover all the completed items back to grocery list
 app.use('/updateitem', updateItem); // Update item
-app.put('/updatestorecategories', (req, res) => {updateStoreCategories.handleUpdateStoreCategories(req, res, db);}); // Update item
+app.use('/updatestorecategories', updateStoreCategories); // Update item
 
 app.listen(PORT, () => {
 	winston.info(`app is running on port ${PORT}`);
