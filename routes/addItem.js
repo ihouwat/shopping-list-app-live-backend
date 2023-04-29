@@ -14,14 +14,14 @@ const db = require('../config/knexFile');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/AddItemRequest'
+ *             $ref: '#/components/schemas/itemNameSchema'
  *     responses:
  *       200:
  *         description: Item added successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/AddedItemResponse'
+ *            schema:
+ *             $ref: '#/components/schemas/addItemResponseSchema'
  */
 router.post('/', (req, res) => {
 	addItem.handleAddItem(req, res, db);
