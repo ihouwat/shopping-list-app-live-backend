@@ -7,7 +7,7 @@ const routes = require('./routes/index');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swaggerFile');
 const validateSchema = require('./middleware/inputValidationMiddleware');
-const schemas = require('./schemas/index');
+const schemas = require('./schemas/validationSchemas');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 
