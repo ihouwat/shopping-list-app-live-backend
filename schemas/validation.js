@@ -1,5 +1,4 @@
 const Joi = require('joi');
-const parse = require('joi-to-json');
 
 const itemNameSchema = Joi.object({
 	name: Joi.string().required(),

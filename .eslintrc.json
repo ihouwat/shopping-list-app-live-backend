@@ -5,10 +5,7 @@
         "es2021": true,
         "jest": true
     },
-    "plugins": [
-        "jsdoc"
-    ],
-    "extends": ["eslint:recommended", "plugin:jsdoc/recommended-typescript"],
+    "extends": ["eslint:recommended"],
     "overrides": [
     ],
     "parserOptions": {
@@ -26,12 +23,6 @@
         "semi": [
             "error",
             "always"
-        ],
-        "jsdoc/check-tag-names": [
-            "error",
-            {
-                "definedTags": ["swagger"]
-            }
         ]
     }
 }
