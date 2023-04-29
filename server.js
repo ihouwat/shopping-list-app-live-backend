@@ -6,7 +6,7 @@ const winston = require('./config/winston');
 const morgan = require('morgan');
 const getItems = require('./routes/getItems');
 const addItem = require('./routes/addItem');
-const completeitem = require('./controllers/completeItem');
+const completeItem = require('./routes/completeItem');
 const deleteitem = require('./controllers/deleteItem');
 const recoveritem = require('./controllers/recoverItem');
 const deleteallcompleted = require('./controllers/deleteAllCompleted');
@@ -26,10 +26,10 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // Swagger API documentation
 
-
+// Routes
 app.use('/', getItems); // Get lists
 app.use('/additem', addItem);  // Add item to grocery list
-app.put('/completeitem', (req, res) => {completeitem.handleCompleteItem(req, res ,db);}); // Complete item from grocery list
+app.use('/completeitem', completeItem); // Complete item from grocery list
 app.delete('/deleteitem', (req, res) => {deleteitem.handleDeleteItem(req, res ,db);}); // Delete item from list
 app.put('/recoveritem', (req, res) => {recoveritem.handleRecoverItem(req, res, db);}); // Recover item from completed list to grocery list
 app.delete('/deleteallcompleted', (req, res) => {deleteallcompleted.handleDeleteAllCompleted(req, res, db);}); // Delete all the completed items
