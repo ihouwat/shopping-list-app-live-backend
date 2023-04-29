@@ -1,6 +1,6 @@
 const winston = require('../config/winston');
 
-const inputValidationMiddleware = (schema) => (req, res, next) => {
+const validateSchema = (schema) => (req, res, next) => {
 	const { error } = schema.validate(req.body);
 	if (error) {
 		winston.info(error);
@@ -9,4 +9,4 @@ const inputValidationMiddleware = (schema) => (req, res, next) => {
 	next();
 };
 
-module.exports = inputValidationMiddleware;
+module.exports = validateSchema;
