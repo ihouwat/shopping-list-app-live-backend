@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Extract DB to knex file
 - Extract routes to routes folder and add index.js
 - Fixed update store categories method in Postman collection
+- Updated readme
 
 ## [0.1.5] - 2023-04-16
 ### Added
