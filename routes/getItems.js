@@ -14,7 +14,7 @@ const db = require('../config/knexFile');
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/GetItemsResponse'
+ *               $ref: '#/components/schemas/getItemResponseSchema'
  *       400:
  *         description: Error retrieving items
  */
