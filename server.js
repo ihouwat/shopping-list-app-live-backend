@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const db = require('./config/knexFile');
 const winston = require('./config/winston');
 const morgan = require('morgan');
 const getItems = require('./routes/getItems');
