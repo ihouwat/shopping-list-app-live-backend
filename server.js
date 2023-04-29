@@ -6,6 +6,8 @@ const morgan = require('morgan');
 const routes = require('./routes/index');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swaggerFile');
+const validateSchema = require('./middleware/inputValidationMiddleware');
+const schemas = require('./schemas/index');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 
@@ -19,14 +21,14 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // Swagger 
 
 // Routes
 app.use('/', routes.getItems); // Get lists
-app.use('/additem', routes.addItem);  // Add item to grocery list
-app.use('/completeitem', routes.completeItem); // Complete item from grocery list
-app.use('/deleteitem', routes.deleteItem); // Delete item from list
-app.use('/recoveritem', routes.recoverItem); // Recover item from completed list to grocery list
+app.use('/additem', [validateSchema(schemas.itemNameSchema), routes.addItem]);  // Add item to grocery list
+app.use('/completeitem', [validateSchema(schemas.itemSchema), routes.completeItem]); // Complete item from grocery list
+app.use('/deleteitem', [validateSchema(schemas.deleteItemSchema), routes.deleteItem]); // Delete item from list
+app.use('/recoveritem',  [validateSchema(schemas.itemSchema), routes.recoverItem]); // Recover item from completed list to grocery list
 app.use('/deleteallcompleted', routes.deleteAllCompleted); // Delete all the completed items
 app.use('/recoverallcompleted', routes.recoverAllCompleted); // Recover all the completed items back to grocery list
-app.use('/updateitem', routes.updateItem); // Update item
-app.use('/updatestorecategories', routes.updateStoreCategories); // Update item
+app.use('/updateitem', [validateSchema(schemas.updateItemSchema), routes.updateItem]); // Update item
+app.use('/updatestorecategories', [validateSchema(schemas.updateStoreCategoriesSchema), routes.updateStoreCategories]); // Update item
 
 app.listen(PORT, () => {
 	winston.info(`app is running on port ${PORT}`);
