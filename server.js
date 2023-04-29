@@ -4,8 +4,8 @@ const cors = require('cors');
 const db = require('./config/knexFile');
 const winston = require('./config/winston');
 const morgan = require('morgan');
-const getitems = require('./controllers/getItems');
-const addItem = require('./controllers/addItem');
+const getItems = require('./routes/getItems');
+const addItem = require('./routes/addItem');
 const completeitem = require('./controllers/completeItem');
 const deleteitem = require('./controllers/deleteItem');
 const recoveritem = require('./controllers/recoverItem');
@@ -23,7 +23,7 @@ app.use(cors()); // for CORS
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.get('/', (req, res) => {getitems.getItemsOnLoad(req, res, db);}); // Get lists
+app.use('/', getItems); // Get lists
 app.use('/additem', addItem);  // Add item to grocery list
 app.put('/completeitem', (req, res) => {completeitem.handleCompleteItem(req, res ,db);}); // Complete item from grocery list
 app.delete('/deleteitem', (req, res) => {deleteitem.handleDeleteItem(req, res ,db);}); // Delete item from list
