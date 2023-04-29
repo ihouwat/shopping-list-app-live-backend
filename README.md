@@ -1,6 +1,8 @@
 # Quick Shopper
 Backend for shopping list app with Lauren, for personal use. Pairs with frontend [found here](https://github.com/ihouwat/shopping-list-app-live).
 
+This project is a live app I use personally, and I use it as a sandbox for practices like CI/CD, testing, security. For more, see [project goals](./project-goals.md)
+
 ## Setup 
 
 ### Database
@@ -29,8 +31,9 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 
 ### Customize the database connection
 
-* In `server.js`, edit the server credentials
+* In `config/knexFile.js`, edit the server credentials
 
+## Commands
 ### Start the server
 
 * `npx nodemon server.js` starts the server on port 3000
@@ -52,3 +55,7 @@ Port is exposed through the Procfile. To forward the port, run:
 * [knex](https://www.npmjs.com/package/knex): A SQL query builder in JavaScript
 * [pg](https://www.npmjs.com/package/pg): PostgreSQL client for Node.js. Uses pure JavaScript
 * [nodemon](https://www.npmjs.com/package/nodemon): A development utility that monitors for any changes in the code and automatically restarts the server
+* [mock-knex](https://www.npmjs.com/package/mock-knex): to unit test controllers
+* [eslint](https://eslint.org/): to lint code
+* [joi](https://joi.dev/) for schema validation
+* [swagger]() for API documentation
