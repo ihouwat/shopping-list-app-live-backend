@@ -6,6 +6,11 @@ const swaggerDefinition = {
 	info: {
 		title: 'Shopping App',
 		version: '1.0.0',
+		description: 'Shopping list app backend API',
+		'license': {
+			'name': 'MIT',
+			'url': 'https://opensource.org/licenses/MIT'
+		}
 	},
 	components: {
 		schemas: {
@@ -25,6 +30,16 @@ const swaggerDefinition = {
 			recoverAllCompletedResponseSchema: schemas.recoverAllCompletedResponseSchema
 		},
 	},
+	servers: [
+		{
+			url: 'http://localhost:3000',
+			description: 'Development server',
+		},
+		{
+			url: 'http://.....',
+			description: 'Production server',
+		},
+	],
 };
 
 
