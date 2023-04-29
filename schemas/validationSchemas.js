@@ -1,16 +1,18 @@
 const Joi = require('joi');
 
+const baseItemSchema = Joi.object({
+	name: Joi.string().required(),
+	id: Joi.string().required(),
+	note: Joi.string().allow(''),
+	count: Joi.number().required(),
+});
+
 const itemNameSchema = Joi.object({
 	name: Joi.string().required(),
 });
 
 const itemSchema = Joi.object({
-	item: Joi.object({
-		name: Joi.string().required(),
-		id: Joi.string().required(),
-		note: Joi.string().allow(''),
-		count: Joi.number().required(),
-	}).required(),
+	item: baseItemSchema.required(),
 });
 
 const deleteItemSchema = Joi.object({
@@ -39,5 +41,6 @@ module.exports = {
 	itemSchema,
 	deleteItemSchema,
 	updateItemSchema,
-	updateStoreCategoriesSchema
+	updateStoreCategoriesSchema,
+	baseItemSchema
 };
