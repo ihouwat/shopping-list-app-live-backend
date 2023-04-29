@@ -14,6 +14,15 @@ const swaggerDefinition = {
 			deleteItemSchema: schemas.deleteItemSchema,
 			updateItemSchema: schemas.updateItemSchema,
 			updateStoreCategoriesSchema: schemas.updateStoreCategoriesSchema,
+			addItemResponseSchema: schemas.addItemResponseSchema,
+			getItemResponseSchema: schemas.getItemResponseSchema,
+			completeItemResponseSchema: schemas.completeItemResponseSchema,
+			deleteItemResponseSchema: schemas.deleteItemResponseSchema,
+			recoveredItemResponseSchema: schemas.recoveredItemResponseSchema,
+			deleteAllItemsResponseSchema: schemas.deleteAllItemsResponseSchema,
+			updateItemResponseSchema: schemas.updateItemResponseSchema,
+			updateStoreCategoriesResponseSchema: schemas.updateStoreCategoriesResponseSchema,
+			recoverAllCompletedResponseSchema: schemas.recoverAllCompletedResponseSchema
 		},
 	},
 };
