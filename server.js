@@ -10,7 +10,7 @@ const validateSchema = require('./middleware/inputValidationMiddleware');
 const schemas = require('./schemas/validationSchemas');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
-console.log(process.env);
+
 const app = express(); // Start app
 const PORT = process.env.PORT || 3000;
 app.use(morgan('combined', { stream: winston.stream })); // for logging
