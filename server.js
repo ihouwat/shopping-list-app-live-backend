@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // Swagger API documentation
 
 // Routes
-app.use('', routes.getItems); // Get lists
+app.use('/', routes.getItems); // Get lists
 app.use('/additem', [validateSchema(schemas.itemNameSchema), routes.addItem]);  // Add item to grocery list
 app.use('/completeitem', [validateSchema(schemas.itemSchema), routes.completeItem]); // Complete item from grocery list
 app.use('/deleteitem', [validateSchema(schemas.deleteItemSchema), routes.deleteItem]); // Delete item from list
