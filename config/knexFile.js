@@ -1,4 +1,4 @@
-const process = require('process');
+
 
 const knex = require('knex');
 const db = knex({
