@@ -29,9 +29,13 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
     * name (varchar)
     * categories (jsonb)
 
-### Customize the database connection
+### Configure the database connection
 
 * In `config/knexFile.js`, edit the server credentials
+
+### Set environment variables
+* `NODE_ENV`: set to 'development' or 'production'
+* `DATABASE_URL`: connection string
 
 ## Commands
 ### Start the server
