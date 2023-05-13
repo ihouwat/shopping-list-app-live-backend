@@ -45,6 +45,7 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 
 ### Run unit tests
 `npm run test:dev` for verbose output and watch mode
+
 `npm run test` for CI
 
 ### Run linter
