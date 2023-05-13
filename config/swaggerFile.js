@@ -8,8 +8,7 @@ const swaggerDefinition = {
 		version: '1.0.0',
 		description: 'Shopping list app backend API',
 		'license': {
-			'name': 'MIT',
-			'url': 'https://opensource.org/licenses/MIT'
+			'name': 'All Rights Reserved',
 		}
 	},
 	components: {

@@ -63,3 +63,6 @@ Port is exposed through the Procfile. To forward the port, run:
 * [eslint](https://eslint.org/): to lint code
 * [joi](https://joi.dev/) for schema validation
 * [swagger]() for API documentation
+
+## License
+All rights reserved.
