@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.7] - 2023-05-13
+### Changed
+- Externalized knex config
+- Updated README with setup instructions and new commands
+- Add test:dev script in package.json
+
+### Added
+- Unit test for input validation middleware
+
 ## [0.1.6] - 2023-04-29
 ### Added
 - Swagger configs
