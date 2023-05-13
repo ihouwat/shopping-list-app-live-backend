@@ -39,11 +39,11 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 
 ## Commands
 ### Start the server
-
-* `npx nodemon server.js` starts the server on port 3000
+`npm run start:dev` starts the server on port 3000
 
 ### Run unit tests
-`npm run test -- --watch`
+`npm run test:dev` for verbose output and watch mode
+`npm run test` for CI
 
 ### Run linter
 `npm run lint`
