@@ -1,5 +1,5 @@
 const { mockKnex, res } = require('./testSetup');
-const getItems = require('../controllers/getItems');
+const getItems = require('../../controllers/getItems');
 
 const req = {};
 

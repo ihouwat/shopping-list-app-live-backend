@@ -1,5 +1,5 @@
 const { mockKnex, res } = require('./testSetup');
-const deleteItem = require('../controllers/deleteItem');
+const deleteItem = require('../../controllers/deleteItem');
 
 const item = {deletedItem: {name: 'item1', id: '123456789', note: '', count: 1}};
 const req = {

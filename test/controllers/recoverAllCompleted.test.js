@@ -1,5 +1,5 @@
 const { mockKnex, res } = require('./testSetup');
-const recoverAllCompleted = require('../controllers/recoverAllCompleted');
+const recoverAllCompleted = require('../../controllers/recoverAllCompleted');
 
 describe('recover all completed items', () => {
 	const db = mockKnex().instance;

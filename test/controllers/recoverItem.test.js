@@ -1,5 +1,5 @@
 const { mockKnex, res } = require('./testSetup');
-const recoverItem = require('../controllers/recoverItem');
+const recoverItem = require('../../controllers/recoverItem');
 
 const req = {
 	body: {

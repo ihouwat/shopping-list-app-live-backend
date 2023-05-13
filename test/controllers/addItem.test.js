@@ -1,5 +1,5 @@
 const { mockKnex, res, createRes } = require('./testSetup');
-const addItem = require('../controllers/addItem');
+const addItem = require('../../controllers/addItem');
 
 const req = { body: { name: 'Pasta' }};
 
