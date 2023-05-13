@@ -1,22 +1,24 @@
 const knex = require('knex');
-console.log(process.env.NODE_ENV);
+
+const setConnectionConfig = () => {
+	if (process.env.NODE_ENV === 'production') {
+		return {
+			connectionString: process.env.DATABASE_URL,
+			ssl: true,
+		};
+	}
+	// process.env.NODE === 'development'
+	return {
+		host : '127.0.0.1',
+		user : 'postgres',
+		password : 'admin',
+		database : 'quickshopper'
+	};
+};
+
 const db = knex({
 	client: 'pg',
-	connection: {
-		connectionString: process.env.DATABASE_URL,
-		ssl: true,
-	}
+	connection: setConnectionConfig()
 });
-
-// // For local
-// const db = knex({
-// 	client: 'pg',
-// 	connection: {
-// 		host : '127.0.0.1',
-// 		user : 'postgres',
-// 		password : 'admin',
-// 		database : 'quickshopper'
-// 	}
-// });
 
 module.exports = db;
