@@ -1,5 +1,9 @@
 const Joi = require('joi');
 
+/* 
+	These are schemas to validate client requests.
+*/
+
 const baseItemSchema = Joi.object({
 	name: Joi.string().required(),
 	id: Joi.string().required(),

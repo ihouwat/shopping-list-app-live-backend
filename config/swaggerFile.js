@@ -27,7 +27,8 @@ const swaggerDefinition = {
 			deleteAllItemsResponseSchema: schemas.deleteAllItemsResponseSchema,
 			updateItemResponseSchema: schemas.updateItemResponseSchema,
 			updateStoreCategoriesResponseSchema: schemas.updateStoreCategoriesResponseSchema,
-			recoverAllCompletedResponseSchema: schemas.recoverAllCompletedResponseSchema
+			recoverAllCompletedResponseSchema: schemas.recoverAllCompletedResponseSchema,
+			errorResponseSchema: schemas.errorResponseSchema,
 		},
 	},
 	servers: [

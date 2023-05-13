@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 - Unit test for input validation middleware
+- Swagger documentation for all endpoints
 
 ## [0.1.6] - 2023-04-29
 ### Added

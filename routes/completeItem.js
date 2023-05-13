@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const completeItem = require('../controllers/completeItem');
 const db = require('../config/knexFile');
+
 /**
  * @swagger
  * /completeitem:
@@ -13,22 +14,21 @@ const db = require('../config/knexFile');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CompleteItemRequest'
+ *             $ref: '#/components/schemas/itemSchema'
  *     responses:
  *       200:
  *         description: Item completed successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/CompletedItemResponse'
+ *               $ref: '#/components/schemas/completeItemResponseSchema'
  *       400:
- *         description: Item not found
+ *         description: Bad request
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ItemNotFoundResponse'
+ *            schema:
+ *             $ref: '#/components/schemas/errorResponseSchema'
  */
-
 router.put('/', (req, res) => {
 	completeItem.handleCompleteItem(req, res, db);
 });

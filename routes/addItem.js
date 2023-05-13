@@ -22,6 +22,12 @@ const db = require('../config/knexFile');
  *           application/json:
  *            schema:
  *             $ref: '#/components/schemas/addItemResponseSchema'
+ *       400:
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/errorResponseSchema'
  */
 router.post('/', (req, res) => {
 	addItem.handleAddItem(req, res, db);

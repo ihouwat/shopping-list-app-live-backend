@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const getitems = require('../controllers/getItems');
 const db = require('../config/knexFile');
+
 /**
  * @swagger
  * /:
@@ -10,14 +11,18 @@ const db = require('../config/knexFile');
  *       - Items
  *     responses:
  *       200:
- *         description: Items retrieved successfully
+ *         description: App metadata and items retrieved successfully
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/getItemResponseSchema'
  *       400:
- *         description: Error retrieving items
- */
+ *         description: Bad request
+ *         content:
+ *           application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/errorResponseSchema'
+*/
 router.get('/', (req, res) => {
 	getitems.getItemsOnLoad(req, res, db);
 });

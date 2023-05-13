@@ -2,16 +2,20 @@ const parse = require('joi-to-json');
 const validationSchemas = require('./validationSchemas');
 const Joi = require('joi');
 
+/*
+	These are schemas formatted specifically for Swagger documentation. These includes:
+		- Request validation schemas
+		- Response schemas
+*/
+
 const storeModelSchema = Joi.object({
 	id: Joi.number(),
 	name: Joi.string(),
-	categories: Joi.array().items(Joi.object({
-		items: Joi.array().items(Joi.object({
-			name: Joi.string(),
-		})),
+	categories: Joi.alternatives().try(Joi.array().items(Joi.object({
+		items: Joi.array().items(Joi.string()),
 		category: Joi.string(),
 		storeOrder: Joi.number()
-	})),
+	})), Joi.allow(null)),
 });
 
 const addItemResponseSchema = Joi.object({
@@ -37,7 +41,9 @@ const completeItemResponseSchema = Joi.object({
 
 const deleteItemResponseSchema = Joi.object({
 	listName: Joi.string(),
-	deletedItem: validationSchemas.baseItemSchema,
+	deletedItem: Joi.object({
+		name: Joi.string(),
+	}),
 });
 
 const recoveredItemResponseSchema = Joi.object({
@@ -45,7 +51,7 @@ const recoveredItemResponseSchema = Joi.object({
 });
 
 const deleteAllItemsResponseSchema = Joi.object({
-	completedItems: Joi.array().empty(),
+	completeditems: Joi.array().length(0),
 });
 
 const updateItemResponseSchema = Joi.object({
@@ -58,7 +64,12 @@ const updateStoreCategoriesResponseSchema = Joi.object({
 
 const recoverAllCompletedResponseSchema = Joi.object({
 	items: Joi.array().items(validationSchemas.baseItemSchema),
-	completedItems: Joi.array().items(validationSchemas.baseItemSchema),
+	completedItems: Joi.array().length(0),
+});
+
+const errorResponseSchema = Joi.object({
+	error: Joi.string(),
+	statusCode: Joi.number(),
 });
 
 const responseSchemas = {
@@ -71,6 +82,7 @@ const responseSchemas = {
 	updateItemResponseSchema: parse(updateItemResponseSchema, 'open-api'),
 	updateStoreCategoriesResponseSchema: parse(updateStoreCategoriesResponseSchema, 'open-api'),
 	recoverAllCompletedResponseSchema: parse(recoverAllCompletedResponseSchema, 'open-api'),
+	errorResponseSchema: parse(errorResponseSchema, 'open-api'),
 };
 
 const validations = {
