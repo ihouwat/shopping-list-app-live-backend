@@ -39,6 +39,10 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 * `NODE_ENV`: set to 'development' or 'production'
 * `DATABASE_URL`: connection string
 
+### Set CI secrets
+* `RAINFOREST_API_TOKEN`: for visual regression testing
+* `SNYK_TOKEN`: for security testing
+
 ## Commands
 ### Start the server
 `npm run start:dev` starts the server on port 3000

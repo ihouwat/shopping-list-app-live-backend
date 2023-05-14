@@ -20,7 +20,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: monitor
+          command: test
 
   build:
     runs-on: ubuntu-latest
@@ -43,7 +43,7 @@ jobs:
     - run: npm test
     - run: npm run build --if-present
 
-  rainforest:
+  rainforest-ui-test:
     needs: build
     runs-on: ubuntu-latest
     name: Run Rainforest
