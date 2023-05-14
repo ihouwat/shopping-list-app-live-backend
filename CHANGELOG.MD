@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Externalized knex config
 - Updated README with setup instructions, new commands, and license
 - Add test:dev script in package.json
+- Changed security testing action in CI pipeline
 
 ### Added
 - Unit test for input validation middleware
