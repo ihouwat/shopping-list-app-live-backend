@@ -59,7 +59,7 @@ const updateItemResponseSchema = Joi.object({
 });
 
 const updateStoreCategoriesResponseSchema = Joi.object({
-	updatedModel: storeModelSchema
+	updatedModel: Joi.array().items(storeModelSchema)
 });
 
 const recoverAllCompletedResponseSchema = Joi.object({

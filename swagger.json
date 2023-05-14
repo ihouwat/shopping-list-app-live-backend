@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.1.0",
   "info": {
     "title": "Shopping App",
     "version": "1.0.0",
@@ -399,52 +399,55 @@
         "type": "object",
         "properties": {
           "updatedModel": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "name": {
-                "type": "string"
-              },
-              "categories": {
-                "oneOf": [
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "items": {
-                          "type": "array",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "categories": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
                           "items": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "category": {
                             "type": "string"
+                          },
+                          "storeOrder": {
+                            "type": "number"
                           }
                         },
-                        "category": {
-                          "type": "string"
-                        },
-                        "storeOrder": {
-                          "type": "number"
-                        }
-                      },
-                      "additionalProperties": false
+                        "additionalProperties": false
+                      }
+                    },
+                    {
+                      "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "object",
+                        "string",
+                        "null"
+                      ],
+                      "nullable": true
                     }
-                  },
-                  {
-                    "type": [
-                      "array",
-                      "boolean",
-                      "number",
-                      "object",
-                      "string",
-                      "null"
-                    ],
-                    "nullable": true
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
           }
         },
         "additionalProperties": false
