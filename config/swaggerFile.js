@@ -2,7 +2,7 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const schemas = require('../schemas/swaggerSchemas');
 
 const swaggerDefinition = {
-	openapi: '3.1.0',
+	openapi: '3.0.0',
 	info: {
 		title: 'Shopping App',
 		version: '1.0.0',
