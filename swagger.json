@@ -134,27 +134,30 @@
         "type": "object",
         "properties": {
           "addedItem": {
-            "required": [
-              "name",
-              "id",
-              "count"
-            ],
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
+            "type": "array",
+            "items": {
+              "required": [
+                "name",
+                "id",
+                "count"
+              ],
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "number"
+                }
               },
-              "id": {
-                "type": "string"
-              },
-              "note": {
-                "type": "string"
-              },
-              "count": {
-                "type": "number"
-              }
-            },
-            "additionalProperties": false
+              "additionalProperties": false
+            }
           }
         },
         "additionalProperties": false

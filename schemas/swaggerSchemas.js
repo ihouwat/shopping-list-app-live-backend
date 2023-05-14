@@ -19,7 +19,7 @@ const storeModelSchema = Joi.object({
 });
 
 const addItemResponseSchema = Joi.object({
-	addedItem: validationSchemas.baseItemSchema,
+	addedItem: Joi.array().items(validationSchemas.baseItemSchema),
 });
 
 const getItemResponseSchema = Joi.object({
