@@ -1,844 +1,5457 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Shopping App",
-    "version": "1.0.0",
-    "description": "Shopping list app backend API",
-    "license": {
-      "name": "All Rights Reserved"
-    }
-  },
-  "components": {
-    "schemas": {
-      "itemNameSchema": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "itemSchema": {
-        "required": [
-          "item"
-        ],
-        "type": "object",
-        "properties": {
-          "item": {
-            "required": [
-              "name",
-              "id",
-              "count"
-            ],
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "note": {
-                "type": "string"
-              },
-              "count": {
-                "type": "number"
-              }
-            },
-            "additionalProperties": false
-          }
-        },
-        "additionalProperties": false
-      },
-      "deleteItemSchema": {
-        "required": [
-          "listName",
-          "item"
-        ],
-        "type": "object",
-        "properties": {
-          "listName": {
-            "type": "string"
-          },
-          "item": {
-            "required": [
-              "name"
-            ],
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              }
-            },
-            "additionalProperties": false
-          }
-        },
-        "additionalProperties": false
-      },
-      "updateItemSchema": {
-        "required": [
-          "id",
-          "count"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "note": {
-            "type": "string"
-          },
-          "count": {
-            "type": "number"
-          }
-        },
-        "additionalProperties": false
-      },
-      "updateStoreCategoriesSchema": {
-        "required": [
-          "itemName",
-          "stores"
-        ],
-        "type": "object",
-        "properties": {
-          "itemName": {
-            "type": "string"
-          },
-          "stores": {
-            "type": "array",
-            "items": {
-              "required": [
-                "storeName",
-                "category"
-              ],
-              "type": "object",
-              "properties": {
-                "storeName": {
-                  "type": "string"
-                },
-                "category": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": false
-            }
-          }
-        },
-        "additionalProperties": false
-      },
-      "addItemResponseSchema": {
-        "type": "object",
-        "properties": {
-          "addedItem": {
-            "required": [
-              "name",
-              "id",
-              "count"
-            ],
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "note": {
-                "type": "string"
-              },
-              "count": {
-                "type": "number"
-              }
-            },
-            "additionalProperties": false
-          }
-        },
-        "additionalProperties": false
-      },
-      "getItemResponseSchema": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "required": [
-                "name",
-                "id",
-                "count"
-              ],
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "id": {
-                  "type": "string"
-                },
-                "note": {
-                  "type": "string"
-                },
-                "count": {
-                  "type": "number"
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          "completedItems": {
-            "type": "array",
-            "items": {
-              "required": [
-                "name",
-                "id",
-                "count"
-              ],
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "id": {
-                  "type": "string"
-                },
-                "note": {
-                  "type": "string"
-                },
-                "count": {
-                  "type": "number"
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          "favoriteItems": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "isChecked": {
-                  "type": "boolean"
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          "groceriesTemplate": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          "groceryStoreModel": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "categories": {
-                  "oneOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "items": {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          },
-                          "category": {
-                            "type": "string"
-                          },
-                          "storeOrder": {
-                            "type": "number"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    {
-                      "type": [
-                        "array",
-                        "boolean",
-                        "number",
-                        "object",
-                        "string",
-                        "null"
-                      ],
-                      "nullable": true
-                    }
-                  ]
-                }
-              },
-              "additionalProperties": false
-            }
-          }
-        },
-        "additionalProperties": false
-      },
-      "completeItemResponseSchema": {
-        "type": "object",
-        "properties": {
-          "completedItemId": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "deleteItemResponseSchema": {
-        "type": "object",
-        "properties": {
-          "listName": {
-            "type": "string"
-          },
-          "deletedItem": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              }
-            },
-            "additionalProperties": false
-          }
-        },
-        "additionalProperties": false
-      },
-      "recoveredItemResponseSchema": {
-        "type": "object",
-        "properties": {
-          "recoveredItem": {
-            "required": [
-              "name",
-              "id",
-              "count"
-            ],
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "note": {
-                "type": "string"
-              },
-              "count": {
-                "type": "number"
-              }
-            },
-            "additionalProperties": false
-          }
-        },
-        "additionalProperties": false
-      },
-      "deleteAllItemsResponseSchema": {
-        "type": "object",
-        "properties": {
-          "completeditems": {
-            "maxItems": 0,
-            "minItems": 0,
-            "type": "array",
-            "items": {}
-          }
-        },
-        "additionalProperties": false
-      },
-      "updateItemResponseSchema": {
-        "type": "object",
-        "properties": {
-          "updatedItem": {
-            "required": [
-              "name",
-              "id",
-              "count"
-            ],
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "id": {
-                "type": "string"
-              },
-              "note": {
-                "type": "string"
-              },
-              "count": {
-                "type": "number"
-              }
-            },
-            "additionalProperties": false
-          }
-        },
-        "additionalProperties": false
-      },
-      "updateStoreCategoriesResponseSchema": {
-        "type": "object",
-        "properties": {
-          "updatedModel": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "name": {
-                "type": "string"
-              },
-              "categories": {
-                "oneOf": [
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "items": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "category": {
-                          "type": "string"
-                        },
-                        "storeOrder": {
-                          "type": "number"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  },
-                  {
-                    "type": [
-                      "array",
-                      "boolean",
-                      "number",
-                      "object",
-                      "string",
-                      "null"
-                    ],
-                    "nullable": true
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          }
-        },
-        "additionalProperties": false
-      },
-      "recoverAllCompletedResponseSchema": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "required": [
-                "name",
-                "id",
-                "count"
-              ],
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "id": {
-                  "type": "string"
-                },
-                "note": {
-                  "type": "string"
-                },
-                "count": {
-                  "type": "number"
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          "completedItems": {
-            "maxItems": 0,
-            "minItems": 0,
-            "type": "array",
-            "items": {}
-          }
-        },
-        "additionalProperties": false
-      },
-      "errorResponseSchema": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string"
-          },
-          "statusCode": {
-            "type": "number"
-          }
-        },
-        "additionalProperties": false
-      }
-    }
-  },
-  "servers": [
-    {
-      "url": "http://localhost:3000",
-      "description": "Development server"
-    },
-    {
-      "url": "http://.....",
-      "description": "Production server"
-    }
-  ],
-  "paths": {
-    "/additem": {
-      "post": {
-        "summary": "Add item to grocery list",
-        "tags": [
-          "Items"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/itemNameSchema"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Item added successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/addItemResponseSchema"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponseSchema"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/completeitem": {
-      "put": {
-        "summary": "Complete item from grocery list",
-        "tags": [
-          "Items"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/itemSchema"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Item completed successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/completeItemResponseSchema"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponseSchema"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/deleteallcompleted": {
-      "delete": {
-        "summary": "Delete all completed items from grocery list",
-        "tags": [
-          "Items"
-        ],
-        "responses": {
-          "200": {
-            "description": "Items deleted successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/deleteAllItemsResponseSchema"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponseSchema"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/deleteitem": {
-      "delete": {
-        "summary": "Delete an item from either the grocery list or the completed list",
-        "tags": [
-          "Items"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/deleteItemSchema"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Item deleted successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/deleteItemResponseSchema"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponseSchema"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/": {
-      "get": {
-        "summary": "Get items on load",
-        "tags": [
-          "Items"
-        ],
-        "responses": {
-          "200": {
-            "description": "App metadata and items retrieved successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/getItemResponseSchema"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponseSchema"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/recoverallcompleted": {
-      "put": {
-        "summary": "Recover all completed items to main grocery list",
-        "tags": [
-          "Items"
-        ],
-        "responses": {
-          "200": {
-            "description": "Items recovered successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/recoverAllCompletedResponseSchema"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponseSchema"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/recoveritem": {
-      "put": {
-        "summary": "Recover one completed items to main grocery list",
-        "tags": [
-          "Items"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/itemSchema"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Item recovered successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/recoveredItemResponseSchema"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponseSchema"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/updateitem": {
-      "put": {
-        "summary": "Update an item",
-        "tags": [
-          "Items"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/updateItemSchema"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Item recovered successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/updateItemResponseSchema"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponseSchema"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/updatestorecategories": {
-      "put": {
-        "summary": "Update store category",
-        "tags": [
-          "Items"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/updateStoreCategoriesSchema"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Item recovered successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/updateStoreCategoriesResponseSchema"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorResponseSchema"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "tags": []
+	"definitions": {},
+	"$schema": "http://json-schema.org/draft-07/schema#", 
+	"$id": "https://example.com/object1684093264.json", 
+	"title": "Root", 
+	"type": "object",
+	"required": [
+		"openapi",
+		"info",
+		"components",
+		"servers",
+		"paths",
+		"tags"
+	],
+	"properties": {
+		"openapi": {
+			"$id": "#root/openapi", 
+			"title": "Openapi", 
+			"type": "string",
+			"default": "",
+			"examples": [
+				"3.0.0"
+			],
+			"pattern": "^.*$"
+		},
+		"info": {
+			"$id": "#root/info", 
+			"title": "Info", 
+			"type": "object",
+			"required": [
+				"title",
+				"version",
+				"description",
+				"license"
+			],
+			"properties": {
+				"title": {
+					"$id": "#root/info/title", 
+					"title": "Title", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"Shopping App"
+					],
+					"pattern": "^.*$"
+				},
+				"version": {
+					"$id": "#root/info/version", 
+					"title": "Version", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"1.0.0"
+					],
+					"pattern": "^.*$"
+				},
+				"description": {
+					"$id": "#root/info/description", 
+					"title": "Description", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"Shopping list app backend API"
+					],
+					"pattern": "^.*$"
+				},
+				"license": {
+					"$id": "#root/info/license", 
+					"title": "License", 
+					"type": "object",
+					"required": [
+						"name"
+					],
+					"properties": {
+						"name": {
+							"$id": "#root/info/license/name", 
+							"title": "Name", 
+							"type": "string",
+							"default": "",
+							"examples": [
+								"All Rights Reserved"
+							],
+							"pattern": "^.*$"
+						}
+					}
+				}
+
+			}
+		}
+,
+		"components": {
+			"$id": "#root/components", 
+			"title": "Components", 
+			"type": "object",
+			"required": [
+				"schemas"
+			],
+			"properties": {
+				"schemas": {
+					"$id": "#root/components/schemas", 
+					"title": "Schemas", 
+					"type": "object",
+					"required": [
+						"itemNameSchema",
+						"itemSchema",
+						"deleteItemSchema",
+						"updateItemSchema",
+						"updateStoreCategoriesSchema",
+						"addItemResponseSchema",
+						"getItemResponseSchema",
+						"completeItemResponseSchema",
+						"deleteItemResponseSchema",
+						"recoveredItemResponseSchema",
+						"deleteAllItemsResponseSchema",
+						"updateItemResponseSchema",
+						"updateStoreCategoriesResponseSchema",
+						"recoverAllCompletedResponseSchema",
+						"errorResponseSchema"
+					],
+					"properties": {
+						"itemNameSchema": {
+							"$id": "#root/components/schemas/itemNameSchema", 
+							"title": "Itemnameschema", 
+							"type": "object",
+							"required": [
+								"required",
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"required": {
+									"$id": "#root/components/schemas/itemNameSchema/required", 
+									"title": "Required", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/components/schemas/itemNameSchema/required/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"name"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"type": {
+									"$id": "#root/components/schemas/itemNameSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/itemNameSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"name"
+									],
+									"properties": {
+										"name": {
+											"$id": "#root/components/schemas/itemNameSchema/properties/name", 
+											"title": "Name", 
+											"type": "object",
+											"required": [
+												"type"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/itemNameSchema/properties/name/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"string"
+													],
+													"pattern": "^.*$"
+												}
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/itemNameSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"itemSchema": {
+							"$id": "#root/components/schemas/itemSchema", 
+							"title": "Itemschema", 
+							"type": "object",
+							"required": [
+								"required",
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"required": {
+									"$id": "#root/components/schemas/itemSchema/required", 
+									"title": "Required", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/components/schemas/itemSchema/required/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"item"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"type": {
+									"$id": "#root/components/schemas/itemSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/itemSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"item"
+									],
+									"properties": {
+										"item": {
+											"$id": "#root/components/schemas/itemSchema/properties/item", 
+											"title": "Item", 
+											"type": "object",
+											"required": [
+												"required",
+												"type",
+												"properties",
+												"additionalProperties"
+											],
+											"properties": {
+												"required": {
+													"$id": "#root/components/schemas/itemSchema/properties/item/required", 
+													"title": "Required", 
+													"type": "array",
+													"default": [],
+													"items":{
+														"$id": "#root/components/schemas/itemSchema/properties/item/required/items", 
+														"title": "Items", 
+														"type": "string",
+														"default": "",
+														"examples": [
+															"name"
+														],
+														"pattern": "^.*$"
+													}
+												},
+												"type": {
+													"$id": "#root/components/schemas/itemSchema/properties/item/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"object"
+													],
+													"pattern": "^.*$"
+												},
+												"properties": {
+													"$id": "#root/components/schemas/itemSchema/properties/item/properties", 
+													"title": "Properties", 
+													"type": "object",
+													"required": [
+														"name",
+														"id",
+														"note",
+														"count"
+													],
+													"properties": {
+														"name": {
+															"$id": "#root/components/schemas/itemSchema/properties/item/properties/name", 
+															"title": "Name", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/itemSchema/properties/item/properties/name/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"id": {
+															"$id": "#root/components/schemas/itemSchema/properties/item/properties/id", 
+															"title": "Id", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/itemSchema/properties/item/properties/id/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"note": {
+															"$id": "#root/components/schemas/itemSchema/properties/item/properties/note", 
+															"title": "Note", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/itemSchema/properties/item/properties/note/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"count": {
+															"$id": "#root/components/schemas/itemSchema/properties/item/properties/count", 
+															"title": "Count", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/itemSchema/properties/item/properties/count/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"number"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+
+													}
+												}
+,
+												"additionalProperties": {
+													"$id": "#root/components/schemas/itemSchema/properties/item/additionalProperties", 
+													"title": "Additionalproperties", 
+													"type": "boolean",
+													"examples": [
+														false
+													],
+													"default": true
+												}
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/itemSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"deleteItemSchema": {
+							"$id": "#root/components/schemas/deleteItemSchema", 
+							"title": "Deleteitemschema", 
+							"type": "object",
+							"required": [
+								"required",
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"required": {
+									"$id": "#root/components/schemas/deleteItemSchema/required", 
+									"title": "Required", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/components/schemas/deleteItemSchema/required/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"listName"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"type": {
+									"$id": "#root/components/schemas/deleteItemSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/deleteItemSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"listName",
+										"item"
+									],
+									"properties": {
+										"listName": {
+											"$id": "#root/components/schemas/deleteItemSchema/properties/listName", 
+											"title": "Listname", 
+											"type": "object",
+											"required": [
+												"type"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/deleteItemSchema/properties/listName/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"string"
+													],
+													"pattern": "^.*$"
+												}
+											}
+										}
+,
+										"item": {
+											"$id": "#root/components/schemas/deleteItemSchema/properties/item", 
+											"title": "Item", 
+											"type": "object",
+											"required": [
+												"required",
+												"type",
+												"properties",
+												"additionalProperties"
+											],
+											"properties": {
+												"required": {
+													"$id": "#root/components/schemas/deleteItemSchema/properties/item/required", 
+													"title": "Required", 
+													"type": "array",
+													"default": [],
+													"items":{
+														"$id": "#root/components/schemas/deleteItemSchema/properties/item/required/items", 
+														"title": "Items", 
+														"type": "string",
+														"default": "",
+														"examples": [
+															"name"
+														],
+														"pattern": "^.*$"
+													}
+												},
+												"type": {
+													"$id": "#root/components/schemas/deleteItemSchema/properties/item/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"object"
+													],
+													"pattern": "^.*$"
+												},
+												"properties": {
+													"$id": "#root/components/schemas/deleteItemSchema/properties/item/properties", 
+													"title": "Properties", 
+													"type": "object",
+													"required": [
+														"name"
+													],
+													"properties": {
+														"name": {
+															"$id": "#root/components/schemas/deleteItemSchema/properties/item/properties/name", 
+															"title": "Name", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/deleteItemSchema/properties/item/properties/name/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+
+													}
+												}
+,
+												"additionalProperties": {
+													"$id": "#root/components/schemas/deleteItemSchema/properties/item/additionalProperties", 
+													"title": "Additionalproperties", 
+													"type": "boolean",
+													"examples": [
+														false
+													],
+													"default": true
+												}
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/deleteItemSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"updateItemSchema": {
+							"$id": "#root/components/schemas/updateItemSchema", 
+							"title": "Updateitemschema", 
+							"type": "object",
+							"required": [
+								"required",
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"required": {
+									"$id": "#root/components/schemas/updateItemSchema/required", 
+									"title": "Required", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/components/schemas/updateItemSchema/required/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"id"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"type": {
+									"$id": "#root/components/schemas/updateItemSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/updateItemSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"id",
+										"note",
+										"count"
+									],
+									"properties": {
+										"id": {
+											"$id": "#root/components/schemas/updateItemSchema/properties/id", 
+											"title": "Id", 
+											"type": "object",
+											"required": [
+												"type"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/updateItemSchema/properties/id/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"string"
+													],
+													"pattern": "^.*$"
+												}
+											}
+										}
+,
+										"note": {
+											"$id": "#root/components/schemas/updateItemSchema/properties/note", 
+											"title": "Note", 
+											"type": "object",
+											"required": [
+												"type"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/updateItemSchema/properties/note/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"string"
+													],
+													"pattern": "^.*$"
+												}
+											}
+										}
+,
+										"count": {
+											"$id": "#root/components/schemas/updateItemSchema/properties/count", 
+											"title": "Count", 
+											"type": "object",
+											"required": [
+												"type"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/updateItemSchema/properties/count/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"number"
+													],
+													"pattern": "^.*$"
+												}
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/updateItemSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"updateStoreCategoriesSchema": {
+							"$id": "#root/components/schemas/updateStoreCategoriesSchema", 
+							"title": "Updatestorecategoriesschema", 
+							"type": "object",
+							"required": [
+								"required",
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"required": {
+									"$id": "#root/components/schemas/updateStoreCategoriesSchema/required", 
+									"title": "Required", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/components/schemas/updateStoreCategoriesSchema/required/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"itemName"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"type": {
+									"$id": "#root/components/schemas/updateStoreCategoriesSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"itemName",
+										"stores"
+									],
+									"properties": {
+										"itemName": {
+											"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/itemName", 
+											"title": "Itemname", 
+											"type": "object",
+											"required": [
+												"type"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/itemName/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"string"
+													],
+													"pattern": "^.*$"
+												}
+											}
+										}
+,
+										"stores": {
+											"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/stores", 
+											"title": "Stores", 
+											"type": "object",
+											"required": [
+												"type",
+												"items"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/stores/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"array"
+													],
+													"pattern": "^.*$"
+												},
+												"items": {
+													"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/stores/items", 
+													"title": "Items", 
+													"type": "object",
+													"required": [
+														"required",
+														"type",
+														"properties",
+														"additionalProperties"
+													],
+													"properties": {
+														"required": {
+															"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/stores/items/required", 
+															"title": "Required", 
+															"type": "array",
+															"default": [],
+															"items":{
+																"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/stores/items/required/items", 
+																"title": "Items", 
+																"type": "string",
+																"default": "",
+																"examples": [
+																	"storeName"
+																],
+																"pattern": "^.*$"
+															}
+														},
+														"type": {
+															"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/stores/items/type", 
+															"title": "Type", 
+															"type": "string",
+															"default": "",
+															"examples": [
+																"object"
+															],
+															"pattern": "^.*$"
+														},
+														"properties": {
+															"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/stores/items/properties", 
+															"title": "Properties", 
+															"type": "object",
+															"required": [
+																"storeName",
+																"category"
+															],
+															"properties": {
+																"storeName": {
+																	"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/stores/items/properties/storeName", 
+																	"title": "Storename", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/stores/items/properties/storeName/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"category": {
+																	"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/stores/items/properties/category", 
+																	"title": "Category", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/stores/items/properties/category/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+,
+														"additionalProperties": {
+															"$id": "#root/components/schemas/updateStoreCategoriesSchema/properties/stores/items/additionalProperties", 
+															"title": "Additionalproperties", 
+															"type": "boolean",
+															"examples": [
+																false
+															],
+															"default": true
+														}
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/updateStoreCategoriesSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"addItemResponseSchema": {
+							"$id": "#root/components/schemas/addItemResponseSchema", 
+							"title": "Additemresponseschema", 
+							"type": "object",
+							"required": [
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"type": {
+									"$id": "#root/components/schemas/addItemResponseSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/addItemResponseSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"addedItem"
+									],
+									"properties": {
+										"addedItem": {
+											"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem", 
+											"title": "Addeditem", 
+											"type": "object",
+											"required": [
+												"required",
+												"type",
+												"properties",
+												"additionalProperties"
+											],
+											"properties": {
+												"required": {
+													"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/required", 
+													"title": "Required", 
+													"type": "array",
+													"default": [],
+													"items":{
+														"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/required/items", 
+														"title": "Items", 
+														"type": "string",
+														"default": "",
+														"examples": [
+															"name"
+														],
+														"pattern": "^.*$"
+													}
+												},
+												"type": {
+													"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"object"
+													],
+													"pattern": "^.*$"
+												},
+												"properties": {
+													"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/properties", 
+													"title": "Properties", 
+													"type": "object",
+													"required": [
+														"name",
+														"id",
+														"note",
+														"count"
+													],
+													"properties": {
+														"name": {
+															"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/properties/name", 
+															"title": "Name", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/properties/name/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"id": {
+															"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/properties/id", 
+															"title": "Id", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/properties/id/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"note": {
+															"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/properties/note", 
+															"title": "Note", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/properties/note/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"count": {
+															"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/properties/count", 
+															"title": "Count", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/properties/count/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"number"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+
+													}
+												}
+,
+												"additionalProperties": {
+													"$id": "#root/components/schemas/addItemResponseSchema/properties/addedItem/additionalProperties", 
+													"title": "Additionalproperties", 
+													"type": "boolean",
+													"examples": [
+														false
+													],
+													"default": true
+												}
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/addItemResponseSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"getItemResponseSchema": {
+							"$id": "#root/components/schemas/getItemResponseSchema", 
+							"title": "Getitemresponseschema", 
+							"type": "object",
+							"required": [
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"type": {
+									"$id": "#root/components/schemas/getItemResponseSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/getItemResponseSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"items",
+										"completedItems",
+										"favoriteItems",
+										"groceriesTemplate",
+										"groceryStoreModel"
+									],
+									"properties": {
+										"items": {
+											"$id": "#root/components/schemas/getItemResponseSchema/properties/items", 
+											"title": "Items", 
+											"type": "object",
+											"required": [
+												"type",
+												"items"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/getItemResponseSchema/properties/items/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"array"
+													],
+													"pattern": "^.*$"
+												},
+												"items": {
+													"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items", 
+													"title": "Items", 
+													"type": "object",
+													"required": [
+														"required",
+														"type",
+														"properties",
+														"additionalProperties"
+													],
+													"properties": {
+														"required": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/required", 
+															"title": "Required", 
+															"type": "array",
+															"default": [],
+															"items":{
+																"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/required/items", 
+																"title": "Items", 
+																"type": "string",
+																"default": "",
+																"examples": [
+																	"name"
+																],
+																"pattern": "^.*$"
+															}
+														},
+														"type": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/type", 
+															"title": "Type", 
+															"type": "string",
+															"default": "",
+															"examples": [
+																"object"
+															],
+															"pattern": "^.*$"
+														},
+														"properties": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/properties", 
+															"title": "Properties", 
+															"type": "object",
+															"required": [
+																"name",
+																"id",
+																"note",
+																"count"
+															],
+															"properties": {
+																"name": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/properties/name", 
+																	"title": "Name", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/properties/name/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"id": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/properties/id", 
+																	"title": "Id", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/properties/id/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"note": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/properties/note", 
+																	"title": "Note", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/properties/note/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"count": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/properties/count", 
+																	"title": "Count", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/properties/count/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"number"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+,
+														"additionalProperties": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/items/items/additionalProperties", 
+															"title": "Additionalproperties", 
+															"type": "boolean",
+															"examples": [
+																false
+															],
+															"default": true
+														}
+													}
+												}
+
+											}
+										}
+,
+										"completedItems": {
+											"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems", 
+											"title": "Completeditems", 
+											"type": "object",
+											"required": [
+												"type",
+												"items"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"array"
+													],
+													"pattern": "^.*$"
+												},
+												"items": {
+													"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items", 
+													"title": "Items", 
+													"type": "object",
+													"required": [
+														"required",
+														"type",
+														"properties",
+														"additionalProperties"
+													],
+													"properties": {
+														"required": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/required", 
+															"title": "Required", 
+															"type": "array",
+															"default": [],
+															"items":{
+																"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/required/items", 
+																"title": "Items", 
+																"type": "string",
+																"default": "",
+																"examples": [
+																	"name"
+																],
+																"pattern": "^.*$"
+															}
+														},
+														"type": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/type", 
+															"title": "Type", 
+															"type": "string",
+															"default": "",
+															"examples": [
+																"object"
+															],
+															"pattern": "^.*$"
+														},
+														"properties": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/properties", 
+															"title": "Properties", 
+															"type": "object",
+															"required": [
+																"name",
+																"id",
+																"note",
+																"count"
+															],
+															"properties": {
+																"name": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/properties/name", 
+																	"title": "Name", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/properties/name/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"id": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/properties/id", 
+																	"title": "Id", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/properties/id/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"note": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/properties/note", 
+																	"title": "Note", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/properties/note/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"count": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/properties/count", 
+																	"title": "Count", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/properties/count/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"number"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+,
+														"additionalProperties": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/completedItems/items/additionalProperties", 
+															"title": "Additionalproperties", 
+															"type": "boolean",
+															"examples": [
+																false
+															],
+															"default": true
+														}
+													}
+												}
+
+											}
+										}
+,
+										"favoriteItems": {
+											"$id": "#root/components/schemas/getItemResponseSchema/properties/favoriteItems", 
+											"title": "Favoriteitems", 
+											"type": "object",
+											"required": [
+												"type",
+												"items"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/getItemResponseSchema/properties/favoriteItems/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"array"
+													],
+													"pattern": "^.*$"
+												},
+												"items": {
+													"$id": "#root/components/schemas/getItemResponseSchema/properties/favoriteItems/items", 
+													"title": "Items", 
+													"type": "object",
+													"required": [
+														"type",
+														"properties",
+														"additionalProperties"
+													],
+													"properties": {
+														"type": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/favoriteItems/items/type", 
+															"title": "Type", 
+															"type": "string",
+															"default": "",
+															"examples": [
+																"object"
+															],
+															"pattern": "^.*$"
+														},
+														"properties": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/favoriteItems/items/properties", 
+															"title": "Properties", 
+															"type": "object",
+															"required": [
+																"name",
+																"isChecked"
+															],
+															"properties": {
+																"name": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/favoriteItems/items/properties/name", 
+																	"title": "Name", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/favoriteItems/items/properties/name/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"isChecked": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/favoriteItems/items/properties/isChecked", 
+																	"title": "Ischecked", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/favoriteItems/items/properties/isChecked/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"boolean"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+,
+														"additionalProperties": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/favoriteItems/items/additionalProperties", 
+															"title": "Additionalproperties", 
+															"type": "boolean",
+															"examples": [
+																false
+															],
+															"default": true
+														}
+													}
+												}
+
+											}
+										}
+,
+										"groceriesTemplate": {
+											"$id": "#root/components/schemas/getItemResponseSchema/properties/groceriesTemplate", 
+											"title": "Groceriestemplate", 
+											"type": "object",
+											"required": [
+												"type",
+												"items"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/getItemResponseSchema/properties/groceriesTemplate/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"array"
+													],
+													"pattern": "^.*$"
+												},
+												"items": {
+													"$id": "#root/components/schemas/getItemResponseSchema/properties/groceriesTemplate/items", 
+													"title": "Items", 
+													"type": "object",
+													"required": [
+														"type",
+														"properties",
+														"additionalProperties"
+													],
+													"properties": {
+														"type": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/groceriesTemplate/items/type", 
+															"title": "Type", 
+															"type": "string",
+															"default": "",
+															"examples": [
+																"object"
+															],
+															"pattern": "^.*$"
+														},
+														"properties": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/groceriesTemplate/items/properties", 
+															"title": "Properties", 
+															"type": "object",
+															"required": [
+																"name"
+															],
+															"properties": {
+																"name": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/groceriesTemplate/items/properties/name", 
+																	"title": "Name", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/groceriesTemplate/items/properties/name/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+,
+														"additionalProperties": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/groceriesTemplate/items/additionalProperties", 
+															"title": "Additionalproperties", 
+															"type": "boolean",
+															"examples": [
+																false
+															],
+															"default": true
+														}
+													}
+												}
+
+											}
+										}
+,
+										"groceryStoreModel": {
+											"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel", 
+											"title": "Grocerystoremodel", 
+											"type": "object",
+											"required": [
+												"type",
+												"items"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"array"
+													],
+													"pattern": "^.*$"
+												},
+												"items": {
+													"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items", 
+													"title": "Items", 
+													"type": "object",
+													"required": [
+														"type",
+														"properties",
+														"additionalProperties"
+													],
+													"properties": {
+														"type": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/type", 
+															"title": "Type", 
+															"type": "string",
+															"default": "",
+															"examples": [
+																"object"
+															],
+															"pattern": "^.*$"
+														},
+														"properties": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties", 
+															"title": "Properties", 
+															"type": "object",
+															"required": [
+																"id",
+																"name",
+																"categories"
+															],
+															"properties": {
+																"id": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/id", 
+																	"title": "Id", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/id/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"number"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"name": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/name", 
+																	"title": "Name", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/name/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"categories": {
+																	"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories", 
+																	"title": "Categories", 
+																	"type": "object",
+																	"required": [
+																		"oneOf"
+																	],
+																	"properties": {
+																		"oneOf": {
+																			"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf", 
+																			"title": "Oneof", 
+																			"type": "array",
+																			"default": [],
+																			"items":{
+																				"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items", 
+																				"title": "Items", 
+																				"type": "object",
+																				"required": [
+																					"type",
+																					"items"
+																				],
+																				"properties": {
+																					"type": {
+																						"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/type", 
+																						"title": "Type", 
+																						"type": "string",
+																						"default": "",
+																						"examples": [
+																							"array"
+																						],
+																						"pattern": "^.*$"
+																					},
+																					"items": {
+																						"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/items", 
+																						"title": "Items", 
+																						"type": "object",
+																						"required": [
+																							"type",
+																							"properties",
+																							"additionalProperties"
+																						],
+																						"properties": {
+																							"type": {
+																								"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/items/type", 
+																								"title": "Type", 
+																								"type": "string",
+																								"default": "",
+																								"examples": [
+																									"object"
+																								],
+																								"pattern": "^.*$"
+																							},
+																							"properties": {
+																								"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/items/properties", 
+																								"title": "Properties", 
+																								"type": "object",
+																								"required": [
+																									"items",
+																									"category",
+																									"storeOrder"
+																								],
+																								"properties": {
+																									"items": {
+																										"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/items/properties/items", 
+																										"title": "Items", 
+																										"type": "object",
+																										"required": [
+																											"type",
+																											"items"
+																										],
+																										"properties": {
+																											"type": {
+																												"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/items/properties/items/type", 
+																												"title": "Type", 
+																												"type": "string",
+																												"default": "",
+																												"examples": [
+																													"array"
+																												],
+																												"pattern": "^.*$"
+																											},
+																											"items": {
+																												"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/items/properties/items/items", 
+																												"title": "Items", 
+																												"type": "object",
+																												"required": [
+																													"type"
+																												],
+																												"properties": {
+																													"type": {
+																														"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/items/properties/items/items/type", 
+																														"title": "Type", 
+																														"type": "string",
+																														"default": "",
+																														"examples": [
+																															"string"
+																														],
+																														"pattern": "^.*$"
+																													}
+																												}
+																											}
+
+																										}
+																									}
+,
+																									"category": {
+																										"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/items/properties/category", 
+																										"title": "Category", 
+																										"type": "object",
+																										"required": [
+																											"type"
+																										],
+																										"properties": {
+																											"type": {
+																												"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/items/properties/category/type", 
+																												"title": "Type", 
+																												"type": "string",
+																												"default": "",
+																												"examples": [
+																													"string"
+																												],
+																												"pattern": "^.*$"
+																											}
+																										}
+																									}
+,
+																									"storeOrder": {
+																										"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/items/properties/storeOrder", 
+																										"title": "Storeorder", 
+																										"type": "object",
+																										"required": [
+																											"type"
+																										],
+																										"properties": {
+																											"type": {
+																												"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/items/properties/storeOrder/type", 
+																												"title": "Type", 
+																												"type": "string",
+																												"default": "",
+																												"examples": [
+																													"number"
+																												],
+																												"pattern": "^.*$"
+																											}
+																										}
+																									}
+
+																								}
+																							}
+,
+																							"additionalProperties": {
+																								"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/properties/categories/oneOf/items/items/additionalProperties", 
+																								"title": "Additionalproperties", 
+																								"type": "boolean",
+																								"examples": [
+																									false
+																								],
+																								"default": true
+																							}
+																						}
+																					}
+
+																				}
+																			}
+
+																		}
+																	}
+																}
+
+															}
+														}
+,
+														"additionalProperties": {
+															"$id": "#root/components/schemas/getItemResponseSchema/properties/groceryStoreModel/items/additionalProperties", 
+															"title": "Additionalproperties", 
+															"type": "boolean",
+															"examples": [
+																false
+															],
+															"default": true
+														}
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/getItemResponseSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"completeItemResponseSchema": {
+							"$id": "#root/components/schemas/completeItemResponseSchema", 
+							"title": "Completeitemresponseschema", 
+							"type": "object",
+							"required": [
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"type": {
+									"$id": "#root/components/schemas/completeItemResponseSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/completeItemResponseSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"completedItemId"
+									],
+									"properties": {
+										"completedItemId": {
+											"$id": "#root/components/schemas/completeItemResponseSchema/properties/completedItemId", 
+											"title": "Completeditemid", 
+											"type": "object",
+											"required": [
+												"type"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/completeItemResponseSchema/properties/completedItemId/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"string"
+													],
+													"pattern": "^.*$"
+												}
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/completeItemResponseSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"deleteItemResponseSchema": {
+							"$id": "#root/components/schemas/deleteItemResponseSchema", 
+							"title": "Deleteitemresponseschema", 
+							"type": "object",
+							"required": [
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"type": {
+									"$id": "#root/components/schemas/deleteItemResponseSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/deleteItemResponseSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"listName",
+										"deletedItem"
+									],
+									"properties": {
+										"listName": {
+											"$id": "#root/components/schemas/deleteItemResponseSchema/properties/listName", 
+											"title": "Listname", 
+											"type": "object",
+											"required": [
+												"type"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/deleteItemResponseSchema/properties/listName/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"string"
+													],
+													"pattern": "^.*$"
+												}
+											}
+										}
+,
+										"deletedItem": {
+											"$id": "#root/components/schemas/deleteItemResponseSchema/properties/deletedItem", 
+											"title": "Deleteditem", 
+											"type": "object",
+											"required": [
+												"type",
+												"properties",
+												"additionalProperties"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/deleteItemResponseSchema/properties/deletedItem/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"object"
+													],
+													"pattern": "^.*$"
+												},
+												"properties": {
+													"$id": "#root/components/schemas/deleteItemResponseSchema/properties/deletedItem/properties", 
+													"title": "Properties", 
+													"type": "object",
+													"required": [
+														"name"
+													],
+													"properties": {
+														"name": {
+															"$id": "#root/components/schemas/deleteItemResponseSchema/properties/deletedItem/properties/name", 
+															"title": "Name", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/deleteItemResponseSchema/properties/deletedItem/properties/name/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+
+													}
+												}
+,
+												"additionalProperties": {
+													"$id": "#root/components/schemas/deleteItemResponseSchema/properties/deletedItem/additionalProperties", 
+													"title": "Additionalproperties", 
+													"type": "boolean",
+													"examples": [
+														false
+													],
+													"default": true
+												}
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/deleteItemResponseSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"recoveredItemResponseSchema": {
+							"$id": "#root/components/schemas/recoveredItemResponseSchema", 
+							"title": "Recovereditemresponseschema", 
+							"type": "object",
+							"required": [
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"type": {
+									"$id": "#root/components/schemas/recoveredItemResponseSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/recoveredItemResponseSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"recoveredItem"
+									],
+									"properties": {
+										"recoveredItem": {
+											"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem", 
+											"title": "Recovereditem", 
+											"type": "object",
+											"required": [
+												"required",
+												"type",
+												"properties",
+												"additionalProperties"
+											],
+											"properties": {
+												"required": {
+													"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/required", 
+													"title": "Required", 
+													"type": "array",
+													"default": [],
+													"items":{
+														"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/required/items", 
+														"title": "Items", 
+														"type": "string",
+														"default": "",
+														"examples": [
+															"name"
+														],
+														"pattern": "^.*$"
+													}
+												},
+												"type": {
+													"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"object"
+													],
+													"pattern": "^.*$"
+												},
+												"properties": {
+													"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/properties", 
+													"title": "Properties", 
+													"type": "object",
+													"required": [
+														"name",
+														"id",
+														"note",
+														"count"
+													],
+													"properties": {
+														"name": {
+															"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/properties/name", 
+															"title": "Name", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/properties/name/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"id": {
+															"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/properties/id", 
+															"title": "Id", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/properties/id/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"note": {
+															"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/properties/note", 
+															"title": "Note", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/properties/note/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"count": {
+															"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/properties/count", 
+															"title": "Count", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/properties/count/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"number"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+
+													}
+												}
+,
+												"additionalProperties": {
+													"$id": "#root/components/schemas/recoveredItemResponseSchema/properties/recoveredItem/additionalProperties", 
+													"title": "Additionalproperties", 
+													"type": "boolean",
+													"examples": [
+														false
+													],
+													"default": true
+												}
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/recoveredItemResponseSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"deleteAllItemsResponseSchema": {
+							"$id": "#root/components/schemas/deleteAllItemsResponseSchema", 
+							"title": "Deleteallitemsresponseschema", 
+							"type": "object",
+							"required": [
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"type": {
+									"$id": "#root/components/schemas/deleteAllItemsResponseSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/deleteAllItemsResponseSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"completeditems"
+									],
+									"properties": {
+										"completeditems": {
+											"$id": "#root/components/schemas/deleteAllItemsResponseSchema/properties/completeditems", 
+											"title": "Completeditems", 
+											"type": "object",
+											"required": [
+												"maxItems",
+												"minItems",
+												"type",
+												"items"
+											],
+											"properties": {
+												"maxItems": {
+													"$id": "#root/components/schemas/deleteAllItemsResponseSchema/properties/completeditems/maxItems", 
+													"title": "Maxitems", 
+													"type": "integer",
+													"examples": [
+														0
+													],
+													"default": 0
+												},
+												"minItems": {
+													"$id": "#root/components/schemas/deleteAllItemsResponseSchema/properties/completeditems/minItems", 
+													"title": "Minitems", 
+													"type": "integer",
+													"examples": [
+														0
+													],
+													"default": 0
+												},
+												"type": {
+													"$id": "#root/components/schemas/deleteAllItemsResponseSchema/properties/completeditems/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"array"
+													],
+													"pattern": "^.*$"
+												},
+												"items": {
+													"$id": "#root/components/schemas/deleteAllItemsResponseSchema/properties/completeditems/items", 
+													"title": "Items", 
+													"type": "object",
+													"required": [
+													],
+													"properties": {
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/deleteAllItemsResponseSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"updateItemResponseSchema": {
+							"$id": "#root/components/schemas/updateItemResponseSchema", 
+							"title": "Updateitemresponseschema", 
+							"type": "object",
+							"required": [
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"type": {
+									"$id": "#root/components/schemas/updateItemResponseSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/updateItemResponseSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"updatedItem"
+									],
+									"properties": {
+										"updatedItem": {
+											"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem", 
+											"title": "Updateditem", 
+											"type": "object",
+											"required": [
+												"required",
+												"type",
+												"properties",
+												"additionalProperties"
+											],
+											"properties": {
+												"required": {
+													"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/required", 
+													"title": "Required", 
+													"type": "array",
+													"default": [],
+													"items":{
+														"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/required/items", 
+														"title": "Items", 
+														"type": "string",
+														"default": "",
+														"examples": [
+															"name"
+														],
+														"pattern": "^.*$"
+													}
+												},
+												"type": {
+													"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"object"
+													],
+													"pattern": "^.*$"
+												},
+												"properties": {
+													"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/properties", 
+													"title": "Properties", 
+													"type": "object",
+													"required": [
+														"name",
+														"id",
+														"note",
+														"count"
+													],
+													"properties": {
+														"name": {
+															"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/properties/name", 
+															"title": "Name", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/properties/name/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"id": {
+															"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/properties/id", 
+															"title": "Id", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/properties/id/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"note": {
+															"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/properties/note", 
+															"title": "Note", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/properties/note/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"count": {
+															"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/properties/count", 
+															"title": "Count", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/properties/count/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"number"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+
+													}
+												}
+,
+												"additionalProperties": {
+													"$id": "#root/components/schemas/updateItemResponseSchema/properties/updatedItem/additionalProperties", 
+													"title": "Additionalproperties", 
+													"type": "boolean",
+													"examples": [
+														false
+													],
+													"default": true
+												}
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/updateItemResponseSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"updateStoreCategoriesResponseSchema": {
+							"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema", 
+							"title": "Updatestorecategoriesresponseschema", 
+							"type": "object",
+							"required": [
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"type": {
+									"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"updatedModel"
+									],
+									"properties": {
+										"updatedModel": {
+											"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel", 
+											"title": "Updatedmodel", 
+											"type": "object",
+											"required": [
+												"type",
+												"properties",
+												"additionalProperties"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"object"
+													],
+													"pattern": "^.*$"
+												},
+												"properties": {
+													"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties", 
+													"title": "Properties", 
+													"type": "object",
+													"required": [
+														"id",
+														"name",
+														"categories"
+													],
+													"properties": {
+														"id": {
+															"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/id", 
+															"title": "Id", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/id/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"number"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"name": {
+															"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/name", 
+															"title": "Name", 
+															"type": "object",
+															"required": [
+																"type"
+															],
+															"properties": {
+																"type": {
+																	"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/name/type", 
+																	"title": "Type", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"string"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+,
+														"categories": {
+															"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories", 
+															"title": "Categories", 
+															"type": "object",
+															"required": [
+																"oneOf"
+															],
+															"properties": {
+																"oneOf": {
+																	"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf", 
+																	"title": "Oneof", 
+																	"type": "array",
+																	"default": [],
+																	"items":{
+																		"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items", 
+																		"title": "Items", 
+																		"type": "object",
+																		"required": [
+																			"type",
+																			"items"
+																		],
+																		"properties": {
+																			"type": {
+																				"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/type", 
+																				"title": "Type", 
+																				"type": "string",
+																				"default": "",
+																				"examples": [
+																					"array"
+																				],
+																				"pattern": "^.*$"
+																			},
+																			"items": {
+																				"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/items", 
+																				"title": "Items", 
+																				"type": "object",
+																				"required": [
+																					"type",
+																					"properties",
+																					"additionalProperties"
+																				],
+																				"properties": {
+																					"type": {
+																						"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/items/type", 
+																						"title": "Type", 
+																						"type": "string",
+																						"default": "",
+																						"examples": [
+																							"object"
+																						],
+																						"pattern": "^.*$"
+																					},
+																					"properties": {
+																						"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/items/properties", 
+																						"title": "Properties", 
+																						"type": "object",
+																						"required": [
+																							"items",
+																							"category",
+																							"storeOrder"
+																						],
+																						"properties": {
+																							"items": {
+																								"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/items/properties/items", 
+																								"title": "Items", 
+																								"type": "object",
+																								"required": [
+																									"type",
+																									"items"
+																								],
+																								"properties": {
+																									"type": {
+																										"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/items/properties/items/type", 
+																										"title": "Type", 
+																										"type": "string",
+																										"default": "",
+																										"examples": [
+																											"array"
+																										],
+																										"pattern": "^.*$"
+																									},
+																									"items": {
+																										"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/items/properties/items/items", 
+																										"title": "Items", 
+																										"type": "object",
+																										"required": [
+																											"type"
+																										],
+																										"properties": {
+																											"type": {
+																												"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/items/properties/items/items/type", 
+																												"title": "Type", 
+																												"type": "string",
+																												"default": "",
+																												"examples": [
+																													"string"
+																												],
+																												"pattern": "^.*$"
+																											}
+																										}
+																									}
+
+																								}
+																							}
+,
+																							"category": {
+																								"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/items/properties/category", 
+																								"title": "Category", 
+																								"type": "object",
+																								"required": [
+																									"type"
+																								],
+																								"properties": {
+																									"type": {
+																										"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/items/properties/category/type", 
+																										"title": "Type", 
+																										"type": "string",
+																										"default": "",
+																										"examples": [
+																											"string"
+																										],
+																										"pattern": "^.*$"
+																									}
+																								}
+																							}
+,
+																							"storeOrder": {
+																								"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/items/properties/storeOrder", 
+																								"title": "Storeorder", 
+																								"type": "object",
+																								"required": [
+																									"type"
+																								],
+																								"properties": {
+																									"type": {
+																										"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/items/properties/storeOrder/type", 
+																										"title": "Type", 
+																										"type": "string",
+																										"default": "",
+																										"examples": [
+																											"number"
+																										],
+																										"pattern": "^.*$"
+																									}
+																								}
+																							}
+
+																						}
+																					}
+,
+																					"additionalProperties": {
+																						"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/properties/categories/oneOf/items/items/additionalProperties", 
+																						"title": "Additionalproperties", 
+																						"type": "boolean",
+																						"examples": [
+																							false
+																						],
+																						"default": true
+																					}
+																				}
+																			}
+
+																		}
+																	}
+
+																}
+															}
+														}
+
+													}
+												}
+,
+												"additionalProperties": {
+													"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/properties/updatedModel/additionalProperties", 
+													"title": "Additionalproperties", 
+													"type": "boolean",
+													"examples": [
+														false
+													],
+													"default": true
+												}
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/updateStoreCategoriesResponseSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"recoverAllCompletedResponseSchema": {
+							"$id": "#root/components/schemas/recoverAllCompletedResponseSchema", 
+							"title": "Recoverallcompletedresponseschema", 
+							"type": "object",
+							"required": [
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"type": {
+									"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"items",
+										"completedItems"
+									],
+									"properties": {
+										"items": {
+											"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items", 
+											"title": "Items", 
+											"type": "object",
+											"required": [
+												"type",
+												"items"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"array"
+													],
+													"pattern": "^.*$"
+												},
+												"items": {
+													"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items", 
+													"title": "Items", 
+													"type": "object",
+													"required": [
+														"required",
+														"type",
+														"properties",
+														"additionalProperties"
+													],
+													"properties": {
+														"required": {
+															"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/required", 
+															"title": "Required", 
+															"type": "array",
+															"default": [],
+															"items":{
+																"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/required/items", 
+																"title": "Items", 
+																"type": "string",
+																"default": "",
+																"examples": [
+																	"name"
+																],
+																"pattern": "^.*$"
+															}
+														},
+														"type": {
+															"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/type", 
+															"title": "Type", 
+															"type": "string",
+															"default": "",
+															"examples": [
+																"object"
+															],
+															"pattern": "^.*$"
+														},
+														"properties": {
+															"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/properties", 
+															"title": "Properties", 
+															"type": "object",
+															"required": [
+																"name",
+																"id",
+																"note",
+																"count"
+															],
+															"properties": {
+																"name": {
+																	"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/properties/name", 
+																	"title": "Name", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/properties/name/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"id": {
+																	"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/properties/id", 
+																	"title": "Id", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/properties/id/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"note": {
+																	"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/properties/note", 
+																	"title": "Note", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/properties/note/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"string"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+,
+																"count": {
+																	"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/properties/count", 
+																	"title": "Count", 
+																	"type": "object",
+																	"required": [
+																		"type"
+																	],
+																	"properties": {
+																		"type": {
+																			"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/properties/count/type", 
+																			"title": "Type", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"number"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+,
+														"additionalProperties": {
+															"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/items/items/additionalProperties", 
+															"title": "Additionalproperties", 
+															"type": "boolean",
+															"examples": [
+																false
+															],
+															"default": true
+														}
+													}
+												}
+
+											}
+										}
+,
+										"completedItems": {
+											"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/completedItems", 
+											"title": "Completeditems", 
+											"type": "object",
+											"required": [
+												"maxItems",
+												"minItems",
+												"type",
+												"items"
+											],
+											"properties": {
+												"maxItems": {
+													"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/completedItems/maxItems", 
+													"title": "Maxitems", 
+													"type": "integer",
+													"examples": [
+														0
+													],
+													"default": 0
+												},
+												"minItems": {
+													"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/completedItems/minItems", 
+													"title": "Minitems", 
+													"type": "integer",
+													"examples": [
+														0
+													],
+													"default": 0
+												},
+												"type": {
+													"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/completedItems/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"array"
+													],
+													"pattern": "^.*$"
+												},
+												"items": {
+													"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/properties/completedItems/items", 
+													"title": "Items", 
+													"type": "object",
+													"required": [
+													],
+													"properties": {
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/recoverAllCompletedResponseSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+,
+						"errorResponseSchema": {
+							"$id": "#root/components/schemas/errorResponseSchema", 
+							"title": "Errorresponseschema", 
+							"type": "object",
+							"required": [
+								"type",
+								"properties",
+								"additionalProperties"
+							],
+							"properties": {
+								"type": {
+									"$id": "#root/components/schemas/errorResponseSchema/type", 
+									"title": "Type", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"object"
+									],
+									"pattern": "^.*$"
+								},
+								"properties": {
+									"$id": "#root/components/schemas/errorResponseSchema/properties", 
+									"title": "Properties", 
+									"type": "object",
+									"required": [
+										"error",
+										"statusCode"
+									],
+									"properties": {
+										"error": {
+											"$id": "#root/components/schemas/errorResponseSchema/properties/error", 
+											"title": "Error", 
+											"type": "object",
+											"required": [
+												"type"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/errorResponseSchema/properties/error/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"string"
+													],
+													"pattern": "^.*$"
+												}
+											}
+										}
+,
+										"statusCode": {
+											"$id": "#root/components/schemas/errorResponseSchema/properties/statusCode", 
+											"title": "Statuscode", 
+											"type": "object",
+											"required": [
+												"type"
+											],
+											"properties": {
+												"type": {
+													"$id": "#root/components/schemas/errorResponseSchema/properties/statusCode/type", 
+													"title": "Type", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"number"
+													],
+													"pattern": "^.*$"
+												}
+											}
+										}
+
+									}
+								}
+,
+								"additionalProperties": {
+									"$id": "#root/components/schemas/errorResponseSchema/additionalProperties", 
+									"title": "Additionalproperties", 
+									"type": "boolean",
+									"examples": [
+										false
+									],
+									"default": true
+								}
+							}
+						}
+
+					}
+				}
+
+			}
+		}
+,
+		"servers": {
+			"$id": "#root/servers", 
+			"title": "Servers", 
+			"type": "array",
+			"default": [],
+			"items":{
+				"$id": "#root/servers/items", 
+				"title": "Items", 
+				"type": "object",
+				"required": [
+					"url",
+					"description"
+				],
+				"properties": {
+					"url": {
+						"$id": "#root/servers/items/url", 
+						"title": "Url", 
+						"type": "string",
+						"default": "",
+						"examples": [
+							"http://localhost:3000"
+						],
+						"pattern": "^.*$"
+					},
+					"description": {
+						"$id": "#root/servers/items/description", 
+						"title": "Description", 
+						"type": "string",
+						"default": "",
+						"examples": [
+							"Development server"
+						],
+						"pattern": "^.*$"
+					}
+				}
+			}
+
+		},
+		"paths": {
+			"$id": "#root/paths", 
+			"title": "Paths", 
+			"type": "object",
+			"required": [
+				"/additem",
+				"/completeitem",
+				"/deleteallcompleted",
+				"/deleteitem",
+				"/",
+				"/recoverallcompleted",
+				"/recoveritem",
+				"/updateitem",
+				"/updatestorecategories"
+			],
+			"properties": {
+				"/additem": {
+					"$id": "#root/paths//additem", 
+					"title": "/additem", 
+					"type": "object",
+					"required": [
+						"post"
+					],
+					"properties": {
+						"post": {
+							"$id": "#root/paths//additem/post", 
+							"title": "Post", 
+							"type": "object",
+							"required": [
+								"summary",
+								"tags",
+								"requestBody",
+								"responses"
+							],
+							"properties": {
+								"summary": {
+									"$id": "#root/paths//additem/post/summary", 
+									"title": "Summary", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Add item to grocery list"
+									],
+									"pattern": "^.*$"
+								},
+								"tags": {
+									"$id": "#root/paths//additem/post/tags", 
+									"title": "Tags", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/paths//additem/post/tags/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"Items"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"requestBody": {
+									"$id": "#root/paths//additem/post/requestBody", 
+									"title": "Requestbody", 
+									"type": "object",
+									"required": [
+										"required",
+										"content"
+									],
+									"properties": {
+										"required": {
+											"$id": "#root/paths//additem/post/requestBody/required", 
+											"title": "Required", 
+											"type": "boolean",
+											"examples": [
+												true
+											],
+											"default": true
+										},
+										"content": {
+											"$id": "#root/paths//additem/post/requestBody/content", 
+											"title": "Content", 
+											"type": "object",
+											"required": [
+												"application/json"
+											],
+											"properties": {
+												"application/json": {
+													"$id": "#root/paths//additem/post/requestBody/content/application/json", 
+													"title": "Application/json", 
+													"type": "object",
+													"required": [
+														"schema"
+													],
+													"properties": {
+														"schema": {
+															"$id": "#root/paths//additem/post/requestBody/content/application/json/schema", 
+															"title": "Schema", 
+															"type": "object",
+															"required": [
+																"$ref"
+															],
+															"properties": {
+																"$ref": {
+																	"$id": "#root/paths//additem/post/requestBody/content/application/json/schema/$ref", 
+																	"title": "$ref", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"#/components/schemas/itemNameSchema"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+,
+								"responses": {
+									"$id": "#root/paths//additem/post/responses", 
+									"title": "Responses", 
+									"type": "object",
+									"required": [
+										"200",
+										"400"
+									],
+									"properties": {
+										"200": {
+											"$id": "#root/paths//additem/post/responses/200", 
+											"title": "200", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//additem/post/responses/200/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Item added successfully"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//additem/post/responses/200/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//additem/post/responses/200/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//additem/post/responses/200/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//additem/post/responses/200/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/addItemResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+,
+										"400": {
+											"$id": "#root/paths//additem/post/responses/400", 
+											"title": "400", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//additem/post/responses/400/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Bad request"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//additem/post/responses/400/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//additem/post/responses/400/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//additem/post/responses/400/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//additem/post/responses/400/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/errorResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+
+							}
+						}
+
+					}
+				}
+,
+				"/completeitem": {
+					"$id": "#root/paths//completeitem", 
+					"title": "/completeitem", 
+					"type": "object",
+					"required": [
+						"put"
+					],
+					"properties": {
+						"put": {
+							"$id": "#root/paths//completeitem/put", 
+							"title": "Put", 
+							"type": "object",
+							"required": [
+								"summary",
+								"tags",
+								"requestBody",
+								"responses"
+							],
+							"properties": {
+								"summary": {
+									"$id": "#root/paths//completeitem/put/summary", 
+									"title": "Summary", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Complete item from grocery list"
+									],
+									"pattern": "^.*$"
+								},
+								"tags": {
+									"$id": "#root/paths//completeitem/put/tags", 
+									"title": "Tags", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/paths//completeitem/put/tags/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"Items"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"requestBody": {
+									"$id": "#root/paths//completeitem/put/requestBody", 
+									"title": "Requestbody", 
+									"type": "object",
+									"required": [
+										"required",
+										"content"
+									],
+									"properties": {
+										"required": {
+											"$id": "#root/paths//completeitem/put/requestBody/required", 
+											"title": "Required", 
+											"type": "boolean",
+											"examples": [
+												true
+											],
+											"default": true
+										},
+										"content": {
+											"$id": "#root/paths//completeitem/put/requestBody/content", 
+											"title": "Content", 
+											"type": "object",
+											"required": [
+												"application/json"
+											],
+											"properties": {
+												"application/json": {
+													"$id": "#root/paths//completeitem/put/requestBody/content/application/json", 
+													"title": "Application/json", 
+													"type": "object",
+													"required": [
+														"schema"
+													],
+													"properties": {
+														"schema": {
+															"$id": "#root/paths//completeitem/put/requestBody/content/application/json/schema", 
+															"title": "Schema", 
+															"type": "object",
+															"required": [
+																"$ref"
+															],
+															"properties": {
+																"$ref": {
+																	"$id": "#root/paths//completeitem/put/requestBody/content/application/json/schema/$ref", 
+																	"title": "$ref", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"#/components/schemas/itemSchema"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+,
+								"responses": {
+									"$id": "#root/paths//completeitem/put/responses", 
+									"title": "Responses", 
+									"type": "object",
+									"required": [
+										"200",
+										"400"
+									],
+									"properties": {
+										"200": {
+											"$id": "#root/paths//completeitem/put/responses/200", 
+											"title": "200", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//completeitem/put/responses/200/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Item completed successfully"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//completeitem/put/responses/200/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//completeitem/put/responses/200/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//completeitem/put/responses/200/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//completeitem/put/responses/200/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/completeItemResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+,
+										"400": {
+											"$id": "#root/paths//completeitem/put/responses/400", 
+											"title": "400", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//completeitem/put/responses/400/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Bad request"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//completeitem/put/responses/400/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//completeitem/put/responses/400/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//completeitem/put/responses/400/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//completeitem/put/responses/400/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/errorResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+
+							}
+						}
+
+					}
+				}
+,
+				"/deleteallcompleted": {
+					"$id": "#root/paths//deleteallcompleted", 
+					"title": "/deleteallcompleted", 
+					"type": "object",
+					"required": [
+						"delete"
+					],
+					"properties": {
+						"delete": {
+							"$id": "#root/paths//deleteallcompleted/delete", 
+							"title": "Delete", 
+							"type": "object",
+							"required": [
+								"summary",
+								"tags",
+								"responses"
+							],
+							"properties": {
+								"summary": {
+									"$id": "#root/paths//deleteallcompleted/delete/summary", 
+									"title": "Summary", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Delete all completed items from grocery list"
+									],
+									"pattern": "^.*$"
+								},
+								"tags": {
+									"$id": "#root/paths//deleteallcompleted/delete/tags", 
+									"title": "Tags", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/paths//deleteallcompleted/delete/tags/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"Items"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"responses": {
+									"$id": "#root/paths//deleteallcompleted/delete/responses", 
+									"title": "Responses", 
+									"type": "object",
+									"required": [
+										"200",
+										"400"
+									],
+									"properties": {
+										"200": {
+											"$id": "#root/paths//deleteallcompleted/delete/responses/200", 
+											"title": "200", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//deleteallcompleted/delete/responses/200/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Items deleted successfully"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//deleteallcompleted/delete/responses/200/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//deleteallcompleted/delete/responses/200/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//deleteallcompleted/delete/responses/200/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//deleteallcompleted/delete/responses/200/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/deleteAllItemsResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+,
+										"400": {
+											"$id": "#root/paths//deleteallcompleted/delete/responses/400", 
+											"title": "400", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//deleteallcompleted/delete/responses/400/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Bad request"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//deleteallcompleted/delete/responses/400/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//deleteallcompleted/delete/responses/400/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//deleteallcompleted/delete/responses/400/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//deleteallcompleted/delete/responses/400/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/errorResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+
+							}
+						}
+
+					}
+				}
+,
+				"/deleteitem": {
+					"$id": "#root/paths//deleteitem", 
+					"title": "/deleteitem", 
+					"type": "object",
+					"required": [
+						"delete"
+					],
+					"properties": {
+						"delete": {
+							"$id": "#root/paths//deleteitem/delete", 
+							"title": "Delete", 
+							"type": "object",
+							"required": [
+								"summary",
+								"tags",
+								"requestBody",
+								"responses"
+							],
+							"properties": {
+								"summary": {
+									"$id": "#root/paths//deleteitem/delete/summary", 
+									"title": "Summary", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Delete an item from either the grocery list or the completed list"
+									],
+									"pattern": "^.*$"
+								},
+								"tags": {
+									"$id": "#root/paths//deleteitem/delete/tags", 
+									"title": "Tags", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/paths//deleteitem/delete/tags/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"Items"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"requestBody": {
+									"$id": "#root/paths//deleteitem/delete/requestBody", 
+									"title": "Requestbody", 
+									"type": "object",
+									"required": [
+										"required",
+										"content"
+									],
+									"properties": {
+										"required": {
+											"$id": "#root/paths//deleteitem/delete/requestBody/required", 
+											"title": "Required", 
+											"type": "boolean",
+											"examples": [
+												true
+											],
+											"default": true
+										},
+										"content": {
+											"$id": "#root/paths//deleteitem/delete/requestBody/content", 
+											"title": "Content", 
+											"type": "object",
+											"required": [
+												"application/json"
+											],
+											"properties": {
+												"application/json": {
+													"$id": "#root/paths//deleteitem/delete/requestBody/content/application/json", 
+													"title": "Application/json", 
+													"type": "object",
+													"required": [
+														"schema"
+													],
+													"properties": {
+														"schema": {
+															"$id": "#root/paths//deleteitem/delete/requestBody/content/application/json/schema", 
+															"title": "Schema", 
+															"type": "object",
+															"required": [
+																"$ref"
+															],
+															"properties": {
+																"$ref": {
+																	"$id": "#root/paths//deleteitem/delete/requestBody/content/application/json/schema/$ref", 
+																	"title": "$ref", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"#/components/schemas/deleteItemSchema"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+,
+								"responses": {
+									"$id": "#root/paths//deleteitem/delete/responses", 
+									"title": "Responses", 
+									"type": "object",
+									"required": [
+										"200",
+										"400"
+									],
+									"properties": {
+										"200": {
+											"$id": "#root/paths//deleteitem/delete/responses/200", 
+											"title": "200", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//deleteitem/delete/responses/200/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Item deleted successfully"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//deleteitem/delete/responses/200/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//deleteitem/delete/responses/200/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//deleteitem/delete/responses/200/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//deleteitem/delete/responses/200/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/deleteItemResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+,
+										"400": {
+											"$id": "#root/paths//deleteitem/delete/responses/400", 
+											"title": "400", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//deleteitem/delete/responses/400/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Bad request"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//deleteitem/delete/responses/400/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//deleteitem/delete/responses/400/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//deleteitem/delete/responses/400/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//deleteitem/delete/responses/400/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/errorResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+
+							}
+						}
+
+					}
+				}
+,
+				"/": {
+					"$id": "#root/paths//", 
+					"title": "/", 
+					"type": "object",
+					"required": [
+						"get"
+					],
+					"properties": {
+						"get": {
+							"$id": "#root/paths///get", 
+							"title": "Get", 
+							"type": "object",
+							"required": [
+								"summary",
+								"tags",
+								"responses"
+							],
+							"properties": {
+								"summary": {
+									"$id": "#root/paths///get/summary", 
+									"title": "Summary", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Get items on load"
+									],
+									"pattern": "^.*$"
+								},
+								"tags": {
+									"$id": "#root/paths///get/tags", 
+									"title": "Tags", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/paths///get/tags/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"Items"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"responses": {
+									"$id": "#root/paths///get/responses", 
+									"title": "Responses", 
+									"type": "object",
+									"required": [
+										"200",
+										"400"
+									],
+									"properties": {
+										"200": {
+											"$id": "#root/paths///get/responses/200", 
+											"title": "200", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths///get/responses/200/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"App metadata and items retrieved successfully"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths///get/responses/200/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths///get/responses/200/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths///get/responses/200/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths///get/responses/200/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/getItemResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+,
+										"400": {
+											"$id": "#root/paths///get/responses/400", 
+											"title": "400", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths///get/responses/400/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Bad request"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths///get/responses/400/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths///get/responses/400/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths///get/responses/400/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths///get/responses/400/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/errorResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+
+							}
+						}
+
+					}
+				}
+,
+				"/recoverallcompleted": {
+					"$id": "#root/paths//recoverallcompleted", 
+					"title": "/recoverallcompleted", 
+					"type": "object",
+					"required": [
+						"put"
+					],
+					"properties": {
+						"put": {
+							"$id": "#root/paths//recoverallcompleted/put", 
+							"title": "Put", 
+							"type": "object",
+							"required": [
+								"summary",
+								"tags",
+								"responses"
+							],
+							"properties": {
+								"summary": {
+									"$id": "#root/paths//recoverallcompleted/put/summary", 
+									"title": "Summary", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Recover all completed items to main grocery list"
+									],
+									"pattern": "^.*$"
+								},
+								"tags": {
+									"$id": "#root/paths//recoverallcompleted/put/tags", 
+									"title": "Tags", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/paths//recoverallcompleted/put/tags/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"Items"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"responses": {
+									"$id": "#root/paths//recoverallcompleted/put/responses", 
+									"title": "Responses", 
+									"type": "object",
+									"required": [
+										"200",
+										"400"
+									],
+									"properties": {
+										"200": {
+											"$id": "#root/paths//recoverallcompleted/put/responses/200", 
+											"title": "200", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//recoverallcompleted/put/responses/200/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Items recovered successfully"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//recoverallcompleted/put/responses/200/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//recoverallcompleted/put/responses/200/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//recoverallcompleted/put/responses/200/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//recoverallcompleted/put/responses/200/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/recoverAllCompletedResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+,
+										"400": {
+											"$id": "#root/paths//recoverallcompleted/put/responses/400", 
+											"title": "400", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//recoverallcompleted/put/responses/400/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Bad request"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//recoverallcompleted/put/responses/400/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//recoverallcompleted/put/responses/400/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//recoverallcompleted/put/responses/400/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//recoverallcompleted/put/responses/400/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/errorResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+
+							}
+						}
+
+					}
+				}
+,
+				"/recoveritem": {
+					"$id": "#root/paths//recoveritem", 
+					"title": "/recoveritem", 
+					"type": "object",
+					"required": [
+						"put"
+					],
+					"properties": {
+						"put": {
+							"$id": "#root/paths//recoveritem/put", 
+							"title": "Put", 
+							"type": "object",
+							"required": [
+								"summary",
+								"tags",
+								"requestBody",
+								"responses"
+							],
+							"properties": {
+								"summary": {
+									"$id": "#root/paths//recoveritem/put/summary", 
+									"title": "Summary", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Recover one completed items to main grocery list"
+									],
+									"pattern": "^.*$"
+								},
+								"tags": {
+									"$id": "#root/paths//recoveritem/put/tags", 
+									"title": "Tags", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/paths//recoveritem/put/tags/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"Items"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"requestBody": {
+									"$id": "#root/paths//recoveritem/put/requestBody", 
+									"title": "Requestbody", 
+									"type": "object",
+									"required": [
+										"required",
+										"content"
+									],
+									"properties": {
+										"required": {
+											"$id": "#root/paths//recoveritem/put/requestBody/required", 
+											"title": "Required", 
+											"type": "boolean",
+											"examples": [
+												true
+											],
+											"default": true
+										},
+										"content": {
+											"$id": "#root/paths//recoveritem/put/requestBody/content", 
+											"title": "Content", 
+											"type": "object",
+											"required": [
+												"application/json"
+											],
+											"properties": {
+												"application/json": {
+													"$id": "#root/paths//recoveritem/put/requestBody/content/application/json", 
+													"title": "Application/json", 
+													"type": "object",
+													"required": [
+														"schema"
+													],
+													"properties": {
+														"schema": {
+															"$id": "#root/paths//recoveritem/put/requestBody/content/application/json/schema", 
+															"title": "Schema", 
+															"type": "object",
+															"required": [
+																"$ref"
+															],
+															"properties": {
+																"$ref": {
+																	"$id": "#root/paths//recoveritem/put/requestBody/content/application/json/schema/$ref", 
+																	"title": "$ref", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"#/components/schemas/itemSchema"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+,
+								"responses": {
+									"$id": "#root/paths//recoveritem/put/responses", 
+									"title": "Responses", 
+									"type": "object",
+									"required": [
+										"200",
+										"400"
+									],
+									"properties": {
+										"200": {
+											"$id": "#root/paths//recoveritem/put/responses/200", 
+											"title": "200", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//recoveritem/put/responses/200/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Item recovered successfully"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//recoveritem/put/responses/200/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//recoveritem/put/responses/200/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//recoveritem/put/responses/200/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//recoveritem/put/responses/200/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/recoveredItemResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+,
+										"400": {
+											"$id": "#root/paths//recoveritem/put/responses/400", 
+											"title": "400", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//recoveritem/put/responses/400/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Bad request"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//recoveritem/put/responses/400/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//recoveritem/put/responses/400/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//recoveritem/put/responses/400/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//recoveritem/put/responses/400/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/errorResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+
+							}
+						}
+
+					}
+				}
+,
+				"/updateitem": {
+					"$id": "#root/paths//updateitem", 
+					"title": "/updateitem", 
+					"type": "object",
+					"required": [
+						"put"
+					],
+					"properties": {
+						"put": {
+							"$id": "#root/paths//updateitem/put", 
+							"title": "Put", 
+							"type": "object",
+							"required": [
+								"summary",
+								"tags",
+								"requestBody",
+								"responses"
+							],
+							"properties": {
+								"summary": {
+									"$id": "#root/paths//updateitem/put/summary", 
+									"title": "Summary", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Update an item"
+									],
+									"pattern": "^.*$"
+								},
+								"tags": {
+									"$id": "#root/paths//updateitem/put/tags", 
+									"title": "Tags", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/paths//updateitem/put/tags/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"Items"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"requestBody": {
+									"$id": "#root/paths//updateitem/put/requestBody", 
+									"title": "Requestbody", 
+									"type": "object",
+									"required": [
+										"required",
+										"content"
+									],
+									"properties": {
+										"required": {
+											"$id": "#root/paths//updateitem/put/requestBody/required", 
+											"title": "Required", 
+											"type": "boolean",
+											"examples": [
+												true
+											],
+											"default": true
+										},
+										"content": {
+											"$id": "#root/paths//updateitem/put/requestBody/content", 
+											"title": "Content", 
+											"type": "object",
+											"required": [
+												"application/json"
+											],
+											"properties": {
+												"application/json": {
+													"$id": "#root/paths//updateitem/put/requestBody/content/application/json", 
+													"title": "Application/json", 
+													"type": "object",
+													"required": [
+														"schema"
+													],
+													"properties": {
+														"schema": {
+															"$id": "#root/paths//updateitem/put/requestBody/content/application/json/schema", 
+															"title": "Schema", 
+															"type": "object",
+															"required": [
+																"$ref"
+															],
+															"properties": {
+																"$ref": {
+																	"$id": "#root/paths//updateitem/put/requestBody/content/application/json/schema/$ref", 
+																	"title": "$ref", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"#/components/schemas/updateItemSchema"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+,
+								"responses": {
+									"$id": "#root/paths//updateitem/put/responses", 
+									"title": "Responses", 
+									"type": "object",
+									"required": [
+										"200",
+										"400"
+									],
+									"properties": {
+										"200": {
+											"$id": "#root/paths//updateitem/put/responses/200", 
+											"title": "200", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//updateitem/put/responses/200/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Item recovered successfully"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//updateitem/put/responses/200/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//updateitem/put/responses/200/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//updateitem/put/responses/200/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//updateitem/put/responses/200/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/updateItemResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+,
+										"400": {
+											"$id": "#root/paths//updateitem/put/responses/400", 
+											"title": "400", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//updateitem/put/responses/400/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Bad request"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//updateitem/put/responses/400/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//updateitem/put/responses/400/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//updateitem/put/responses/400/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//updateitem/put/responses/400/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/errorResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+
+							}
+						}
+
+					}
+				}
+,
+				"/updatestorecategories": {
+					"$id": "#root/paths//updatestorecategories", 
+					"title": "/updatestorecategories", 
+					"type": "object",
+					"required": [
+						"put"
+					],
+					"properties": {
+						"put": {
+							"$id": "#root/paths//updatestorecategories/put", 
+							"title": "Put", 
+							"type": "object",
+							"required": [
+								"summary",
+								"tags",
+								"requestBody",
+								"responses"
+							],
+							"properties": {
+								"summary": {
+									"$id": "#root/paths//updatestorecategories/put/summary", 
+									"title": "Summary", 
+									"type": "string",
+									"default": "",
+									"examples": [
+										"Update store category"
+									],
+									"pattern": "^.*$"
+								},
+								"tags": {
+									"$id": "#root/paths//updatestorecategories/put/tags", 
+									"title": "Tags", 
+									"type": "array",
+									"default": [],
+									"items":{
+										"$id": "#root/paths//updatestorecategories/put/tags/items", 
+										"title": "Items", 
+										"type": "string",
+										"default": "",
+										"examples": [
+											"Items"
+										],
+										"pattern": "^.*$"
+									}
+								},
+								"requestBody": {
+									"$id": "#root/paths//updatestorecategories/put/requestBody", 
+									"title": "Requestbody", 
+									"type": "object",
+									"required": [
+										"required",
+										"content"
+									],
+									"properties": {
+										"required": {
+											"$id": "#root/paths//updatestorecategories/put/requestBody/required", 
+											"title": "Required", 
+											"type": "boolean",
+											"examples": [
+												true
+											],
+											"default": true
+										},
+										"content": {
+											"$id": "#root/paths//updatestorecategories/put/requestBody/content", 
+											"title": "Content", 
+											"type": "object",
+											"required": [
+												"application/json"
+											],
+											"properties": {
+												"application/json": {
+													"$id": "#root/paths//updatestorecategories/put/requestBody/content/application/json", 
+													"title": "Application/json", 
+													"type": "object",
+													"required": [
+														"schema"
+													],
+													"properties": {
+														"schema": {
+															"$id": "#root/paths//updatestorecategories/put/requestBody/content/application/json/schema", 
+															"title": "Schema", 
+															"type": "object",
+															"required": [
+																"$ref"
+															],
+															"properties": {
+																"$ref": {
+																	"$id": "#root/paths//updatestorecategories/put/requestBody/content/application/json/schema/$ref", 
+																	"title": "$ref", 
+																	"type": "string",
+																	"default": "",
+																	"examples": [
+																		"#/components/schemas/updateStoreCategoriesSchema"
+																	],
+																	"pattern": "^.*$"
+																}
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+,
+								"responses": {
+									"$id": "#root/paths//updatestorecategories/put/responses", 
+									"title": "Responses", 
+									"type": "object",
+									"required": [
+										"200",
+										"400"
+									],
+									"properties": {
+										"200": {
+											"$id": "#root/paths//updatestorecategories/put/responses/200", 
+											"title": "200", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//updatestorecategories/put/responses/200/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Item recovered successfully"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//updatestorecategories/put/responses/200/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//updatestorecategories/put/responses/200/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//updatestorecategories/put/responses/200/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//updatestorecategories/put/responses/200/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/updateStoreCategoriesResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+,
+										"400": {
+											"$id": "#root/paths//updatestorecategories/put/responses/400", 
+											"title": "400", 
+											"type": "object",
+											"required": [
+												"description",
+												"content"
+											],
+											"properties": {
+												"description": {
+													"$id": "#root/paths//updatestorecategories/put/responses/400/description", 
+													"title": "Description", 
+													"type": "string",
+													"default": "",
+													"examples": [
+														"Bad request"
+													],
+													"pattern": "^.*$"
+												},
+												"content": {
+													"$id": "#root/paths//updatestorecategories/put/responses/400/content", 
+													"title": "Content", 
+													"type": "object",
+													"required": [
+														"application/json"
+													],
+													"properties": {
+														"application/json": {
+															"$id": "#root/paths//updatestorecategories/put/responses/400/content/application/json", 
+															"title": "Application/json", 
+															"type": "object",
+															"required": [
+																"schema"
+															],
+															"properties": {
+																"schema": {
+																	"$id": "#root/paths//updatestorecategories/put/responses/400/content/application/json/schema", 
+																	"title": "Schema", 
+																	"type": "object",
+																	"required": [
+																		"$ref"
+																	],
+																	"properties": {
+																		"$ref": {
+																			"$id": "#root/paths//updatestorecategories/put/responses/400/content/application/json/schema/$ref", 
+																			"title": "$ref", 
+																			"type": "string",
+																			"default": "",
+																			"examples": [
+																				"#/components/schemas/errorResponseSchema"
+																			],
+																			"pattern": "^.*$"
+																		}
+																	}
+																}
+
+															}
+														}
+
+													}
+												}
+
+											}
+										}
+
+									}
+								}
+
+							}
+						}
+
+					}
+				}
+
+			}
+		}
+,
+		"tags": {
+			"$id": "#root/tags", 
+			"title": "Tags", 
+			"type": "array",
+			"default": []
+		}
+	}
 }
