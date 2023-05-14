@@ -256,29 +256,32 @@
                   "type": "string"
                 },
                 "categories": {
-                    "anyOf": [
-                        {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "items": {
+                            "type": "array",
                             "items": {
-                                "type": "array",
-                                "items": {
-                                "type": "string"
-                                }
-                            },
-                            "category": {
-                                "type": "string"
-                            },
-                            "storeOrder": {
-                                "type": "number"
+                              "type": "string"
                             }
-                            },
-                            "additionalProperties": false
-                        }
-                        }
-                    ]
+                          },
+                          "category": {
+                            "type": "string"
+                          },
+                          "storeOrder": {
+                            "type": "number"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
                 }
               },
               "additionalProperties": false
@@ -388,55 +391,42 @@
         "type": "object",
         "properties": {
           "updatedModel": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "categories": {
-                  "oneOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "items": {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          },
-                          "category": {
-                            "type": "string"
-                          },
-                          "storeOrder": {
-                            "type": "number"
-                          }
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    {
-                      "type": [
-                        "array",
-                        "boolean",
-                        "number",
-                        "object",
-                        "string",
-                        "null"
-                      ],
-                      "nullable": true
-                    }
-                  ]
-                }
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
               },
-              "additionalProperties": false
-            }
+              "name": {
+                "type": "string"
+              },
+              "categories": {
+                    "oneOf": [
+                        {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                "type": "string"
+                                }
+                            },
+                            "category": {
+                                "type": "string"
+                            },
+                            "storeOrder": {
+                                "type": "number"
+                            }
+                            },
+                            "additionalProperties": false
+                        }
+                        },
+                        {"type": "null" }
+                    ]
+                }
+            },
+            "additionalProperties": false
           }
         },
         "additionalProperties": false
