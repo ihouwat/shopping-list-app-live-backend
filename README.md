@@ -5,7 +5,7 @@ This project is a live app I use personally, and I use it as a sandbox for pract
 
 Check out API docs with `/api-docs` endpoint.
 
-## Setup 
+## Setup
 
 ### Database
 
@@ -13,23 +13,23 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 
 * **items**: stores the added grocery items. It includes four columns:
 
-    * name (varchar)
-    * id (varchar - primary key)
-    * note (varchar)
-    * count (smallint)
+	* name (varchar)
+	* id (varchar - primary key)
+	* note (varchar)
+	* count (smallint)
 
 * **completeditems**: stores the completed items. It includes four columns, same as above.
 
 * **groceriestemplate**: is used to fetch top 10 favorites on app load and to populate the autocomplete search input. It includes two columns:
 
-    * name (varchar - primary key)
-    * count (integer - not null)
+	* name (varchar - primary key)
+	* count (integer - not null)
 
 * **grocerystoremodel**: is used to fetch and update store layouts. It includes three columns:
 
-    * id (integer - primary key)
-    * name (varchar)
-    * categories (jsonb)
+	* id (integer - primary key)
+	* name (varchar)
+	* categories (jsonb)
 
 ### Configure the database connection
 
