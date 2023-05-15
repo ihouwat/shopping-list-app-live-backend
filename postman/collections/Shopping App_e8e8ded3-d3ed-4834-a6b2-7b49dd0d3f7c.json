@@ -8,132 +8,802 @@
 	},
 	"item": [
 		{
-			"name": "Add item to grocery list",
-			"id": "db99926a-71e6-486b-a67b-c263d0edbd34",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/additem",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"additem"
-					]
-				}
-			},
-			"response": [
+			"name": "GET items",
+			"item": [
 				{
-					"id": "d654863a-3aa8-4108-bc7b-64d5139999f6",
-					"name": "Item added successfully",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "200",
+					"item": [
+						{
+							"name": "Get items on load",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2b0d753e-8901-4c83-ad96-7ac687a2ff96",
+										"exec": [
+											"const schema = utils.getSchema('getItemResponseSchema');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Has JSON body\", () => {\r",
+											"   pm.response.to.have.jsonBody;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Schema is valid\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema)\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9ee30752-3aa5-4563-aba6-b3289aa2e95b",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
 								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/additem",
-							"host": [
-								"{{baseUrl}}"
 							],
-							"path": [
-								"additem"
+							"id": "70ad9589-dbf7-42ef-800d-d31219d101a5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "b8568bd6-6347-4f75-9dc3-eaa50d1536df",
+									"name": "App metadata and items retrieved successfully",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n\t\"items\": [\n\t\t{\n\t\t\t\"name\": \"dolor\",\n\t\t\t\"id\": \"anim\",\n\t\t\t\"count\": -38103208.32009113,\n\t\t\t\"note\": \"sunt veniam\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"do magna\",\n\t\t\t\"id\": \"mollit est laboris\",\n\t\t\t\"count\": 64181450.078927875,\n\t\t\t\"note\": \"nostrud ad id laboris\"\n\t\t}\n\t],\n\t\"completedItems\": [\n\t\t{\n\t\t\t\"name\": \"sit sunt dolor ullamco in\",\n\t\t\t\"id\": \"consectetur\",\n\t\t\t\"count\": 88073214.45899382,\n\t\t\t\"note\": \"consequat amet\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"sint officia\",\n\t\t\t\"id\": \"deserunt occaecat\",\n\t\t\t\"count\": 50032330.22636762,\n\t\t\t\"note\": \"amet id\"\n\t\t}\n\t],\n\t\"favoriteItems\": [\n\t\t{\n\t\t\t\"name\": \"dolore aliquip labore ipsum Lorem\",\n\t\t\t\"isChecked\": true\n\t\t},\n\t\t{\n\t\t\t\"name\": \"laboris nulla culpa\",\n\t\t\t\"isChecked\": true\n\t\t}\n\t],\n\t\"groceriesTemplate\": [\n\t\t{\n\t\t\t\"name\": \"occaecat ex incididunt irure eiusmod\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"Duis dolore culpa labore\"\n\t\t}\n\t],\n\t\"groceryStoreModel\": [\n\t\t{\n\t\t\t\"id\": 37597449.79727411,\n\t\t\t\"name\": \"occaecat sunt commodo officia\",\n\t\t\t\"categories\": [\n\t\t\t\t{\n\t\t\t\t\t\"items\": [\n\t\t\t\t\t\t\"ullamco\",\n\t\t\t\t\t\t\"enim magna sunt ut\"\n\t\t\t\t\t],\n\t\t\t\t\t\"category\": \"dolor veniam\",\n\t\t\t\t\t\"storeOrder\": 67747206.58808583\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"items\": [\n\t\t\t\t\t\t\"sed ex laborum magna\",\n\t\t\t\t\t\t\"consec\"\n\t\t\t\t\t],\n\t\t\t\t\t\"category\": \"sed eni\",\n\t\t\t\t\t\"storeOrder\": 65773789.58771694\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"id\": -94130925.11047748,\n\t\t\t\"name\": \"cupidatat anim\",\n\t\t\t\"categories\": [\n\t\t\t\t{\n\t\t\t\t\t\"items\": [\n\t\t\t\t\t\t\"ipsum enim\",\n\t\t\t\t\t\t\"ut dolor sunt aute magna\"\n\t\t\t\t\t],\n\t\t\t\t\t\"category\": \"amet magna esse adipisicing\",\n\t\t\t\t\t\"storeOrder\": -95218148.33489959\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"items\": [\n\t\t\t\t\t\t\"dolor laboris Lorem\",\n\t\t\t\t\t\t\"magna ullamco nostrud elit\"\n\t\t\t\t\t],\n\t\t\t\t\t\"category\": \"sit irure\",\n\t\t\t\t\t\"storeOrder\": -8775663.176575229\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}"
+								},
+								{
+									"id": "fcbfa30c-c039-46cf-9d6b-04f3ca46c49d",
+									"name": "Bad request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												""
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+								}
 							]
 						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
 					],
-					"cookie": [],
-					"responseTime": null,
-					"body": "{\n\t\"addedItem\": [\n\t\t{\n\t\t\t\"name\": \"do non \",\n\t\t\t\"id\": \"anim ipsum minim\",\n\t\t\t\"count\": 51703929.46214241,\n\t\t\t\"note\": \"labore qui ut\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"id minim\",\n\t\t\t\"id\": \"adipisicing et\",\n\t\t\t\"count\": -86202848.37290102,\n\t\t\t\"note\": \"sunt cupidatat Ut\"\n\t\t}\n\t]\n}"
-				},
+					"id": "5fc6216e-3735-4008-a48a-e3b44247c478"
+				}
+			],
+			"id": "b0bd0e3a-b552-4f7c-88d4-6d7fa4ab89d1"
+		},
+		{
+			"name": "POST item",
+			"item": [
 				{
-					"id": "efac8c9f-328e-4740-b014-21ef6612f1b1",
-					"name": "Bad request",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "200",
+					"item": [
+						{
+							"name": "Add item to grocery list",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ae326860-bd33-414f-b87a-4be608319a94",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "45c6b300-592c-4304-aa26-84a93afdbd20",
+										"exec": [
+											"const schema = utils.getSchema('addItemResponseSchema');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Has JSON body\", () => {\r",
+											"   pm.response.to.have.jsonBody;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Schema is valid\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.collectionVariables.set('addedItem', JSON.stringify(pm.response.json().addedItem));\r",
+											""
+										],
+										"type": "text/javascript"
+									}
 								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/additem",
-							"host": [
-								"{{baseUrl}}"
 							],
-							"path": [
-								"additem"
+							"id": "db99926a-71e6-486b-a67b-c263d0edbd34",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"{{$randomProduct}}{{$randomInt}}{{$randomInt}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/additem",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"additem"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "d654863a-3aa8-4108-bc7b-64d5139999f6",
+									"name": "Item added successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/additem",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"additem"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n\t\"addedItem\": [\n\t\t{\n\t\t\t\"name\": \"do non \",\n\t\t\t\"id\": \"anim ipsum minim\",\n\t\t\t\"count\": 51703929.46214241,\n\t\t\t\"note\": \"labore qui ut\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"id minim\",\n\t\t\t\"id\": \"adipisicing et\",\n\t\t\t\"count\": -86202848.37290102,\n\t\t\t\"note\": \"sunt cupidatat Ut\"\n\t\t}\n\t]\n}"
+								},
+								{
+									"id": "efac8c9f-328e-4740-b014-21ef6612f1b1",
+									"name": "Bad request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/additem",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"additem"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+								}
 							]
 						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
-					"header": [
+					],
+					"id": "beb8e9f3-5ead-4843-a03b-14a01b735878"
+				},
+				{
+					"name": "400",
+					"item": [
 						{
-							"key": "Content-Type",
-							"value": "application/json"
+							"name": "empty body value",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ae326860-bd33-414f-b87a-4be608319a94",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "45c6b300-592c-4304-aa26-84a93afdbd20",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message\", () => {\r",
+											"    pm.expect(pm.response.json()).to.include({error: \"\\\"name\\\" is not allowed to be empty\"});\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "a67f4788-34fb-4f0a-9861-ee97b9d9c915",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/additem",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"additem"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "28c0abb9-e632-4e64-a182-181e88bf74ac",
+									"name": "Item added successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/additem",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"additem"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n\t\"addedItem\": [\n\t\t{\n\t\t\t\"name\": \"do non \",\n\t\t\t\"id\": \"anim ipsum minim\",\n\t\t\t\"count\": 51703929.46214241,\n\t\t\t\"note\": \"labore qui ut\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"id minim\",\n\t\t\t\"id\": \"adipisicing et\",\n\t\t\t\"count\": -86202848.37290102,\n\t\t\t\"note\": \"sunt cupidatat Ut\"\n\t\t}\n\t]\n}"
+								},
+								{
+									"id": "bb7dda39-3b84-4241-bd0f-a3c71517a86e",
+									"name": "Bad request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/additem",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"additem"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+								}
+							]
+						},
+						{
+							"name": "wrong type",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ae326860-bd33-414f-b87a-4be608319a94",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "45c6b300-592c-4304-aa26-84a93afdbd20",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message\", () => {\r",
+											"    pm.expect(pm.response.json()).to.include({error: \"\\\"name\\\" must be a string\"});\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "2a69b0b3-de69-414c-83bc-0990a48f0144",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/additem",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"additem"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "7be058f4-0105-45f3-aaf6-c466eb6eb1b6",
+									"name": "Item added successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/additem",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"additem"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n\t\"addedItem\": [\n\t\t{\n\t\t\t\"name\": \"do non \",\n\t\t\t\"id\": \"anim ipsum minim\",\n\t\t\t\"count\": 51703929.46214241,\n\t\t\t\"note\": \"labore qui ut\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"id minim\",\n\t\t\t\"id\": \"adipisicing et\",\n\t\t\t\"count\": -86202848.37290102,\n\t\t\t\"note\": \"sunt cupidatat Ut\"\n\t\t}\n\t]\n}"
+								},
+								{
+									"id": "a228b775-f27b-476f-b17e-63b257cbdd58",
+									"name": "Bad request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/additem",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"additem"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+								}
+							]
+						},
+						{
+							"name": "field required",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ae326860-bd33-414f-b87a-4be608319a94",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "45c6b300-592c-4304-aa26-84a93afdbd20",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 200ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message\", () => {\r",
+											"    pm.expect(pm.response.json()).to.include({error: \"\\\"name\\\" is required\"});\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "19d3c5e3-c863-4d95-9066-ea5c434acfdd",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/additem",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"additem"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "95b85b3c-bc25-4d05-aa52-8b4989a264a7",
+									"name": "Item added successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/additem",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"additem"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n\t\"addedItem\": [\n\t\t{\n\t\t\t\"name\": \"do non \",\n\t\t\t\"id\": \"anim ipsum minim\",\n\t\t\t\"count\": 51703929.46214241,\n\t\t\t\"note\": \"labore qui ut\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"id minim\",\n\t\t\t\"id\": \"adipisicing et\",\n\t\t\t\"count\": -86202848.37290102,\n\t\t\t\"note\": \"sunt cupidatat Ut\"\n\t\t}\n\t]\n}"
+								},
+								{
+									"id": "d4a3bde3-3518-4396-ad43-df20425da16d",
+									"name": "Bad request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/additem",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"additem"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+								}
+							]
 						}
 					],
-					"cookie": [],
-					"responseTime": null,
-					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+					"id": "2b9d3242-585c-489e-b45b-a5d2d823f28f"
 				}
-			]
+			],
+			"id": "f52d2ea3-cc0a-4a35-acb6-45b44d912698"
 		},
 		{
 			"name": "Complete item from grocery list",
@@ -206,7 +876,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -214,7 +883,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
 				},
 				{
@@ -250,7 +918,6 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -258,7 +925,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
 				}
 			]
@@ -312,7 +978,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -320,7 +985,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{}"
 				},
 				{
@@ -347,7 +1011,6 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -355,7 +1018,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
 				}
 			]
@@ -431,7 +1093,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -439,7 +1100,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"listName\": \"dolore sed reprehenderit aliqua\",\n\t\"deletedItem\": {\n\t\t\"name\": \"sint\"\n\t}\n}"
 				},
 				{
@@ -475,7 +1135,6 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -483,139 +1142,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
-					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
-				}
-			]
-		},
-		{
-			"name": "Get items on load",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "2b0d753e-8901-4c83-ad96-7ac687a2ff96",
-						"exec": [
-							"const schema = utils.getSchema('getItemResponseSchema');\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response time is less than 200ms\", function () {\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Schema is valid\", () => {\r",
-							"    pm.response.to.have.jsonSchema(schema)\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "9ee30752-3aa5-4563-aba6-b3289aa2e95b",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"id": "70ad9589-dbf7-42ef-800d-d31219d101a5",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{baseUrl}}/",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						""
-					]
-				}
-			},
-			"response": [
-				{
-					"id": "b8568bd6-6347-4f75-9dc3-eaa50d1536df",
-					"name": "App metadata and items retrieved successfully",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								""
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"responseTime": null,
-					"body": "{\n\t\"items\": [\n\t\t{\n\t\t\t\"name\": \"dolor\",\n\t\t\t\"id\": \"anim\",\n\t\t\t\"count\": -38103208.32009113,\n\t\t\t\"note\": \"sunt veniam\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"do magna\",\n\t\t\t\"id\": \"mollit est laboris\",\n\t\t\t\"count\": 64181450.078927875,\n\t\t\t\"note\": \"nostrud ad id laboris\"\n\t\t}\n\t],\n\t\"completedItems\": [\n\t\t{\n\t\t\t\"name\": \"sit sunt dolor ullamco in\",\n\t\t\t\"id\": \"consectetur\",\n\t\t\t\"count\": 88073214.45899382,\n\t\t\t\"note\": \"consequat amet\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"sint officia\",\n\t\t\t\"id\": \"deserunt occaecat\",\n\t\t\t\"count\": 50032330.22636762,\n\t\t\t\"note\": \"amet id\"\n\t\t}\n\t],\n\t\"favoriteItems\": [\n\t\t{\n\t\t\t\"name\": \"dolore aliquip labore ipsum Lorem\",\n\t\t\t\"isChecked\": true\n\t\t},\n\t\t{\n\t\t\t\"name\": \"laboris nulla culpa\",\n\t\t\t\"isChecked\": true\n\t\t}\n\t],\n\t\"groceriesTemplate\": [\n\t\t{\n\t\t\t\"name\": \"occaecat ex incididunt irure eiusmod\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"Duis dolore culpa labore\"\n\t\t}\n\t],\n\t\"groceryStoreModel\": [\n\t\t{\n\t\t\t\"id\": 37597449.79727411,\n\t\t\t\"name\": \"occaecat sunt commodo officia\",\n\t\t\t\"categories\": [\n\t\t\t\t{\n\t\t\t\t\t\"items\": [\n\t\t\t\t\t\t\"ullamco\",\n\t\t\t\t\t\t\"enim magna sunt ut\"\n\t\t\t\t\t],\n\t\t\t\t\t\"category\": \"dolor veniam\",\n\t\t\t\t\t\"storeOrder\": 67747206.58808583\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"items\": [\n\t\t\t\t\t\t\"sed ex laborum magna\",\n\t\t\t\t\t\t\"consec\"\n\t\t\t\t\t],\n\t\t\t\t\t\"category\": \"sed eni\",\n\t\t\t\t\t\"storeOrder\": 65773789.58771694\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"id\": -94130925.11047748,\n\t\t\t\"name\": \"cupidatat anim\",\n\t\t\t\"categories\": [\n\t\t\t\t{\n\t\t\t\t\t\"items\": [\n\t\t\t\t\t\t\"ipsum enim\",\n\t\t\t\t\t\t\"ut dolor sunt aute magna\"\n\t\t\t\t\t],\n\t\t\t\t\t\"category\": \"amet magna esse adipisicing\",\n\t\t\t\t\t\"storeOrder\": -95218148.33489959\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"items\": [\n\t\t\t\t\t\t\"dolor laboris Lorem\",\n\t\t\t\t\t\t\"magna ullamco nostrud elit\"\n\t\t\t\t\t],\n\t\t\t\t\t\"category\": \"sit irure\",\n\t\t\t\t\t\"storeOrder\": -8775663.176575229\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}"
-				},
-				{
-					"id": "fcbfa30c-c039-46cf-9d6b-04f3ca46c49d",
-					"name": "Bad request",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								""
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
 				}
 			]
@@ -669,7 +1195,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -677,7 +1202,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"items\": [\n\t\t{\n\t\t\t\"name\": \"elit\",\n\t\t\t\"id\": \"culpa aliquip elit\",\n\t\t\t\"count\": 5051746.593604326,\n\t\t\t\"note\": \"aliquip sit deserunt\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"\",\n\t\t\t\"id\": \"ut dolor\",\n\t\t\t\"count\": 42998609.83004221,\n\t\t\t\"note\": \"anim Ut s\"\n\t\t}\n\t]\n}"
 				},
 				{
@@ -704,7 +1228,6 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -712,7 +1235,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
 				}
 			]
@@ -788,7 +1310,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -796,7 +1317,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"recoveredItem\": {\n\t\t\"name\": \"quis culpa \",\n\t\t\"id\": \"nostrud et ipsum eu\",\n\t\t\"count\": 97204293.76157513,\n\t\t\"note\": \"fugiat dolor\"\n\t}\n}"
 				},
 				{
@@ -832,7 +1352,6 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -840,7 +1359,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
 				}
 			]
@@ -916,7 +1434,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -924,7 +1441,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"updatedItem\": {\n\t\t\"name\": \"officia laborum aliquip nostrud\",\n\t\t\"id\": \"dolore\",\n\t\t\"count\": -20231064.542687133,\n\t\t\"note\": \"dolore consectetur consequat\"\n\t}\n}"
 				},
 				{
@@ -960,7 +1476,6 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -968,7 +1483,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
 				}
 			]
@@ -1044,7 +1558,6 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -1052,7 +1565,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"updatedModel\": {\n\t\t\"id\": 94118617.32989845,\n\t\t\"name\": \"eiusmod\",\n\t\t\"categories\": [\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"veniam\",\n\t\t\t\t\t\"esse ea commodo\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"mollit veniam\",\n\t\t\t\t\"storeOrder\": -75131724.2335631\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"dolore laboris\",\n\t\t\t\t\t\"exercitation in labore\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"in id\",\n\t\t\t\t\"storeOrder\": 16308232.592923447\n\t\t\t}\n\t\t]\n\t}\n}"
 				},
 				{
@@ -1088,7 +1600,6 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
-					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -1096,7 +1607,6 @@
 						}
 					],
 					"cookie": [],
-					"responseTime": null,
 					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
 				}
 			]
@@ -1106,7 +1616,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "f56ee9e7-03b5-4ce6-b3cf-997b56b36b8b",
+				"id": "fb79e09a-77f9-4b87-b0a2-7e19ed19a26b",
 				"type": "text/javascript",
 				"exec": [
 					"utils = {",
@@ -1120,7 +1630,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "c97d5a96-782a-43cb-86a3-54fbcaa7b3b6",
+				"id": "ba10b780-2d38-4ff0-bd26-451a4b7c2323",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1130,16 +1640,21 @@
 	],
 	"variable": [
 		{
-			"id": "c7b775d9-fd02-4af6-b6fd-1620c06e0a28",
+			"id": "8d44adb9-f3a1-4b35-99a8-f7a37ed5ab42",
 			"key": "baseUrl",
 			"value": "http://localhost:3000",
 			"type": "string"
 		},
 		{
-			"id": "6c85663b-57b5-4305-907b-f1895a98ff69",
+			"id": "700136b0-1bc1-45d4-8884-7bf9e079ee26",
 			"key": "schema",
 			"value": "{\n  \"openapi\": \"3.1.0\",\n  \"info\": {\n    \"title\": \"Shopping App\",\n    \"version\": \"1.0.0\",\n    \"description\": \"Shopping list app backend API\",\n    \"license\": {\n      \"name\": \"All Rights Reserved\"\n    }\n  },\n  \"components\": {\n    \"schemas\": {\n      \"itemNameSchema\": {\n        \"required\": [\n          \"name\"\n        ],\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": {\n            \"type\": \"string\"\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"itemSchema\": {\n        \"required\": [\n          \"item\"\n        ],\n        \"type\": \"object\",\n        \"properties\": {\n          \"item\": {\n            \"required\": [\n              \"name\",\n              \"id\",\n              \"count\"\n            ],\n            \"type\": \"object\",\n            \"properties\": {\n              \"name\": {\n                \"type\": \"string\"\n              },\n              \"id\": {\n                \"type\": \"string\"\n              },\n              \"note\": {\n                \"type\": \"string\"\n              },\n              \"count\": {\n                \"type\": \"number\"\n              }\n            },\n            \"additionalProperties\": false\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"deleteItemSchema\": {\n        \"required\": [\n          \"listName\",\n          \"item\"\n        ],\n        \"type\": \"object\",\n        \"properties\": {\n          \"listName\": {\n            \"type\": \"string\"\n          },\n          \"item\": {\n            \"required\": [\n              \"name\"\n            ],\n            \"type\": \"object\",\n            \"properties\": {\n              \"name\": {\n                \"type\": \"string\"\n              }\n            },\n            \"additionalProperties\": false\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"updateItemSchema\": {\n        \"required\": [\n          \"id\",\n          \"count\"\n        ],\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": {\n            \"type\": \"string\"\n          },\n          \"note\": {\n            \"type\": \"string\"\n          },\n          \"count\": {\n            \"type\": \"number\"\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"updateStoreCategoriesSchema\": {\n        \"required\": [\n          \"itemName\",\n          \"stores\"\n        ],\n        \"type\": \"object\",\n        \"properties\": {\n          \"itemName\": {\n            \"type\": \"string\"\n          },\n          \"stores\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"required\": [\n                \"storeName\",\n                \"category\"\n              ],\n              \"type\": \"object\",\n              \"properties\": {\n                \"storeName\": {\n                  \"type\": \"string\"\n                },\n                \"category\": {\n                  \"type\": \"string\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"addItemResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"addedItem\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"required\": [\n                \"name\",\n                \"id\",\n                \"count\"\n              ],\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"id\": {\n                  \"type\": \"string\"\n                },\n                \"note\": {\n                  \"type\": \"string\"\n                },\n                \"count\": {\n                  \"type\": \"number\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"getItemResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"items\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"required\": [\n                \"name\",\n                \"id\",\n                \"count\"\n              ],\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"id\": {\n                  \"type\": \"string\"\n                },\n                \"note\": {\n                  \"type\": \"string\"\n                },\n                \"count\": {\n                  \"type\": \"number\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          },\n          \"completedItems\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"required\": [\n                \"name\",\n                \"id\",\n                \"count\"\n              ],\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"id\": {\n                  \"type\": \"string\"\n                },\n                \"note\": {\n                  \"type\": \"string\"\n                },\n                \"count\": {\n                  \"type\": \"number\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          },\n          \"favoriteItems\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"isChecked\": {\n                  \"type\": \"boolean\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          },\n          \"groceriesTemplate\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          },\n          \"groceryStoreModel\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"id\": {\n                  \"type\": \"number\"\n                },\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"categories\": {\n                  \"oneOf\": [\n                    {\n                      \"type\": \"array\",\n                      \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                          \"items\": {\n                            \"type\": \"array\",\n                            \"items\": {\n                              \"type\": \"string\"\n                            }\n                          },\n                          \"category\": {\n                            \"type\": \"string\"\n                          },\n                          \"storeOrder\": {\n                            \"type\": \"number\"\n                          }\n                        },\n                        \"additionalProperties\": false\n                      }\n                    },\n                    {\n                      \"type\": null\n                    }\n                  ]\n                }\n              },\n              \"additionalProperties\": false\n            }\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"completeItemResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"completedItemId\": {\n            \"type\": \"string\"\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"deleteItemResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"listName\": {\n            \"type\": \"string\"\n          },\n          \"deletedItem\": {\n            \"type\": \"object\",\n            \"properties\": {\n              \"name\": {\n                \"type\": \"string\"\n              }\n            },\n            \"additionalProperties\": false\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"recoveredItemResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"recoveredItem\": {\n            \"required\": [\n              \"name\",\n              \"id\",\n              \"count\"\n            ],\n            \"type\": \"object\",\n            \"properties\": {\n              \"name\": {\n                \"type\": \"string\"\n              },\n              \"id\": {\n                \"type\": \"string\"\n              },\n              \"note\": {\n                \"type\": \"string\"\n              },\n              \"count\": {\n                \"type\": \"number\"\n              }\n            },\n            \"additionalProperties\": false\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"deleteAllItemsResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"completeditems\": {\n            \"maxItems\": 0,\n            \"minItems\": 0,\n            \"type\": \"array\",\n            \"items\": {}\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"updateItemResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"updatedItem\": {\n            \"required\": [\n              \"name\",\n              \"id\",\n              \"count\"\n            ],\n            \"type\": \"object\",\n            \"properties\": {\n              \"name\": {\n                \"type\": \"string\"\n              },\n              \"id\": {\n                \"type\": \"string\"\n              },\n              \"note\": {\n                \"type\": \"string\"\n              },\n              \"count\": {\n                \"type\": \"number\"\n              }\n            },\n            \"additionalProperties\": false\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"updateStoreCategoriesResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"updatedModel\": {\n            \"type\": \"object\",\n            \"properties\": {\n              \"id\": {\n                \"type\": \"number\"\n              },\n              \"name\": {\n                \"type\": \"string\"\n              },\n              \"categories\": {\n                    \"oneOf\": [\n                        {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                            \"items\": {\n                                \"type\": \"array\",\n                                \"items\": {\n                                \"type\": \"string\"\n                                }\n                            },\n                            \"category\": {\n                                \"type\": \"string\"\n                            },\n                            \"storeOrder\": {\n                                \"type\": \"number\"\n                            }\n                            },\n                            \"additionalProperties\": false\n                        }\n                        },\n                        {\"type\": \"null\" }\n                    ]\n                }\n            },\n            \"additionalProperties\": false\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"recoverAllCompletedResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"items\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"required\": [\n                \"name\",\n                \"id\",\n                \"count\"\n              ],\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"id\": {\n                  \"type\": \"string\"\n                },\n                \"note\": {\n                  \"type\": \"string\"\n                },\n                \"count\": {\n                  \"type\": \"number\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          },\n          \"completedItems\": {\n            \"maxItems\": 0,\n            \"minItems\": 0,\n            \"type\": \"array\",\n            \"items\": {}\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"errorResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"error\": {\n            \"type\": \"string\"\n          },\n          \"statusCode\": {\n            \"type\": \"number\"\n          }\n        },\n        \"additionalProperties\": false\n      }\n    }\n  },\n  \"servers\": [\n    {\n      \"url\": \"http://localhost:3000\",\n      \"description\": \"Development server\"\n    },\n    {\n      \"url\": \"http://.....\",\n      \"description\": \"Production server\"\n    }\n  ],\n  \"paths\": {\n    \"/additem\": {\n      \"post\": {\n        \"summary\": \"Add item to grocery list\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"requestBody\": {\n          \"required\": true,\n          \"content\": {\n            \"application/json\": {\n              \"schema\": {\n                \"$ref\": \"#/components/schemas/itemNameSchema\"\n              }\n            }\n          }\n        },\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Item added successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/addItemResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/completeitem\": {\n      \"put\": {\n        \"summary\": \"Complete item from grocery list\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"requestBody\": {\n          \"required\": true,\n          \"content\": {\n            \"application/json\": {\n              \"schema\": {\n                \"$ref\": \"#/components/schemas/itemSchema\"\n              }\n            }\n          }\n        },\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Item completed successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/completeItemResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/deleteallcompleted\": {\n      \"delete\": {\n        \"summary\": \"Delete all completed items from grocery list\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Items deleted successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/deleteAllItemsResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/deleteitem\": {\n      \"delete\": {\n        \"summary\": \"Delete an item from either the grocery list or the completed list\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"requestBody\": {\n          \"required\": true,\n          \"content\": {\n            \"application/json\": {\n              \"schema\": {\n                \"$ref\": \"#/components/schemas/deleteItemSchema\"\n              }\n            }\n          }\n        },\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Item deleted successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/deleteItemResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/\": {\n      \"get\": {\n        \"summary\": \"Get items on load\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"App metadata and items retrieved successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/getItemResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/recoverallcompleted\": {\n      \"put\": {\n        \"summary\": \"Recover all completed items to main grocery list\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Items recovered successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/recoverAllCompletedResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/recoveritem\": {\n      \"put\": {\n        \"summary\": \"Recover one completed items to main grocery list\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"requestBody\": {\n          \"required\": true,\n          \"content\": {\n            \"application/json\": {\n              \"schema\": {\n                \"$ref\": \"#/components/schemas/itemSchema\"\n              }\n            }\n          }\n        },\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Item recovered successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/recoveredItemResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/updateitem\": {\n      \"put\": {\n        \"summary\": \"Update an item\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"requestBody\": {\n          \"required\": true,\n          \"content\": {\n            \"application/json\": {\n              \"schema\": {\n                \"$ref\": \"#/components/schemas/updateItemSchema\"\n              }\n            }\n          }\n        },\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Item recovered successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/updateItemResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/updatestorecategories\": {\n      \"put\": {\n        \"summary\": \"Update store category\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"requestBody\": {\n          \"required\": true,\n          \"content\": {\n            \"application/json\": {\n              \"schema\": {\n                \"$ref\": \"#/components/schemas/updateStoreCategoriesSchema\"\n              }\n            }\n          }\n        },\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Item recovered successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/updateStoreCategoriesResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  },\n  \"tags\": []\n}",
 			"type": "string"
+		},
+		{
+			"id": "dcfd56d4-9824-46a2-aacc-07f81c63153e",
+			"key": "addedItem",
+			"value": ""
 		}
 	]
 }
