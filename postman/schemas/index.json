@@ -1,0 +1,829 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Shopping App",
+    "version": "1.0.0",
+    "description": "Shopping list app backend API",
+    "license": {
+      "name": "All Rights Reserved"
+    }
+  },
+  "components": {
+    "schemas": {
+      "itemNameSchema": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "itemSchema": {
+        "required": [
+          "item"
+        ],
+        "type": "object",
+        "properties": {
+          "item": {
+            "required": [
+              "name",
+              "id",
+              "count"
+            ],
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              },
+              "count": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "deleteItemSchema": {
+        "required": [
+          "listName",
+          "item"
+        ],
+        "type": "object",
+        "properties": {
+          "listName": {
+            "type": "string"
+          },
+          "item": {
+            "required": [
+              "name"
+            ],
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "updateItemSchema": {
+        "required": [
+          "id",
+          "count"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "count": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "updateStoreCategoriesSchema": {
+        "required": [
+          "itemName",
+          "stores"
+        ],
+        "type": "object",
+        "properties": {
+          "itemName": {
+            "type": "string"
+          },
+          "stores": {
+            "type": "array",
+            "items": {
+              "required": [
+                "storeName",
+                "category"
+              ],
+              "type": "object",
+              "properties": {
+                "storeName": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "addItemResponseSchema": {
+        "type": "object",
+        "properties": {
+          "addedItem": {
+            "type": "array",
+            "items": {
+              "required": [
+                "name",
+                "id",
+                "count"
+              ],
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "getItemResponseSchema": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "required": [
+                "name",
+                "id",
+                "count"
+              ],
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "completedItems": {
+            "type": "array",
+            "items": {
+              "required": [
+                "name",
+                "id",
+                "count"
+              ],
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "favoriteItems": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "isChecked": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "groceriesTemplate": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "groceryStoreModel": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "categories": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "items": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "category": {
+                            "type": "string"
+                          },
+                          "storeOrder": {
+                            "type": "number"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "completeItemResponseSchema": {
+        "type": "object",
+        "properties": {
+          "completedItemId": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "deleteItemResponseSchema": {
+        "type": "object",
+        "properties": {
+          "listName": {
+            "type": "string"
+          },
+          "deletedItem": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "recoveredItemResponseSchema": {
+        "type": "object",
+        "properties": {
+          "recoveredItem": {
+            "required": [
+              "name",
+              "id",
+              "count"
+            ],
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              },
+              "count": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "deleteAllItemsResponseSchema": {
+        "type": "object",
+        "properties": {
+          "completeditems": {
+            "maxItems": 0,
+            "minItems": 0,
+            "type": "array",
+            "items": {}
+          }
+        },
+        "additionalProperties": false
+      },
+      "updateItemResponseSchema": {
+        "type": "object",
+        "properties": {
+          "updatedItem": {
+            "required": [
+              "name",
+              "id",
+              "count"
+            ],
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              },
+              "count": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "updateStoreCategoriesResponseSchema": {
+        "type": "object",
+        "properties": {
+          "updatedModel": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "categories": {
+                    "oneOf": [
+                        {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                "type": "string"
+                                }
+                            },
+                            "category": {
+                                "type": "string"
+                            },
+                            "storeOrder": {
+                                "type": "number"
+                            }
+                            },
+                            "additionalProperties": false
+                        }
+                        },
+                        {"type": "null" }
+                    ]
+                }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "recoverAllCompletedResponseSchema": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "required": [
+                "name",
+                "id",
+                "count"
+              ],
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "count": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "completedItems": {
+            "maxItems": 0,
+            "minItems": 0,
+            "type": "array",
+            "items": {}
+          }
+        },
+        "additionalProperties": false
+      },
+      "errorResponseSchema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "statusCode": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Development server"
+    },
+    {
+      "url": "http://.....",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/additem": {
+      "post": {
+        "summary": "Add item to grocery list",
+        "tags": [
+          "Items"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/itemNameSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Item added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addItemResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponseSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/completeitem": {
+      "put": {
+        "summary": "Complete item from grocery list",
+        "tags": [
+          "Items"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/itemSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Item completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/completeItemResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponseSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/deleteallcompleted": {
+      "delete": {
+        "summary": "Delete all completed items from grocery list",
+        "tags": [
+          "Items"
+        ],
+        "responses": {
+          "200": {
+            "description": "Items deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deleteAllItemsResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponseSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/deleteitem": {
+      "delete": {
+        "summary": "Delete an item from either the grocery list or the completed list",
+        "tags": [
+          "Items"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/deleteItemSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Item deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deleteItemResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponseSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Get items on load",
+        "tags": [
+          "Items"
+        ],
+        "responses": {
+          "200": {
+            "description": "App metadata and items retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getItemResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponseSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recoverallcompleted": {
+      "put": {
+        "summary": "Recover all completed items to main grocery list",
+        "tags": [
+          "Items"
+        ],
+        "responses": {
+          "200": {
+            "description": "Items recovered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/recoverAllCompletedResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponseSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recoveritem": {
+      "put": {
+        "summary": "Recover one completed items to main grocery list",
+        "tags": [
+          "Items"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/itemSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Item recovered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/recoveredItemResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponseSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/updateitem": {
+      "put": {
+        "summary": "Update an item",
+        "tags": [
+          "Items"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateItemSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Item recovered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/updateItemResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponseSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/updatestorecategories": {
+      "put": {
+        "summary": "Update store category",
+        "tags": [
+          "Items"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateStoreCategoriesSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Item recovered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/updateStoreCategoriesResponseSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponseSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}

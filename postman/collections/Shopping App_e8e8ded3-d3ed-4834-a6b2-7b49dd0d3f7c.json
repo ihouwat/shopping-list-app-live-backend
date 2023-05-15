@@ -1,14 +1,15 @@
 {
 	"info": {
-		"_postman_id": "28e78675-d170-4090-a959-1cb8ded40029",
+		"_postman_id": "a4c9a673-649f-4797-a536-dc87035a2af2",
 		"name": "Shopping App",
 		"description": "Shopping list app backend API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "10202594-a4c9a673-649f-4797-a536-dc87035a2af2"
 	},
 	"item": [
 		{
 			"name": "Add item to grocery list",
-			"id": "25055564-ccda-4474-a058-ec2d83592874",
+			"id": "db99926a-71e6-486b-a67b-c263d0edbd34",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -45,7 +46,7 @@
 			},
 			"response": [
 				{
-					"id": "59f91d4e-ab38-4756-b31f-418655ef437d",
+					"id": "d654863a-3aa8-4108-bc7b-64d5139999f6",
 					"name": "Item added successfully",
 					"originalRequest": {
 						"method": "POST",
@@ -77,6 +78,7 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -88,7 +90,7 @@
 					"body": "{\n\t\"addedItem\": [\n\t\t{\n\t\t\t\"name\": \"do non \",\n\t\t\t\"id\": \"anim ipsum minim\",\n\t\t\t\"count\": 51703929.46214241,\n\t\t\t\"note\": \"labore qui ut\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"id minim\",\n\t\t\t\"id\": \"adipisicing et\",\n\t\t\t\"count\": -86202848.37290102,\n\t\t\t\"note\": \"sunt cupidatat Ut\"\n\t\t}\n\t]\n}"
 				},
 				{
-					"id": "63f6b747-8578-45f7-96f3-04627480fd57",
+					"id": "efac8c9f-328e-4740-b014-21ef6612f1b1",
 					"name": "Bad request",
 					"originalRequest": {
 						"method": "POST",
@@ -120,6 +122,7 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -134,7 +137,7 @@
 		},
 		{
 			"name": "Complete item from grocery list",
-			"id": "6b12c8b8-9785-4a7c-8ec9-7369dbb487d2",
+			"id": "ab16f347-a8e4-432f-8825-57f24c4ef826",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -171,7 +174,7 @@
 			},
 			"response": [
 				{
-					"id": "7122adf1-58d3-49a0-9bf0-ae32d9a748c3",
+					"id": "508dcc77-4f7f-4566-a6a9-00bab45ba8e5",
 					"name": "Item completed successfully",
 					"originalRequest": {
 						"method": "PUT",
@@ -203,6 +206,7 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -214,7 +218,7 @@
 					"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
 				},
 				{
-					"id": "0516cbfb-4509-4461-a6c6-b022d517c157",
+					"id": "b30273b3-4010-4201-9f27-951730cc5a0a",
 					"name": "Bad request",
 					"originalRequest": {
 						"method": "PUT",
@@ -246,6 +250,7 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -260,7 +265,7 @@
 		},
 		{
 			"name": "Delete all completed items from grocery list",
-			"id": "48a36269-0c59-472a-b98b-b8bb0746b2a6",
+			"id": "833abb43-5dcc-43b7-8f63-1ccff75dce2a",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -284,7 +289,7 @@
 			},
 			"response": [
 				{
-					"id": "08fe2c71-1b12-4797-a17c-c79a15edd8a6",
+					"id": "b1042969-bde7-49ec-935b-25f72f7326a1",
 					"name": "Items deleted successfully",
 					"originalRequest": {
 						"method": "DELETE",
@@ -307,6 +312,7 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -318,7 +324,7 @@
 					"body": "{}"
 				},
 				{
-					"id": "8089344d-89ca-4ab9-9b9a-fe5587eeb354",
+					"id": "49973a89-7a3e-4e55-92ee-d4372b5fc286",
 					"name": "Bad request",
 					"originalRequest": {
 						"method": "DELETE",
@@ -341,6 +347,7 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -355,7 +362,7 @@
 		},
 		{
 			"name": "Delete an item from either the grocery list or the completed list",
-			"id": "55a13b39-9fd7-407b-802a-dcff0f2f0b52",
+			"id": "24e9912d-b945-4f04-a439-bf6c8f6dae72",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -392,7 +399,7 @@
 			},
 			"response": [
 				{
-					"id": "7fd945b4-fc0f-4165-8db1-527d4b4b4192",
+					"id": "ffaf173e-215f-40cd-b58c-1bae67f4c369",
 					"name": "Item deleted successfully",
 					"originalRequest": {
 						"method": "DELETE",
@@ -424,6 +431,7 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -435,7 +443,7 @@
 					"body": "{\n\t\"listName\": \"dolore sed reprehenderit aliqua\",\n\t\"deletedItem\": {\n\t\t\"name\": \"sint\"\n\t}\n}"
 				},
 				{
-					"id": "21876ca6-07cd-4985-9587-805da933a8f6",
+					"id": "48088f8c-51cf-4e26-87c1-454547003902",
 					"name": "Bad request",
 					"originalRequest": {
 						"method": "DELETE",
@@ -467,6 +475,7 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -485,7 +494,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7ec9ac41-2bc8-4c0e-866c-e94d16a99d7c",
+						"id": "2b0d753e-8901-4c83-ad96-7ac687a2ff96",
 						"exec": [
 							"const schema = utils.getSchema('getItemResponseSchema');\r",
 							"\r",
@@ -508,7 +517,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "751993b4-54f9-422b-8ba4-f60c385619d8",
+						"id": "9ee30752-3aa5-4563-aba6-b3289aa2e95b",
 						"exec": [
 							""
 						],
@@ -516,7 +525,7 @@
 					}
 				}
 			],
-			"id": "6c0c82b9-ed6d-481e-a24d-5715af528d4a",
+			"id": "70ad9589-dbf7-42ef-800d-d31219d101a5",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -540,7 +549,7 @@
 			},
 			"response": [
 				{
-					"id": "cd0a209c-5e51-4782-af77-5a33e8eae472",
+					"id": "b8568bd6-6347-4f75-9dc3-eaa50d1536df",
 					"name": "App metadata and items retrieved successfully",
 					"originalRequest": {
 						"method": "GET",
@@ -563,6 +572,7 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -574,7 +584,7 @@
 					"body": "{\n\t\"items\": [\n\t\t{\n\t\t\t\"name\": \"dolor\",\n\t\t\t\"id\": \"anim\",\n\t\t\t\"count\": -38103208.32009113,\n\t\t\t\"note\": \"sunt veniam\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"do magna\",\n\t\t\t\"id\": \"mollit est laboris\",\n\t\t\t\"count\": 64181450.078927875,\n\t\t\t\"note\": \"nostrud ad id laboris\"\n\t\t}\n\t],\n\t\"completedItems\": [\n\t\t{\n\t\t\t\"name\": \"sit sunt dolor ullamco in\",\n\t\t\t\"id\": \"consectetur\",\n\t\t\t\"count\": 88073214.45899382,\n\t\t\t\"note\": \"consequat amet\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"sint officia\",\n\t\t\t\"id\": \"deserunt occaecat\",\n\t\t\t\"count\": 50032330.22636762,\n\t\t\t\"note\": \"amet id\"\n\t\t}\n\t],\n\t\"favoriteItems\": [\n\t\t{\n\t\t\t\"name\": \"dolore aliquip labore ipsum Lorem\",\n\t\t\t\"isChecked\": true\n\t\t},\n\t\t{\n\t\t\t\"name\": \"laboris nulla culpa\",\n\t\t\t\"isChecked\": true\n\t\t}\n\t],\n\t\"groceriesTemplate\": [\n\t\t{\n\t\t\t\"name\": \"occaecat ex incididunt irure eiusmod\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"Duis dolore culpa labore\"\n\t\t}\n\t],\n\t\"groceryStoreModel\": [\n\t\t{\n\t\t\t\"id\": 37597449.79727411,\n\t\t\t\"name\": \"occaecat sunt commodo officia\",\n\t\t\t\"categories\": [\n\t\t\t\t{\n\t\t\t\t\t\"items\": [\n\t\t\t\t\t\t\"ullamco\",\n\t\t\t\t\t\t\"enim magna sunt ut\"\n\t\t\t\t\t],\n\t\t\t\t\t\"category\": \"dolor veniam\",\n\t\t\t\t\t\"storeOrder\": 67747206.58808583\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"items\": [\n\t\t\t\t\t\t\"sed ex laborum magna\",\n\t\t\t\t\t\t\"consec\"\n\t\t\t\t\t],\n\t\t\t\t\t\"category\": \"sed eni\",\n\t\t\t\t\t\"storeOrder\": 65773789.58771694\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"id\": -94130925.11047748,\n\t\t\t\"name\": \"cupidatat anim\",\n\t\t\t\"categories\": [\n\t\t\t\t{\n\t\t\t\t\t\"items\": [\n\t\t\t\t\t\t\"ipsum enim\",\n\t\t\t\t\t\t\"ut dolor sunt aute magna\"\n\t\t\t\t\t],\n\t\t\t\t\t\"category\": \"amet magna esse adipisicing\",\n\t\t\t\t\t\"storeOrder\": -95218148.33489959\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"items\": [\n\t\t\t\t\t\t\"dolor laboris Lorem\",\n\t\t\t\t\t\t\"magna ullamco nostrud elit\"\n\t\t\t\t\t],\n\t\t\t\t\t\"category\": \"sit irure\",\n\t\t\t\t\t\"storeOrder\": -8775663.176575229\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}"
 				},
 				{
-					"id": "9dbd48de-51f8-4080-b830-1f96f1dd7e1c",
+					"id": "fcbfa30c-c039-46cf-9d6b-04f3ca46c49d",
 					"name": "Bad request",
 					"originalRequest": {
 						"method": "GET",
@@ -597,6 +607,7 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -611,7 +622,7 @@
 		},
 		{
 			"name": "Recover all completed items to main grocery list",
-			"id": "810d0b86-2f14-49a0-a2be-67df10be4591",
+			"id": "824b0974-512b-4e66-a14d-041234e99e33",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -635,7 +646,7 @@
 			},
 			"response": [
 				{
-					"id": "bfbd2ac9-430d-4087-a8a8-fcce0538d4ce",
+					"id": "23f1f7a8-8097-44dc-8f85-e13082b40037",
 					"name": "Items recovered successfully",
 					"originalRequest": {
 						"method": "PUT",
@@ -658,6 +669,7 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -669,7 +681,7 @@
 					"body": "{\n\t\"items\": [\n\t\t{\n\t\t\t\"name\": \"elit\",\n\t\t\t\"id\": \"culpa aliquip elit\",\n\t\t\t\"count\": 5051746.593604326,\n\t\t\t\"note\": \"aliquip sit deserunt\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"\",\n\t\t\t\"id\": \"ut dolor\",\n\t\t\t\"count\": 42998609.83004221,\n\t\t\t\"note\": \"anim Ut s\"\n\t\t}\n\t]\n}"
 				},
 				{
-					"id": "ba91a762-c64f-4b47-b01c-a06867e244a7",
+					"id": "5b6604e1-3840-4b3a-ba0e-a8d1b96a59f1",
 					"name": "Bad request",
 					"originalRequest": {
 						"method": "PUT",
@@ -692,6 +704,7 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -706,7 +719,7 @@
 		},
 		{
 			"name": "Recover one completed items to main grocery list",
-			"id": "6cfb6c51-7658-4058-83bf-e1d543dea17d",
+			"id": "b626009b-3264-4e66-9ab8-ee0a67d2e2f8",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -743,7 +756,7 @@
 			},
 			"response": [
 				{
-					"id": "30ac21c1-025a-4301-93ab-b2e89c1fea6b",
+					"id": "628ad596-8c73-4ce5-a144-b3f8dae8718b",
 					"name": "Item recovered successfully",
 					"originalRequest": {
 						"method": "PUT",
@@ -775,6 +788,7 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -786,7 +800,7 @@
 					"body": "{\n\t\"recoveredItem\": {\n\t\t\"name\": \"quis culpa \",\n\t\t\"id\": \"nostrud et ipsum eu\",\n\t\t\"count\": 97204293.76157513,\n\t\t\"note\": \"fugiat dolor\"\n\t}\n}"
 				},
 				{
-					"id": "f91455cc-7264-4293-bc80-0f253727caf9",
+					"id": "b14110c2-4de9-4ee9-8fed-5c0ef1a8de6d",
 					"name": "Bad request",
 					"originalRequest": {
 						"method": "PUT",
@@ -818,6 +832,7 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -832,7 +847,7 @@
 		},
 		{
 			"name": "Update an item",
-			"id": "b7859613-faf5-4dc9-bf88-7a2f718cb2bd",
+			"id": "8a631ebf-e055-4495-8505-d0724aa201e6",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -869,7 +884,7 @@
 			},
 			"response": [
 				{
-					"id": "e0ef1b04-b625-4d05-acbf-5b2c8adf2c8f",
+					"id": "cda67873-0790-486e-8b53-6ef3d1e0f64b",
 					"name": "Item recovered successfully",
 					"originalRequest": {
 						"method": "PUT",
@@ -901,6 +916,7 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -912,7 +928,7 @@
 					"body": "{\n\t\"updatedItem\": {\n\t\t\"name\": \"officia laborum aliquip nostrud\",\n\t\t\"id\": \"dolore\",\n\t\t\"count\": -20231064.542687133,\n\t\t\"note\": \"dolore consectetur consequat\"\n\t}\n}"
 				},
 				{
-					"id": "b0e06e67-e0d8-4386-884f-ee8b70bec729",
+					"id": "0bd15564-016e-486b-9e65-6e4635495d32",
 					"name": "Bad request",
 					"originalRequest": {
 						"method": "PUT",
@@ -944,6 +960,7 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -958,7 +975,7 @@
 		},
 		{
 			"name": "Update store category",
-			"id": "d93c329f-e157-4bea-b9b2-0054eeaee8d6",
+			"id": "4c784893-97fc-4d57-84a1-d89e312fe72b",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -995,7 +1012,7 @@
 			},
 			"response": [
 				{
-					"id": "5f233da6-2a0b-4e5f-9798-4f79a2bcf9dc",
+					"id": "f5247f1b-e1d6-41c4-8cbc-6d452a6369d3",
 					"name": "Item recovered successfully",
 					"originalRequest": {
 						"method": "PUT",
@@ -1027,6 +1044,7 @@
 					"status": "OK",
 					"code": 200,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -1038,7 +1056,7 @@
 					"body": "{\n\t\"updatedModel\": {\n\t\t\"id\": 94118617.32989845,\n\t\t\"name\": \"eiusmod\",\n\t\t\"categories\": [\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"veniam\",\n\t\t\t\t\t\"esse ea commodo\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"mollit veniam\",\n\t\t\t\t\"storeOrder\": -75131724.2335631\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"dolore laboris\",\n\t\t\t\t\t\"exercitation in labore\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"in id\",\n\t\t\t\t\"storeOrder\": 16308232.592923447\n\t\t\t}\n\t\t]\n\t}\n}"
 				},
 				{
-					"id": "bc1a12dc-9a70-4361-a93b-7a3c7326f78b",
+					"id": "43f1dd7c-c1c6-4f9a-a7f2-a73a01935421",
 					"name": "Bad request",
 					"originalRequest": {
 						"method": "PUT",
@@ -1070,6 +1088,7 @@
 					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "html",
 					"header": [
 						{
 							"key": "Content-Type",
@@ -1087,7 +1106,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "4c509e4a-7259-4155-9167-bf2b877a1ac7",
+				"id": "f56ee9e7-03b5-4ce6-b3cf-997b56b36b8b",
 				"type": "text/javascript",
 				"exec": [
 					"utils = {",
@@ -1101,7 +1120,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "2212a91a-393c-438b-976d-7697fbd03f75",
+				"id": "c97d5a96-782a-43cb-86a3-54fbcaa7b3b6",
 				"type": "text/javascript",
 				"exec": [
 					""
