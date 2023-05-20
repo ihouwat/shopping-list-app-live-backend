@@ -21,9 +21,7 @@ const itemSchema = Joi.object({
 
 const deleteItemSchema = Joi.object({
 	listName: Joi.string().required(),
-	item: Joi.object({
-		name: Joi.string().required(),
-	}).required(),
+	id: Joi.string().required(),
 });
 
 const updateItemSchema = Joi.object({
