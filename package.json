@@ -22,7 +22,8 @@
     "start:dev": "nodemon server.js",
     "test": "jest",
     "test:dev": "jest --watch --verbose --coverage --collectCoverage=false",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "schema": "node ./postman/generateSchemaJSON.js"
   },
   "devDependencies": {
     "eslint": "^8.39.0",
