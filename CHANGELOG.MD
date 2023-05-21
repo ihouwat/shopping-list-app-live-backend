@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [0.1.9] - 2023-05-20
 ### Changed
 - Updated `/deleteItem` to delete by id instead of name
+- Update README to include instructions for running functional tests
+
+### Added
+- Script to generate schema for Postman tests
+- File to document functional test workflow
 
 ## [0.1.8] - 2023-05-14
 ### Changed
