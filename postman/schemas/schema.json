@@ -312,27 +312,30 @@
                 "type": "object",
                 "properties": {
                     "recoveredItem": {
-                        "required": [
-                            "name",
-                            "id",
-                            "count"
-                        ],
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string"
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "name",
+                                "id",
+                                "count"
+                            ],
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "id": {
+                                    "type": "string"
+                                },
+                                "note": {
+                                    "type": "string"
+                                },
+                                "count": {
+                                    "type": "number"
+                                }
                             },
-                            "id": {
-                                "type": "string"
-                            },
-                            "note": {
-                                "type": "string"
-                            },
-                            "count": {
-                                "type": "number"
-                            }
-                        },
-                        "additionalProperties": false
+                            "additionalProperties": false
+                        }
                     }
                 },
                 "additionalProperties": false
@@ -353,27 +356,30 @@
                 "type": "object",
                 "properties": {
                     "updatedItem": {
-                        "required": [
-                            "name",
-                            "id",
-                            "count"
-                        ],
-                        "type": "object",
-                        "properties": {
-                            "name": {
-                                "type": "string"
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "id": {
+                                    "type": "string"
+                                },
+                                "note": {
+                                    "type": "string"
+                                },
+                                "count": {
+                                    "type": "number"
+                                }
                             },
-                            "id": {
-                                "type": "string"
-                            },
-                            "note": {
-                                "type": "string"
-                            },
-                            "count": {
-                                "type": "number"
-                            }
-                        },
-                        "additionalProperties": false
+                            "required": [
+                                "name",
+                                "id",
+                                "count"
+                            ],
+                            "additionalProperties": false
+                        }
                     }
                 },
                 "additionalProperties": false

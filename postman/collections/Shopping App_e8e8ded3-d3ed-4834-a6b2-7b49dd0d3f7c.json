@@ -512,7 +512,6 @@
 									"console.log('update an item');\r",
 									"const schema = utils.getSchema('updateItemResponseSchema');\r",
 									"\r",
-									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
@@ -534,7 +533,17 @@
 									"    pm.expect(pm.response.json().updatedItem[0].count).to.equal(3);\r",
 									"    pm.expect(JSON.stringify(pm.response.json().updatedItem[0].id)).to.equal(pm.collectionVariables.get('addedItem0.id'));\r",
 									"    pm.expect(JSON.stringify(pm.response.json().updatedItem[0].name)).to.equal(pm.collectionVariables.get('addedItem0.name'));\r",
-									"})\r",
+									"});\r",
+									"\r",
+									"pm.test('Check items in grocery list', () => {\r",
+									"    pm.sendRequest(utils.getItemsRequest(), (err, res) => {\r",
+									"        const response = res.json();\r",
+									"        pm.test('item has been updated in database', () => {\r",
+									"            pm.expect(response.items.find(i => JSON.stringify(i.id) === pm.collectionVariables.get('addedItem0.id')).count).to.equal(3)\r",
+									"            pm.expect(response.items.find(i => JSON.stringify(i.id) === pm.collectionVariables.get('addedItem0.id')).note).to.equal('a new note was added');\r",
+									"        });\r",
+									"    });\r",
+									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -656,6 +665,509 @@
 									],
 									"path": [
 										"updateitem"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+						}
+					]
+				},
+				{
+					"name": "Complete item from grocery list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+								"exec": [
+									"console.log('update an item');\r",
+									"const schema = utils.getSchema('completeItemResponseSchema');\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has JSON body\", () => {\r",
+									"    pm.response.to.have.jsonBody;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"schema is valid\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response returns item id\", () => {\r",
+									"    pm.expect(pm.response.json().completedItemId).to.equal(JSON.parse(pm.collectionVariables.get('addedItem0.id')));\r",
+									"});\r",
+									"\r",
+									"pm.test('Check item has moved to completed items list', () => {\r",
+									"    pm.sendRequest(utils.getItemsRequest(), (err, res) => {\r",
+									"        const response = res.json();\r",
+									"        pm.test('item is no longer in items list', () => {\r",
+									"            pm.expect(response.items.find(i => JSON.stringify(i.id) === pm.collectionVariables.get('addedItem0.id'))).to.equal(undefined)\r",
+									"        });\r",
+									"\r",
+									"        pm.test('item is in completed items list', () => {\r",
+									"            pm.expect(response.completedItems.filter(i => JSON.stringify(i.id) === pm.collectionVariables.get('addedItem0.id')).length).to.equal(1);\r",
+									"        });\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "ab16f347-a8e4-432f-8825-57f24c4ef826",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"item\": {\n        \"name\": {{addedItem0.name}},\n        \"id\": {{addedItem0.id}},\n        \"note\": {{addedItem0.note}},\n        \"count\": {{addedItem1.count}}\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/completeitem",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"completeitem"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "508dcc77-4f7f-4566-a6a9-00bab45ba8e5",
+							"name": "Item completed successfully",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/completeitem",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"completeitem"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+						},
+						{
+							"id": "b30273b3-4010-4201-9f27-951730cc5a0a",
+							"name": "Bad request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/completeitem",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"completeitem"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+						}
+					]
+				},
+				{
+					"name": "Recover one completed item to main grocery list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6979adf-df29-44df-b3a9-d92d3ef4d8d9",
+								"exec": [
+									"console.log('recover an item');\r",
+									"const schema = utils.getSchema('recoveredItemResponseSchema');\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has JSON body\", () => {\r",
+									"    pm.response.to.have.jsonBody;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"schema is valid\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema)\r",
+									"});\r",
+									"\r",
+									"pm.test('Check item has moved back to items list', () => {\r",
+									"    pm.sendRequest(utils.getItemsRequest(), (err, res) => {\r",
+									"        const response = res.json();\r",
+									"\r",
+									"        pm.test('item is in items list', () => {\r",
+									"            pm.expect(response.completedItems.find(i => JSON.stringify(i.id) === pm.collectionVariables.get('addedItem0.id'))).to.equal(undefined);\r",
+									"        });\r",
+									"        \r",
+									"        pm.test('item is no longer in completed items list', () => {\r",
+									"            pm.expect(response.items.filter(i => JSON.stringify(i.id) === pm.collectionVariables.get('addedItem0.id')).length).to.equal(1)\r",
+									"        });\r",
+									"\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "b626009b-3264-4e66-9ab8-ee0a67d2e2f8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"item\": {\n        \"name\": {{addedItem0.name}},\n        \"id\": {{addedItem0.id}},\n        \"note\": {{addedItem0.note}},\n        \"count\": {{addedItem1.count}}\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/recoveritem",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"recoveritem"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "628ad596-8c73-4ce5-a144-b3f8dae8718b",
+							"name": "Item recovered successfully",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/recoveritem",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"recoveritem"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n\t\"recoveredItem\": {\n\t\t\"name\": \"quis culpa \",\n\t\t\"id\": \"nostrud et ipsum eu\",\n\t\t\"count\": 97204293.76157513,\n\t\t\"note\": \"fugiat dolor\"\n\t}\n}"
+						},
+						{
+							"id": "b14110c2-4de9-4ee9-8fed-5c0ef1a8de6d",
+							"name": "Bad request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/recoveritem",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"recoveritem"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete an item from either the grocery list or the completed list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9901bb85-9e9c-4aff-a75f-f8d39d92a23a",
+								"exec": [
+									"console.log('delete an item');\r",
+									"const schema = utils.getSchema('deleteItemResponseSchema');\r",
+									"console.log(pm.request.body.raw)\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Has JSON body\", () => {\r",
+									"    pm.response.to.have.jsonBody;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"schema is valid\", () => {\r",
+									"    pm.response.to.have.jsonSchema(schema)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "24e9912d-b945-4f04-a439-bf6c8f6dae72",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"listName\": \"items\",\n    \"id\": {{addedItem0.id}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/deleteitem",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"deleteitem"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "ffaf173e-215f-40cd-b58c-1bae67f4c369",
+							"name": "Item deleted successfully",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"listName\": \"dolor dolore et in\",\n\t\"item\": {\n\t\t\"name\": \"minim\"\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteitem",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteitem"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n\t\"listName\": \"dolore sed reprehenderit aliqua\",\n\t\"deletedItem\": {\n\t\t\"name\": \"sint\"\n\t}\n}"
+						},
+						{
+							"id": "48088f8c-51cf-4e26-87c1-454547003902",
+							"name": "Bad request",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"listName\": \"dolor dolore et in\",\n\t\"item\": {\n\t\t\"name\": \"minim\"\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteitem",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteitem"
 									]
 								}
 							},
@@ -1160,130 +1672,6 @@
 			"id": "2b9d3242-585c-489e-b45b-a5d2d823f28f"
 		},
 		{
-			"name": "Complete item from grocery list",
-			"id": "ab16f347-a8e4-432f-8825-57f24c4ef826",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"item\": {\n        \"name\": \"nulla laboris\",\n        \"id\": \"cn0b74bqw\",\n        \"note\": \"\",\n        \"count\": 1\n\t}\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/completeitem",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"completeitem"
-					]
-				}
-			},
-			"response": [
-				{
-					"id": "508dcc77-4f7f-4566-a6a9-00bab45ba8e5",
-					"name": "Item completed successfully",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/completeitem",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"completeitem"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
-				},
-				{
-					"id": "b30273b3-4010-4201-9f27-951730cc5a0a",
-					"name": "Bad request",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/completeitem",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"completeitem"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
-				}
-			]
-		},
-		{
 			"name": "Delete all completed items from grocery list",
 			"id": "833abb43-5dcc-43b7-8f63-1ccff75dce2a",
 			"protocolProfileBehavior": {
@@ -1359,130 +1747,6 @@
 							],
 							"path": [
 								"deleteallcompleted"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
-				}
-			]
-		},
-		{
-			"name": "Delete an item from either the grocery list or the completed list",
-			"id": "24e9912d-b945-4f04-a439-bf6c8f6dae72",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"listName\": \"items\",\n\t\"item\": {\n\t\t\"name\": \"asdf\"\n\t}\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/deleteitem",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"deleteitem"
-					]
-				}
-			},
-			"response": [
-				{
-					"id": "ffaf173e-215f-40cd-b58c-1bae67f4c369",
-					"name": "Item deleted successfully",
-					"originalRequest": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"listName\": \"dolor dolore et in\",\n\t\"item\": {\n\t\t\"name\": \"minim\"\n\t}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/deleteitem",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"deleteitem"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n\t\"listName\": \"dolore sed reprehenderit aliqua\",\n\t\"deletedItem\": {\n\t\t\"name\": \"sint\"\n\t}\n}"
-				},
-				{
-					"id": "48088f8c-51cf-4e26-87c1-454547003902",
-					"name": "Bad request",
-					"originalRequest": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"listName\": \"dolor dolore et in\",\n\t\"item\": {\n\t\t\"name\": \"minim\"\n\t}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/deleteitem",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"deleteitem"
 							]
 						}
 					},
@@ -1592,143 +1856,28 @@
 					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
 				}
 			]
-		},
-		{
-			"name": "Recover one completed items to main grocery list",
-			"id": "b626009b-3264-4e66-9ab8-ee0a67d2e2f8",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/recoveritem",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"recoveritem"
-					]
-				}
-			},
-			"response": [
-				{
-					"id": "628ad596-8c73-4ce5-a144-b3f8dae8718b",
-					"name": "Item recovered successfully",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/recoveritem",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"recoveritem"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n\t\"recoveredItem\": {\n\t\t\"name\": \"quis culpa \",\n\t\t\"id\": \"nostrud et ipsum eu\",\n\t\t\"count\": 97204293.76157513,\n\t\t\"note\": \"fugiat dolor\"\n\t}\n}"
-				},
-				{
-					"id": "b14110c2-4de9-4ee9-8fed-5c0ef1a8de6d",
-					"name": "Bad request",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/recoveritem",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"recoveritem"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
-				}
-			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "a4c94daf-0fdd-4988-bcc8-8e53023715db",
+				"id": "41a39197-6db3-4816-9fbd-cbabc73d5dd1",
 				"type": "text/javascript",
 				"exec": [
 					"utils = {",
 					"    getSchema(schema) {",
 					"        return JSON.parse(pm.variables.get('schema')).components.schemas[schema];",
-					"    } ",
+					"    },",
+					"    getItemsRequest() {",
+					"        return {",
+					"            url: pm.environment.get('BASE_URL') + '/',",
+					"            method: 'GET',",
+					"            headers: {",
+					"                \"Content-Type\": \"application/json\"",
+					"            }",
+					"        }",
+					"    }",
 					"}"
 				]
 			}
@@ -1736,7 +1885,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "9bd7c1b7-727a-4e2c-83c1-296cd496758f",
+				"id": "d457b3b1-ae6c-4297-b092-8f73c877c5fd",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1746,60 +1895,60 @@
 	],
 	"variable": [
 		{
-			"id": "13685137-db17-44a2-a12d-b7105c138f12",
+			"id": "40480fa0-5c32-4999-921b-a5a99f101c42",
 			"key": "baseUrl",
 			"value": "http://localhost:3000",
 			"type": "string"
 		},
 		{
-			"id": "c5cbd6a2-f2a3-438b-8f8e-224eb3c4bc32",
+			"id": "d5fc86e0-b31e-4d26-9909-4c8c3616ddca",
 			"key": "schema",
 			"value": "{\n  \"openapi\": \"3.1.0\",\n  \"info\": {\n    \"title\": \"Shopping App\",\n    \"version\": \"1.0.0\",\n    \"description\": \"Shopping list app backend API\",\n    \"license\": {\n      \"name\": \"All Rights Reserved\"\n    }\n  },\n  \"components\": {\n    \"schemas\": {\n      \"itemNameSchema\": {\n        \"required\": [\n          \"name\"\n        ],\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": {\n            \"type\": \"string\"\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"itemSchema\": {\n        \"required\": [\n          \"item\"\n        ],\n        \"type\": \"object\",\n        \"properties\": {\n          \"item\": {\n            \"required\": [\n              \"name\",\n              \"id\",\n              \"count\"\n            ],\n            \"type\": \"object\",\n            \"properties\": {\n              \"name\": {\n                \"type\": \"string\"\n              },\n              \"id\": {\n                \"type\": \"string\"\n              },\n              \"note\": {\n                \"type\": \"string\"\n              },\n              \"count\": {\n                \"type\": \"number\"\n              }\n            },\n            \"additionalProperties\": false\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"deleteItemSchema\": {\n        \"required\": [\n          \"listName\",\n          \"item\"\n        ],\n        \"type\": \"object\",\n        \"properties\": {\n          \"listName\": {\n            \"type\": \"string\"\n          },\n          \"item\": {\n            \"required\": [\n              \"name\"\n            ],\n            \"type\": \"object\",\n            \"properties\": {\n              \"name\": {\n                \"type\": \"string\"\n              }\n            },\n            \"additionalProperties\": false\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"updateItemSchema\": {\n        \"required\": [\n          \"id\",\n          \"count\"\n        ],\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": {\n            \"type\": \"string\"\n          },\n          \"note\": {\n            \"type\": \"string\"\n          },\n          \"count\": {\n            \"type\": \"number\"\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"updateStoreCategoriesSchema\": {\n        \"required\": [\n          \"itemName\",\n          \"stores\"\n        ],\n        \"type\": \"object\",\n        \"properties\": {\n          \"itemName\": {\n            \"type\": \"string\"\n          },\n          \"stores\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"required\": [\n                \"storeName\",\n                \"category\"\n              ],\n              \"type\": \"object\",\n              \"properties\": {\n                \"storeName\": {\n                  \"type\": \"string\"\n                },\n                \"category\": {\n                  \"type\": \"string\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"addItemResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"addedItem\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"required\": [\n                \"name\",\n                \"id\",\n                \"count\"\n              ],\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"id\": {\n                  \"type\": \"string\"\n                },\n                \"note\": {\n                  \"type\": \"string\"\n                },\n                \"count\": {\n                  \"type\": \"number\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"getItemResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"items\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"required\": [\n                \"name\",\n                \"id\",\n                \"count\"\n              ],\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"id\": {\n                  \"type\": \"string\"\n                },\n                \"note\": {\n                  \"type\": \"string\"\n                },\n                \"count\": {\n                  \"type\": \"number\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          },\n          \"completedItems\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"required\": [\n                \"name\",\n                \"id\",\n                \"count\"\n              ],\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"id\": {\n                  \"type\": \"string\"\n                },\n                \"note\": {\n                  \"type\": \"string\"\n                },\n                \"count\": {\n                  \"type\": \"number\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          },\n          \"favoriteItems\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"isChecked\": {\n                  \"type\": \"boolean\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          },\n          \"groceriesTemplate\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          },\n          \"groceryStoreModel\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"id\": {\n                  \"type\": \"number\"\n                },\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"categories\": {\n                  \"oneOf\": [\n                    {\n                      \"type\": \"array\",\n                      \"items\": {\n                        \"type\": \"object\",\n                        \"properties\": {\n                          \"items\": {\n                            \"type\": \"array\",\n                            \"items\": {\n                              \"type\": \"string\"\n                            }\n                          },\n                          \"category\": {\n                            \"type\": \"string\"\n                          },\n                          \"storeOrder\": {\n                            \"type\": \"number\"\n                          }\n                        },\n                        \"additionalProperties\": false\n                      }\n                    },\n                    {\n                      \"type\": null\n                    }\n                  ]\n                }\n              },\n              \"additionalProperties\": false\n            }\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"completeItemResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"completedItemId\": {\n            \"type\": \"string\"\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"deleteItemResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"listName\": {\n            \"type\": \"string\"\n          },\n          \"deletedItem\": {\n            \"type\": \"object\",\n            \"properties\": {\n              \"name\": {\n                \"type\": \"string\"\n              }\n            },\n            \"additionalProperties\": false\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"recoveredItemResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"recoveredItem\": {\n            \"required\": [\n              \"name\",\n              \"id\",\n              \"count\"\n            ],\n            \"type\": \"object\",\n            \"properties\": {\n              \"name\": {\n                \"type\": \"string\"\n              },\n              \"id\": {\n                \"type\": \"string\"\n              },\n              \"note\": {\n                \"type\": \"string\"\n              },\n              \"count\": {\n                \"type\": \"number\"\n              }\n            },\n            \"additionalProperties\": false\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"deleteAllItemsResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"completeditems\": {\n            \"maxItems\": 0,\n            \"minItems\": 0,\n            \"type\": \"array\",\n            \"items\": {}\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"updateItemResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"updatedItem\": {\n            \"required\": [\n              \"name\",\n              \"id\",\n              \"count\"\n            ],\n            \"type\": \"object\",\n            \"properties\": {\n              \"name\": {\n                \"type\": \"string\"\n              },\n              \"id\": {\n                \"type\": \"string\"\n              },\n              \"note\": {\n                \"type\": \"string\"\n              },\n              \"count\": {\n                \"type\": \"number\"\n              }\n            },\n            \"additionalProperties\": false\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"updateStoreCategoriesResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"updatedModel\": {\n            \"type\": \"object\",\n            \"properties\": {\n              \"id\": {\n                \"type\": \"number\"\n              },\n              \"name\": {\n                \"type\": \"string\"\n              },\n              \"categories\": {\n                    \"oneOf\": [\n                        {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                            \"items\": {\n                                \"type\": \"array\",\n                                \"items\": {\n                                \"type\": \"string\"\n                                }\n                            },\n                            \"category\": {\n                                \"type\": \"string\"\n                            },\n                            \"storeOrder\": {\n                                \"type\": \"number\"\n                            }\n                            },\n                            \"additionalProperties\": false\n                        }\n                        },\n                        {\"type\": \"null\" }\n                    ]\n                }\n            },\n            \"additionalProperties\": false\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"recoverAllCompletedResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"items\": {\n            \"type\": \"array\",\n            \"items\": {\n              \"required\": [\n                \"name\",\n                \"id\",\n                \"count\"\n              ],\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                },\n                \"id\": {\n                  \"type\": \"string\"\n                },\n                \"note\": {\n                  \"type\": \"string\"\n                },\n                \"count\": {\n                  \"type\": \"number\"\n                }\n              },\n              \"additionalProperties\": false\n            }\n          },\n          \"completedItems\": {\n            \"maxItems\": 0,\n            \"minItems\": 0,\n            \"type\": \"array\",\n            \"items\": {}\n          }\n        },\n        \"additionalProperties\": false\n      },\n      \"errorResponseSchema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"error\": {\n            \"type\": \"string\"\n          },\n          \"statusCode\": {\n            \"type\": \"number\"\n          }\n        },\n        \"additionalProperties\": false\n      }\n    }\n  },\n  \"servers\": [\n    {\n      \"url\": \"http://localhost:3000\",\n      \"description\": \"Development server\"\n    },\n    {\n      \"url\": \"http://.....\",\n      \"description\": \"Production server\"\n    }\n  ],\n  \"paths\": {\n    \"/additem\": {\n      \"post\": {\n        \"summary\": \"Add item to grocery list\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"requestBody\": {\n          \"required\": true,\n          \"content\": {\n            \"application/json\": {\n              \"schema\": {\n                \"$ref\": \"#/components/schemas/itemNameSchema\"\n              }\n            }\n          }\n        },\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Item added successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/addItemResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/completeitem\": {\n      \"put\": {\n        \"summary\": \"Complete item from grocery list\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"requestBody\": {\n          \"required\": true,\n          \"content\": {\n            \"application/json\": {\n              \"schema\": {\n                \"$ref\": \"#/components/schemas/itemSchema\"\n              }\n            }\n          }\n        },\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Item completed successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/completeItemResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/deleteallcompleted\": {\n      \"delete\": {\n        \"summary\": \"Delete all completed items from grocery list\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Items deleted successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/deleteAllItemsResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/deleteitem\": {\n      \"delete\": {\n        \"summary\": \"Delete an item from either the grocery list or the completed list\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"requestBody\": {\n          \"required\": true,\n          \"content\": {\n            \"application/json\": {\n              \"schema\": {\n                \"$ref\": \"#/components/schemas/deleteItemSchema\"\n              }\n            }\n          }\n        },\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Item deleted successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/deleteItemResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/\": {\n      \"get\": {\n        \"summary\": \"Get items on load\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"App metadata and items retrieved successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/getItemResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/recoverallcompleted\": {\n      \"put\": {\n        \"summary\": \"Recover all completed items to main grocery list\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Items recovered successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/recoverAllCompletedResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/recoveritem\": {\n      \"put\": {\n        \"summary\": \"Recover one completed items to main grocery list\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"requestBody\": {\n          \"required\": true,\n          \"content\": {\n            \"application/json\": {\n              \"schema\": {\n                \"$ref\": \"#/components/schemas/itemSchema\"\n              }\n            }\n          }\n        },\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Item recovered successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/recoveredItemResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/updateitem\": {\n      \"put\": {\n        \"summary\": \"Update an item\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"requestBody\": {\n          \"required\": true,\n          \"content\": {\n            \"application/json\": {\n              \"schema\": {\n                \"$ref\": \"#/components/schemas/updateItemSchema\"\n              }\n            }\n          }\n        },\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Item recovered successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/updateItemResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/updatestorecategories\": {\n      \"put\": {\n        \"summary\": \"Update store category\",\n        \"tags\": [\n          \"Items\"\n        ],\n        \"requestBody\": {\n          \"required\": true,\n          \"content\": {\n            \"application/json\": {\n              \"schema\": {\n                \"$ref\": \"#/components/schemas/updateStoreCategoriesSchema\"\n              }\n            }\n          }\n        },\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Item recovered successfully\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/updateStoreCategoriesResponseSchema\"\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Bad request\",\n            \"content\": {\n              \"application/json\": {\n                \"schema\": {\n                  \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  },\n  \"tags\": []\n}",
 			"type": "string"
 		},
 		{
-			"id": "a945ba87-74b5-4899-b192-b5889636dd92",
+			"id": "3e7b43f7-abd7-41b8-a746-3dceb0623acb",
 			"key": "itemName",
 			"value": "{{$randomProduct}}{{$randomInt}}{{$randomInt}}",
 			"type": "string"
 		},
 		{
-			"id": "25fe6732-3b96-4592-9a97-727003b86174",
+			"id": "513dcc67-18dc-47c8-bc02-02a4d4eaa733",
 			"key": "addedItem0.name",
 			"value": ""
 		},
 		{
-			"id": "8bdca8cb-f7c4-44da-8670-be1652bd1a4b",
+			"id": "c11878e0-4ccf-40ae-9547-427a1dfbddc1",
 			"key": "addedItem0.id",
 			"value": ""
 		},
 		{
-			"id": "06aca0c7-97f5-4207-aa48-d68995ea8d60",
+			"id": "91c5cbf5-0704-4156-997d-46c635710714",
 			"key": "addedItem0.note",
 			"value": ""
 		},
 		{
-			"id": "a50bec65-d208-45cb-a1ce-79bf3b6320c6",
+			"id": "7adcab2c-409f-4245-ab7d-099abebc6826",
 			"key": "addedItem0.count",
 			"value": ""
 		},
 		{
-			"id": "c4105f1a-0443-4956-bafc-c114138783e5",
+			"id": "afb7bda5-2b5b-4cfb-85e6-75cb06f7653d",
 			"key": "addedItem1.name",
 			"value": ""
 		},
 		{
-			"id": "cd9def49-2469-4ee5-9392-81e790085751",
+			"id": "77312494-742c-4181-a0a1-cdb7717e51f4",
 			"key": "addedItem1.id",
 			"value": ""
 		},
 		{
-			"id": "f9a5f4cf-007c-4c3e-8cbc-236318625b5c",
+			"id": "058d3801-bddf-490d-9409-8e83ab4869a7",
 			"key": "addedItem1.note",
 			"value": ""
 		},
 		{
-			"id": "a92789c2-b560-4bf4-9af5-032b3474a1b8",
+			"id": "04a3b2f2-110d-4a79-9397-74212cd957c3",
 			"key": "addedItem1.count",
 			"value": ""
 		}
