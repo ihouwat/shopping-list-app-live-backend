@@ -5,10 +5,12 @@ update second item count and note DONE
 	get and check items list DONE
 complete first item DONE
 	get and check items and completed lists DONE
-recover item from completed list
+recover first item from completed list
 	get and check items and completed lists DONE
-delete item from items list
-complete item
+delete first item from items list
+	first check item is in items list
+	after delete, check item is no longer in items list
+complete second item
 recover all
-complte item
-delete all
+complete second item
+delete all from completed list
