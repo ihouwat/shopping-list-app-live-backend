@@ -2,11 +2,11 @@ get items and check list lengths DONE
 add two uncategorized items DONE
 categorize the first added item in one store	DONE
 update second item count and note DONE
-	NEED TO FIX SCHEMA
-	get and check items list 
-complete one item
-get and check items and completed lists
+	get and check items list DONE
+complete first item DONE
+	get and check items and completed lists DONE
 recover item from completed list
+	get and check items and completed lists DONE
 delete item from items list
 complete item
 recover all
