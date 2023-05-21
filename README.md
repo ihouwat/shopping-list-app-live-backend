@@ -65,7 +65,7 @@ Functional tests are run with Newman and Postman. Schemas and collections are in
 * `BASE_URL`: for testing in different environments
 ### Set collection variables
 * `baseURL`: for testing in different environments
-* `schema`: for schema validation. To generate a schema, run `npm run schema` and copy the output `./postman/schemas/schema.json` content to the collection variable. Note that **some of the `anyOf` definitions will not work in Postman**, so don't override these. Ex: see groceryStoreModel and updateStoreCategoriesResponseSchema. Also manualy change openapi version to 3.1.0 in the schema file.
+* `schema`: for schema validation. To generate a schema, run `npm run schema` and copy the output `./postman/schemas/schema.json` content to the collection variable. Note that **some of the `anyOf` definitions and array schemas don't translate properly in Postman**, so don't override these. Ex: see groceryStoreModel and updateStoreCategoriesResponseSchema. Also manualy change openapi version to 3.1.0 in the schema file.
 * `itemName`: random string to use for item name
 
 ### Run tests

@@ -41,9 +41,7 @@ const completeItemResponseSchema = Joi.object({
 
 const deleteItemResponseSchema = Joi.object({
 	listName: Joi.string(),
-	deletedItem: Joi.object({
-		name: Joi.string(),
-	}),
+	deletedItem: validationSchemas.baseItemSchema
 });
 
 const recoveredItemResponseSchema = Joi.object({
