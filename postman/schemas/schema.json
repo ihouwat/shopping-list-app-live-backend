@@ -297,10 +297,24 @@
                         "type": "string"
                     },
                     "deletedItem": {
+                        "required": [
+                            "name",
+                            "id",
+                            "count"
+                        ],
                         "type": "object",
                         "properties": {
                             "name": {
                                 "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "note": {
+                                "type": "string"
+                            },
+                            "count": {
+                                "type": "number"
                             }
                         },
                         "additionalProperties": false
