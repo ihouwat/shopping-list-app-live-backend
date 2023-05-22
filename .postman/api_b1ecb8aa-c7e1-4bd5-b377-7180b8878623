@@ -9,6 +9,7 @@ id = b1ecb8aa-c7e1-4bd5-b377-7180b8878623
 
 [config.relations.collections]
 rootDirectory = postman/collections
+files[] = {"id":"10202594-4a4060c0-8874-42ab-b692-1c9a51723db2","path":"Local-home.postman_environment.json","metaData":{}}
 files[] = {"id":"10202594-a4c9a673-649f-4797-a536-dc87035a2af2","path":"Shopping App_e8e8ded3-d3ed-4834-a6b2-7b49dd0d3f7c.json","metaData":{}}
 
 [config.relations.collections.metaData]
