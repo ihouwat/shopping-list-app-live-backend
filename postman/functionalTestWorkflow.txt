@@ -1,16 +1,27 @@
-get items and check list lengths DONE
-add two uncategorized items DONE
-categorize the first added item in one store	DONE
-update second item count and note DONE
-	get and check items list DONE
-complete first item DONE
-	get and check items and completed lists DONE
-recover first item from completed list
-	get and check items and completed lists DONE
-delete first item from items list
-	first check item is in items list
-	after delete, check item is no longer in items list
-complete second item
-recover all
-complete second item
-delete all from completed list
+Get items and check list lengths DONE
+Add two uncategorized items DONE
+Categorize the first added item in one store	DONE
+Update second item count and note DONE
+	Get and check items list DONE
+Complete first item DONE
+	Get and check items and completed lists DONE
+Recover first item from completed list
+	Get and check items and completed lists DONE
+Delete first item from items list DONE
+	PRE-REQUEST SCRIPT: Check item is in items list DONE
+	After delete, check item is no longer in items list DONE
+Recover all items from completed list DONE
+	PRE-REQUEST SCRIPTS:
+		Check second item is in grocery list
+		Complete second item
+		Check second item is in completed list
+		Check second item is no longer in grocery list
+	Check completed items list is empty
+Delete all from completed list
+	PRE-REQUEST SCRIPTS:
+		Check second item is in grocery list
+		Complete second item
+		Check second item is in completed list
+		Check second item is no longer in grocery list
+	Check completed items list is empty
+Clean up collection variables and items/completed items lists if env is not production
