@@ -1,7 +1,7 @@
 const knex = require('knex');
 
 const setConnectionConfig = () => {
-	if (process.env.NODE_ENV === 'production') {
+	if (process.env.NODE_ENV !== 'development') {
 		return {
 			connectionString: process.env.DATABASE_URL,
 			ssl: true,
