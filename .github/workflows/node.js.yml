@@ -32,10 +32,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Configure Git
-      run: |
-        git config --global user.name "Igor"
-        git config --global user.email "houwat@gmail.com"
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -50,16 +46,13 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: Configure Git
-      run: |
-        git config --global user.name "Igor"
-        git config --global user.email "houwat@gmail.com"
-    - name: Deploy to Staging Env Heroku
-      uses: akhileshns/heroku-deploy@v3.12.12
-      with:
-        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-        heroku_app_name: 'quickshopper-backend-staging'
-        heroku_email: ${{ secrets.HEROKU_EMAIL }}
+      - uses: actions/checkout@v2
+      - name: Deploy to Staging Env Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: 'quickshopper-backend-staging'
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
 
   visual-regression-test:
     needs: deploy-staging
