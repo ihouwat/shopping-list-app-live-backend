@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [0.1.10] - 2023-05-27
 ### Changed
-- Update CI workflow to deploy to Heroku staging environment
+- Update CI workflow to deploy to Heroku staging environment and run functional tests
+- Update README with secrets for Heroku deploys
+- Download grocery store model and template data dumps
 
 ## [0.1.9] - 2023-05-20
 ### Changed
