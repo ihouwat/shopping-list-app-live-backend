@@ -1,5 +1,5 @@
 const { mockKnex, res } = require('./testSetup');
-const deleteAllCompleted = require('../../controllers/deleteAllCompleted');
+const deleteAllCompleted = require('../../src/controllers/deleteAllCompleted');
 
 const req = {};
 

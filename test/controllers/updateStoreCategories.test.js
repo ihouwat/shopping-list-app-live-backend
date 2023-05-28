@@ -1,5 +1,5 @@
 const { mockKnex, res } = require('./testSetup');
-const updateStoreCategories = require('../../controllers/updateStoreCategories');
+const updateStoreCategories = require('../../src/controllers/updateStoreCategories');
 
 const req = { body: { itemName: 'Apples', stores: [{storeName: 'Meijer', category: 'Produce'}, {storeName: 'Kroger', category: 'Pets'}] }};
 

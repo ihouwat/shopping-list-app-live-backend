@@ -47,6 +47,14 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 * `HEROKU_EMAIL`: for deployment
 * `POSTMAN_API_KEY`: for functional testing
 
+## Folder structure
+* `.github`: contains CI/CD workflows
+* `config`: contains configuration files for knex, swagger, and winston
+* `data`: contains seed data for the database
+* `postman`: contains postman collection and schemas for functional testing
+* `src`: contains app code
+* `test`: contains unit tests
+
 ## Commands
 ### Start the server
 `npm run start:dev` starts the server on port 3000

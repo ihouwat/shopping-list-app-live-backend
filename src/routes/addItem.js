@@ -1,12 +1,12 @@
 const router = require('express').Router();
-const completeItem = require('../controllers/completeItem');
-const db = require('../config/knexFile');
+const addItem = require('../controllers/addItem');
+const db = require('../../config/knexFile');
 
 /**
  * @swagger
- * /completeitem:
- *   put:
- *     summary: Complete item from grocery list
+ * /additem:
+ *   post:
+ *     summary: Add item to grocery list
  *     tags:
  *       - Items
  *     requestBody:
@@ -14,14 +14,14 @@ const db = require('../config/knexFile');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/itemSchema'
+ *             $ref: '#/components/schemas/itemNameSchema'
  *     responses:
  *       200:
- *         description: Item completed successfully
+ *         description: Item added successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/completeItemResponseSchema'
+ *            schema:
+ *             $ref: '#/components/schemas/addItemResponseSchema'
  *       400:
  *         description: Bad request
  *         content:
@@ -29,8 +29,8 @@ const db = require('../config/knexFile');
  *            schema:
  *             $ref: '#/components/schemas/errorResponseSchema'
  */
-router.put('/', (req, res) => {
-	completeItem.handleCompleteItem(req, res, db);
+router.post('/', (req, res) => {
+	addItem.handleAddItem(req, res, db);
 });
 
 module.exports = router;

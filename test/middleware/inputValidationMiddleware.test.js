@@ -1,4 +1,4 @@
-const validateSchema = require('../../middleware/inputValidationMiddleware');
+const validateSchema = require('../../src/middleware/inputValidationMiddleware');
 
 describe('inputValidationMiddleware', () => {
 	const schema = {

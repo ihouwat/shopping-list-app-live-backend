@@ -1,5 +1,5 @@
 const { mockKnex, res, createRes } = require('./testSetup');
-const complete = require('../../controllers/completeItem');
+const complete = require('../../src/controllers/completeItem');
 
 const req = {
 	body: {

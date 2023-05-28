@@ -1,5 +1,5 @@
 const swaggerJSDoc = require('swagger-jsdoc');
-const schemas = require('../schemas/swaggerSchemas');
+const schemas = require('../src/schemas/swaggerSchemas');
 
 const swaggerDefinition = {
 	openapi: '3.0.0',

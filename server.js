@@ -3,11 +3,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const winston = require('./config/winston');
 const morgan = require('morgan');
-const routes = require('./routes/index');
+const routes = require('./src/routes/index');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swaggerFile');
-const validateSchema = require('./middleware/inputValidationMiddleware');
-const schemas = require('./schemas/validationSchemas');
+const validateSchema = require('./src/middleware/inputValidationMiddleware');
+const schemas = require('./src/schemas/validationSchemas');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 

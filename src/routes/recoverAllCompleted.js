@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const recoverAllCompleted = require('../controllers/recoverAllCompleted');
-const db = require('../config/knexFile');
+const db = require('../../config/knexFile');
 
 /**
  * @swagger

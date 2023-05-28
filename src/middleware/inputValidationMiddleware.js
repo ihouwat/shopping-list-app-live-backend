@@ -1,4 +1,4 @@
-const winston = require('../config/winston');
+const winston = require('../../config/winston');
 
 const validateSchema = (schema) => (req, res, next) => {
 	const { error } = schema.validate(req.body);

@@ -1,5 +1,5 @@
 const { mockKnex, res } = require('./testSetup');
-const updateItem = require('../../controllers/updateItem');
+const updateItem = require('../../src/controllers/updateItem');
 
 
 const req = { body: { id: '50jzy696i', note: 'Pasta', count: 2 }};

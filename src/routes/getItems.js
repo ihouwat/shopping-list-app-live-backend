@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const getitems = require('../controllers/getItems');
-const db = require('../config/knexFile');
+const db = require('../../config/knexFile');
 
 /**
  * @swagger

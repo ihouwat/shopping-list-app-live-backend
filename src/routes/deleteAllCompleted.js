@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const deleteAllCompleted = require('../controllers/deleteAllCompleted');
-const db = require('../config/knexFile');
+const db = require('../../config/knexFile');
 
 /**
  * @swagger

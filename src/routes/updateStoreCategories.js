@@ -1,12 +1,12 @@
 const router = require('express').Router();
-const updateItem = require('../controllers/updateItem');
-const db = require('../config/knexFile');
+const updateStoreCategories = require('../controllers/updateStoreCategories');
+const db = require('../../config/knexFile');
 
 /**
  * @swagger
- * /updateitem:
+ * /updatestorecategories:
  *   put:
- *     summary: Update an item
+ *     summary: Update store category
  *     tags:
  *       - Items
  *     requestBody:
@@ -14,14 +14,14 @@ const db = require('../config/knexFile');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/updateItemSchema'
+ *             $ref: '#/components/schemas/updateStoreCategoriesSchema'
  *     responses:
  *       200:
  *         description: Item recovered successfully
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/updateItemResponseSchema'
+ *               $ref: '#/components/schemas/updateStoreCategoriesResponseSchema'
  *       400:
  *         description: Bad request
  *         content:
@@ -30,7 +30,7 @@ const db = require('../config/knexFile');
  *             $ref: '#/components/schemas/errorResponseSchema'
 */
 router.put('/', (req, res) => {
-	updateItem.handleUpdateItem(req, res, db);
+	updateStoreCategories.handleUpdateStoreCategories(req, res, db);
 });
 
 module.exports = router;
