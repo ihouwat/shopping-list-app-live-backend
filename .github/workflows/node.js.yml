@@ -51,11 +51,26 @@ jobs:
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: 'quickshopper-backend-staging'
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
 
+  automated-api-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
+        run: |
+          postman collection run "${{ github.workspace }}/postman/collections/Shopping App_e8e8ded3-d3ed-4834-a6b2-7b49dd0d3f7c.json" -e "10202594-2bc64fdd-8320-4cd3-bb64-0e727e1441f4"
+          # Lint your API using Postman CLI
+          postman api lint b1ecb8aa-c7e1-4bd5-b377-7180b8878623
+
   visual-regression-test:
-    needs: deploy-staging
+    needs: automated-api-tests
     runs-on: ubuntu-latest
     name: Run Rainforest
     steps:
