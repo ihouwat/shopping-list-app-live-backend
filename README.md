@@ -42,6 +42,10 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 ### Set CI secrets
 * `RAINFOREST_API_TOKEN`: for visual regression testing
 * `SNYK_TOKEN`: for security testing
+* `HEROKU_API_KEY`: for deployment
+* `HEROKU_APP_NAME`: for deployment
+* `HEROKU_EMAIL`: for deployment
+* `POSTMAN_API_KEY`: for functional testing
 
 ## Commands
 ### Start the server
@@ -60,7 +64,7 @@ Port is exposed through the Procfile. To forward the port, run:
 `heroku ps:forward 9090 -a {{app_name}}`
 
 ## Functional testing
-Functional tests are run with Newman and Postman. Schemas and collections are in the `postman` folder. 
+Functional tests are run with Postman CLI. Schemas and collections are in the `postman` folder. 
 ### Set environment variables
 * `BASE_URL`: for testing in different environments
 * `ENVIRONMENT`: use 'development', 'staging', and 'production' to test in different environments
@@ -83,7 +87,7 @@ Import the collection into Postman in order to run the tests.
 * [eslint](https://eslint.org/): to lint code
 * [joi](https://joi.dev/) for schema validation
 * [swagger](https://swagger.io/) for API documentation
-* [postman](https://www.postman.com/) and [newman](https://www.npmjs.com/package/newman) for functional testing
+* [postman](https://www.postman.com/) for functional testing
 
 ## License
 All rights reserved.
