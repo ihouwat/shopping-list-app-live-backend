@@ -55,6 +55,7 @@ jobs:
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
 
   automated-api-tests:
+    needs: deploy-staging
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
