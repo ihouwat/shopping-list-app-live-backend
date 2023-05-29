@@ -51,6 +51,7 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 * `.github`: contains CI/CD workflows
 * `config`: contains configuration files for knex, swagger, and winston
 * `data`: contains seed data for the database
+* `docker`: contains Dockerfiles
 * `postman`: contains postman collection and schemas for functional testing
 * `src`: contains app code
 * `test`: contains unit tests
@@ -85,6 +86,8 @@ The CD pipeline consists of development, staging, and production environments. E
 Once all checks pass, the app is deployed automatically to production.
 
 > Note: In addition to the pipeline above, the following **security checks are run on a weekly basis**: Snyk static scan monitoring and Github Dependabot for dependency security alerts and updates.
+
+> Note: There is a Dockerfile for the app which can be used in the pipeline if desired.
 
 ## Functional testing
 Functional tests are run with Postman CLI. Schemas and collections are in the `postman` folder. 
