@@ -11,6 +11,4699 @@
 			"name": "Functional Testing",
 			"item": [
 				{
+					"name": "400",
+					"item": [
+						{
+							"name": "POST item",
+							"item": [
+								{
+									"name": "empty body value",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "ae326860-bd33-414f-b87a-4be608319a94",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "45c6b300-592c-4304-aa26-84a93afdbd20",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: \"\\\"name\\\" is not allowed to be empty\"});\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "a67f4788-34fb-4f0a-9861-ee97b9d9c915",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/additem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"additem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "28c0abb9-e632-4e64-a182-181e88bf74ac",
+											"name": "Item added successfully",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/additem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"additem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"addedItem\": [\n\t\t{\n\t\t\t\"name\": \"do non \",\n\t\t\t\"id\": \"anim ipsum minim\",\n\t\t\t\"count\": 51703929.46214241,\n\t\t\t\"note\": \"labore qui ut\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"id minim\",\n\t\t\t\"id\": \"adipisicing et\",\n\t\t\t\"count\": -86202848.37290102,\n\t\t\t\"note\": \"sunt cupidatat Ut\"\n\t\t}\n\t]\n}"
+										},
+										{
+											"id": "bb7dda39-3b84-4241-bd0f-a3c71517a86e",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/additem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"additem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "wrong type",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "ae326860-bd33-414f-b87a-4be608319a94",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "45c6b300-592c-4304-aa26-84a93afdbd20",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: \"\\\"name\\\" must be a string\"});\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "2a69b0b3-de69-414c-83bc-0990a48f0144",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": 2\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/additem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"additem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "7be058f4-0105-45f3-aaf6-c466eb6eb1b6",
+											"name": "Item added successfully",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/additem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"additem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"addedItem\": [\n\t\t{\n\t\t\t\"name\": \"do non \",\n\t\t\t\"id\": \"anim ipsum minim\",\n\t\t\t\"count\": 51703929.46214241,\n\t\t\t\"note\": \"labore qui ut\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"id minim\",\n\t\t\t\"id\": \"adipisicing et\",\n\t\t\t\"count\": -86202848.37290102,\n\t\t\t\"note\": \"sunt cupidatat Ut\"\n\t\t}\n\t]\n}"
+										},
+										{
+											"id": "a228b775-f27b-476f-b17e-63b257cbdd58",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/additem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"additem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "field required",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "ae326860-bd33-414f-b87a-4be608319a94",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "45c6b300-592c-4304-aa26-84a93afdbd20",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: \"\\\"name\\\" is required\"});\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "19d3c5e3-c863-4d95-9066-ea5c434acfdd",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/additem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"additem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "95b85b3c-bc25-4d05-aa52-8b4989a264a7",
+											"name": "Item added successfully",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/additem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"additem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"addedItem\": [\n\t\t{\n\t\t\t\"name\": \"do non \",\n\t\t\t\"id\": \"anim ipsum minim\",\n\t\t\t\"count\": 51703929.46214241,\n\t\t\t\"note\": \"labore qui ut\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"id minim\",\n\t\t\t\"id\": \"adipisicing et\",\n\t\t\t\"count\": -86202848.37290102,\n\t\t\t\"note\": \"sunt cupidatat Ut\"\n\t\t}\n\t]\n}"
+										},
+										{
+											"id": "d4a3bde3-3518-4396-ad43-df20425da16d",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/additem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"additem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								}
+							],
+							"id": "f52d2ea3-cc0a-4a35-acb6-45b44d912698"
+						},
+						{
+							"name": "PUT store category",
+							"item": [
+								{
+									"name": "itemName field required",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "cd325772-52cf-4f36-b07e-634c5440b7bc",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: \"\\\"itemName\\\" is required\"});\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "849848df-0d7b-400b-8eef-a8c7865c8545",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Kroger Frandor\",\n\t\t\t\"category\": \"Produce\"\n\t\t}\n\t]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/updatestorecategories",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"updatestorecategories"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "e37c5068-81f1-4d35-8b41-1b0c8ffeca7e",
+											"name": "Item recovered successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updatestorecategories",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updatestorecategories"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"updatedModel\": {\n\t\t\"id\": 94118617.32989845,\n\t\t\"name\": \"eiusmod\",\n\t\t\"categories\": [\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"veniam\",\n\t\t\t\t\t\"esse ea commodo\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"mollit veniam\",\n\t\t\t\t\"storeOrder\": -75131724.2335631\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"dolore laboris\",\n\t\t\t\t\t\"exercitation in labore\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"in id\",\n\t\t\t\t\"storeOrder\": 16308232.592923447\n\t\t\t}\n\t\t]\n\t}\n}"
+										},
+										{
+											"id": "7232de59-073b-4648-9d9c-aa65b6364b92",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updatestorecategories",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updatestorecategories"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "stores field required",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "cd325772-52cf-4f36-b07e-634c5440b7bc",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: \"\\\"stores\\\" is required\"});\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "59506bf0-5bff-4fca-a502-61666b47251d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"itemName\": \"sdf\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/updatestorecategories",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"updatestorecategories"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "beed501a-ec06-4fa2-9f76-df00c2e5e4ff",
+											"name": "Item recovered successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updatestorecategories",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updatestorecategories"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"updatedModel\": {\n\t\t\"id\": 94118617.32989845,\n\t\t\"name\": \"eiusmod\",\n\t\t\"categories\": [\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"veniam\",\n\t\t\t\t\t\"esse ea commodo\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"mollit veniam\",\n\t\t\t\t\"storeOrder\": -75131724.2335631\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"dolore laboris\",\n\t\t\t\t\t\"exercitation in labore\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"in id\",\n\t\t\t\t\"storeOrder\": 16308232.592923447\n\t\t\t}\n\t\t]\n\t}\n}"
+										},
+										{
+											"id": "60d46b58-bc5f-4059-ab8b-4c1bf1190889",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updatestorecategories",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updatestorecategories"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "itemName wrong type",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "cd325772-52cf-4f36-b07e-634c5440b7bc",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: \"\\\"itemName\\\" must be a string\"});\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "f7f93db1-7c56-4324-b4d8-d5aa45b744cd",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"itemName\": true,\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Kroger Frandor\",\n\t\t\t\"category\": \"Produce\"\n\t\t}\n\t]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/updatestorecategories",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"updatestorecategories"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "7e807cb4-a4ab-48aa-92c1-14e5dd09a0fa",
+											"name": "Item recovered successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updatestorecategories",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updatestorecategories"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"updatedModel\": {\n\t\t\"id\": 94118617.32989845,\n\t\t\"name\": \"eiusmod\",\n\t\t\"categories\": [\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"veniam\",\n\t\t\t\t\t\"esse ea commodo\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"mollit veniam\",\n\t\t\t\t\"storeOrder\": -75131724.2335631\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"dolore laboris\",\n\t\t\t\t\t\"exercitation in labore\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"in id\",\n\t\t\t\t\"storeOrder\": 16308232.592923447\n\t\t\t}\n\t\t]\n\t}\n}"
+										},
+										{
+											"id": "9f81f6f3-d753-454b-807d-bf0ea9549dc1",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updatestorecategories",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updatestorecategories"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "stores wrong type",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "cd325772-52cf-4f36-b07e-634c5440b7bc",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: \"\\\"stores\\\" must be an array\"});\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "5d52b308-1403-42b2-91db-6cda8374cde0",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"itemName\": \"asdf\",\n\t\"stores\": true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/updatestorecategories",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"updatestorecategories"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "3041972c-68c9-472e-8153-3b2315ec7aad",
+											"name": "Item recovered successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updatestorecategories",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updatestorecategories"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"updatedModel\": {\n\t\t\"id\": 94118617.32989845,\n\t\t\"name\": \"eiusmod\",\n\t\t\"categories\": [\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"veniam\",\n\t\t\t\t\t\"esse ea commodo\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"mollit veniam\",\n\t\t\t\t\"storeOrder\": -75131724.2335631\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"dolore laboris\",\n\t\t\t\t\t\"exercitation in labore\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"in id\",\n\t\t\t\t\"storeOrder\": 16308232.592923447\n\t\t\t}\n\t\t]\n\t}\n}"
+										},
+										{
+											"id": "672e902e-b956-48ba-bd4b-4f5ae8db8909",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updatestorecategories",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updatestorecategories"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								}
+							],
+							"id": "5169088e-5452-4b43-8246-35b7d65e2b17"
+						},
+						{
+							"name": "PUT update item",
+							"item": [
+								{
+									"name": "id field required",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ec646117-7996-4292-84cc-4e87bebf0e98",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"id\" is required'});\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "8a7ba8cb-5974-47a2-a52d-144c968945db",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "e4abc383-d0ec-437a-8f21-f2c0bd7fced9",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"count\": 3,\n\t\"note\": \"a new note was added\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/updateitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"updateitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "ba159c84-9934-4686-8004-1636dab549c8",
+											"name": "Item recovered successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"id\": \"reprehenderit et sit ex\",\n\t\"count\": 41335124.41065371,\n\t\"note\": \"id et\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updateitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updateitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"updatedItem\": {\n\t\t\"name\": \"officia laborum aliquip nostrud\",\n\t\t\"id\": \"dolore\",\n\t\t\"count\": -20231064.542687133,\n\t\t\"note\": \"dolore consectetur consequat\"\n\t}\n}"
+										},
+										{
+											"id": "d9d89745-805c-4799-bdca-64e7b7400526",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"id\": \"reprehenderit et sit ex\",\n\t\"count\": 41335124.41065371,\n\t\"note\": \"id et\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updateitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updateitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "id field wrong type",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ec646117-7996-4292-84cc-4e87bebf0e98",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"id\" must be a string'});\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "8a7ba8cb-5974-47a2-a52d-144c968945db",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "b49a6898-176c-4363-9c42-9439b1918e78",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"id\": true,\n\t\"count\": 3,\n\t\"note\": \"a new note was added\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/updateitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"updateitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "8b868612-2bfc-4581-b8b6-270104f0047f",
+											"name": "Item recovered successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"id\": \"reprehenderit et sit ex\",\n\t\"count\": 41335124.41065371,\n\t\"note\": \"id et\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updateitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updateitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"updatedItem\": {\n\t\t\"name\": \"officia laborum aliquip nostrud\",\n\t\t\"id\": \"dolore\",\n\t\t\"count\": -20231064.542687133,\n\t\t\"note\": \"dolore consectetur consequat\"\n\t}\n}"
+										},
+										{
+											"id": "d4e784a3-90ce-4adc-92e0-20ad51d58a2a",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"id\": \"reprehenderit et sit ex\",\n\t\"count\": 41335124.41065371,\n\t\"note\": \"id et\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updateitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updateitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "count field required",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ec646117-7996-4292-84cc-4e87bebf0e98",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"count\" is required'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "8a7ba8cb-5974-47a2-a52d-144c968945db",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "7bb9ba15-77c8-416c-a22e-9d9ea24ac686",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"id\": \"some id\",\n\t\"note\": \"a new note was added\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/updateitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"updateitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "3e61a0b1-569a-4fa8-b762-7ed6553555c3",
+											"name": "Item recovered successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"id\": \"reprehenderit et sit ex\",\n\t\"count\": 41335124.41065371,\n\t\"note\": \"id et\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updateitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updateitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"updatedItem\": {\n\t\t\"name\": \"officia laborum aliquip nostrud\",\n\t\t\"id\": \"dolore\",\n\t\t\"count\": -20231064.542687133,\n\t\t\"note\": \"dolore consectetur consequat\"\n\t}\n}"
+										},
+										{
+											"id": "a7438a20-4bca-4183-a5f2-2096fd617d6c",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"id\": \"reprehenderit et sit ex\",\n\t\"count\": 41335124.41065371,\n\t\"note\": \"id et\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updateitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updateitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "count field wrong type",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ec646117-7996-4292-84cc-4e87bebf0e98",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"count\" must be a number'});\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "8a7ba8cb-5974-47a2-a52d-144c968945db",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "8daf0c80-18df-4300-a65d-3edb5bfb7d2f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"id\": {{addedItem0.id}},\n\t\"count\": true,\n\t\"note\": \"a new note was added\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/updateitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"updateitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "9bb6f52f-263e-46c2-b061-a2d4225792b6",
+											"name": "Item recovered successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"id\": \"reprehenderit et sit ex\",\n\t\"count\": 41335124.41065371,\n\t\"note\": \"id et\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updateitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updateitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"updatedItem\": {\n\t\t\"name\": \"officia laborum aliquip nostrud\",\n\t\t\"id\": \"dolore\",\n\t\t\"count\": -20231064.542687133,\n\t\t\"note\": \"dolore consectetur consequat\"\n\t}\n}"
+										},
+										{
+											"id": "23c6165a-b68b-4ef9-ad7e-8c4581fb08c7",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"id\": \"reprehenderit et sit ex\",\n\t\"count\": 41335124.41065371,\n\t\"note\": \"id et\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updateitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updateitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "note field wrong type",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ec646117-7996-4292-84cc-4e87bebf0e98",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"note\" must be a string'});\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "8a7ba8cb-5974-47a2-a52d-144c968945db",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "995ad11d-a0b5-4134-b51f-ee484aad7532",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"id\": {{addedItem0.id}},\n\t\"count\": 3,\n\t\"note\": true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/updateitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"updateitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "3e0f06c0-cdc8-4d15-a3ed-b5d8acda4c86",
+											"name": "Item recovered successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"id\": \"reprehenderit et sit ex\",\n\t\"count\": 41335124.41065371,\n\t\"note\": \"id et\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updateitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updateitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"updatedItem\": {\n\t\t\"name\": \"officia laborum aliquip nostrud\",\n\t\t\"id\": \"dolore\",\n\t\t\"count\": -20231064.542687133,\n\t\t\"note\": \"dolore consectetur consequat\"\n\t}\n}"
+										},
+										{
+											"id": "8d635224-4bba-498e-a1fa-83c3adfdc532",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"id\": \"reprehenderit et sit ex\",\n\t\"count\": 41335124.41065371,\n\t\"note\": \"id et\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/updateitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"updateitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								}
+							],
+							"id": "85cd9c09-e769-4d58-b089-c2db8b9d563a"
+						},
+						{
+							"name": "PUT complete item",
+							"item": [
+								{
+									"name": "name field required",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.name\" is required'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "b6ffed29-fa3e-40b9-a94f-e0aaf981178a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": \"name\",\n        \"id\": \"id\",\n        \"note\": \"note\",\n        \"count\": 3\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/completeitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"completeitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "31920234-1a80-47f1-af13-c1b0fb588fd6",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "1f413ff8-e2ee-4bc1-b41d-aee56b57ae2c",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "name field wrong type",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.name\" must be a string'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "14693d46-29e4-47c9-9db8-0d65c91c0c15",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": true,\n        \"id\": \"id\",\n        \"note\": \"note\",\n        \"count\": 3\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/completeitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"completeitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "d06ac4ce-b0d7-471f-8b18-e5ac7720a870",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "92d24de0-cf9a-43b1-9719-fb4555b9d093",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "id field required",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.id\" is required'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "41770692-b92e-4b68-a031-14f369895c4c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": \"name\",\n        \"note\": \"note\",\n        \"count\": 3\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/completeitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"completeitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "f75cd98e-ba96-4604-aeef-4ac4883b83a5",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "eca526e1-7fcf-4173-8150-8b8a83b479ce",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "id field wrong type",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.id\" must be a string'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "9b79ac26-ebea-4b69-8839-ed20c34da2e8",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": \"name\",\n        \"id\": true,\n        \"note\": \"note\",\n        \"count\": 3\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/completeitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"completeitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "2b02cbc9-cc48-4b81-b2f2-7ec65520f457",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "3b5eebac-483d-43a4-bbc0-6c871d8e50e6",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "note field wrong type",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.note\" must be a string'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "49a82173-e7f3-4458-ba56-3f0f3933a562",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": \"name\",\n        \"id\": \"id\",\n        \"note\": true,\n        \"count\": 3\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/completeitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"completeitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "ca398b7f-09e9-41ae-a79e-7d323bf55a92",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "22252c4d-015e-463a-bf3f-dc88ff50bf17",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "count field required",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.count\" is required'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "d6910a55-eca2-474b-bb8a-eb16f642ad8f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": \"name\",\n        \"id\": \"id\",\n        \"note\": \"note\"\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/completeitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"completeitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "54a25518-2b90-4b7c-9b8e-91235548c1e8",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "f88160b3-b2cc-4f92-ac8a-3926b6fd091f",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "cound field wrong type",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.count\" must be a number'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "2754e041-64e2-482c-b4b5-2f9a2d261d5f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": \"name\",\n        \"id\": \"id\",\n        \"note\": \"note\",\n        \"count\": true\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/completeitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"completeitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "c2fdeda1-28a3-44c2-896c-2a1e172a39ab",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "224b8d02-d0ec-454a-bdba-c5871b9fd9b9",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								}
+							],
+							"id": "f22fb32b-5c61-4592-a00e-1e6aaa086336"
+						},
+						{
+							"name": "PUT recover item",
+							"item": [
+								{
+									"name": "name field required",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.name\" is required'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "71233901-d179-4eea-8dd4-e1d3154e9f61",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"id\": \"id\",\n        \"note\": \"note\",\n        \"count\": 3\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/recoveritem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"recoveritem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "30d5ea48-e61e-45bd-bb61-86b016c96f21",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "96760e8e-94d7-44ec-adc8-7f9dca883972",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "name field wrong type",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.name\" must be a string'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "cd528f1f-d7ab-44d6-9ddc-7669611a954f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": true,\n        \"id\": \"id\",\n        \"note\": \"note\",\n        \"count\": 3\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/recoveritem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"recoveritem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "19802ef9-8d13-49b9-8390-4bd2e550d778",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "88aaa884-ead3-4d28-8742-e27502980213",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "id field required",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.id\" is required'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "f7847689-3bc0-463c-80a2-f41b710228b7",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": \"name\",\n        \"note\": \"note\",\n        \"count\": 3\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/recoveritem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"recoveritem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "c9a79865-3343-4789-a8de-86a0e3acec13",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "a94c82de-553c-4414-8608-f1d25c08b012",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "id field wrong type",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.id\" must be a string'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "80786c16-79a2-4f9d-b8f2-5fd905547572",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": \"name\",\n        \"id\": true,\n        \"note\": \"note\",\n        \"count\": 3\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/recoveritem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"recoveritem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "d105b3d2-a598-4af5-935a-240f75bcac77",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "85c5e2de-d132-4cb7-b549-a168cdd97ad7",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "note field wrong type",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.note\" must be a string'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "6ad294e0-276f-4098-8367-fcaaf707ab45",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": \"name\",\n        \"id\": \"id\",\n        \"note\": true,\n        \"count\": 3\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/recoveritem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"recoveritem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "5cbda69d-24c4-4620-a80c-bef251683c21",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "490a463a-825f-4f83-8207-380271a89343",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "count field required",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.count\" is required'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "ada1c581-a2e6-4577-a9ba-e413fa4993f6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": \"name\",\n        \"id\": \"id\",\n        \"note\": \"note\"\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/recoveritem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"recoveritem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "c618725f-77ff-4e2f-9bc9-92ee4484f88b",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "d130b3f9-45be-4258-bac5-5dfdcd7998a4",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "cound field wrong type",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58eca563-d0dc-49fb-be08-76e67faed47e",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "a3e246e7-48d8-4a47-a3b6-d1d635659815",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"item.count\" must be a number'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "cc695157-ac2d-48d3-bef2-79db9140cffb",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"item\": {\n        \"name\": \"name\",\n        \"id\": \"id\",\n        \"note\": \"note\",\n        \"count\": true\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/recoveritem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"recoveritem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "cd3f47d3-3a19-4d7c-a07d-5a6ca3416989",
+											"name": "Item completed successfully",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"completedItemId\": \"cillum ut ad id Duis\"\n}"
+										},
+										{
+											"id": "95c9091f-2ef3-40dc-8cb9-36bc41bd4fe2",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"item\": {\n\t\t\"name\": \"deserunt adipisicing\",\n\t\t\"id\": \"in amet Excepteur non\",\n\t\t\"count\": 61189285.21346122,\n\t\t\"note\": \"dolore Ut\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/completeitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"completeitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								}
+							],
+							"id": "ad50d6b0-d4e7-43df-b6f9-eb9f72f465c7"
+						},
+						{
+							"name": "DELETE item",
+							"item": [
+								{
+									"name": "listName field required",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9901bb85-9e9c-4aff-a75f-f8d39d92a23a",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"listName\" is required'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "763c2ef2-164d-4f94-823b-6fdaae607c6b",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "acd8d25c-2ee9-41ed-8629-7d6f56c82136",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": \"id\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/deleteitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"deleteitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "b02a8b91-0e4f-40e8-b07a-b31a52f21011",
+											"name": "Item deleted successfully",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"listName\": \"dolor dolore et in\",\n\t\"item\": {\n\t\t\"name\": \"minim\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/deleteitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"deleteitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"listName\": \"dolore sed reprehenderit aliqua\",\n\t\"deletedItem\": {\n\t\t\"name\": \"sint\"\n\t}\n}"
+										},
+										{
+											"id": "ef4eda1b-ac40-47ee-97af-7f0e3a1682bc",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"listName\": \"dolor dolore et in\",\n\t\"item\": {\n\t\t\"name\": \"minim\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/deleteitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"deleteitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "listname field wrong type",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9901bb85-9e9c-4aff-a75f-f8d39d92a23a",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"listName\" must be a string'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "763c2ef2-164d-4f94-823b-6fdaae607c6b",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "4ab6453d-2181-4ac1-99de-f314f42a06f6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"listName\": true,\n    \"id\": \"id\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/deleteitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"deleteitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "7567f78b-490e-4fce-b2e2-17b8ab3aaa5d",
+											"name": "Item deleted successfully",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"listName\": \"dolor dolore et in\",\n\t\"item\": {\n\t\t\"name\": \"minim\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/deleteitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"deleteitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"listName\": \"dolore sed reprehenderit aliqua\",\n\t\"deletedItem\": {\n\t\t\"name\": \"sint\"\n\t}\n}"
+										},
+										{
+											"id": "f8f773b4-8644-46f9-aa12-efaeab15d899",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"listName\": \"dolor dolore et in\",\n\t\"item\": {\n\t\t\"name\": \"minim\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/deleteitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"deleteitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "if field required",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9901bb85-9e9c-4aff-a75f-f8d39d92a23a",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"id\" is required'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "763c2ef2-164d-4f94-823b-6fdaae607c6b",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "487fd29f-4f41-4ec9-9339-d4a84a39924a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"listName\": \"list\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/deleteitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"deleteitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "4bd71548-906b-43ce-93da-3a65587aafcd",
+											"name": "Item deleted successfully",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"listName\": \"dolor dolore et in\",\n\t\"item\": {\n\t\t\"name\": \"minim\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/deleteitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"deleteitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"listName\": \"dolore sed reprehenderit aliqua\",\n\t\"deletedItem\": {\n\t\t\"name\": \"sint\"\n\t}\n}"
+										},
+										{
+											"id": "a74d4a24-2dcc-4740-87ad-cfdcd4328795",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"listName\": \"dolor dolore et in\",\n\t\"item\": {\n\t\t\"name\": \"minim\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/deleteitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"deleteitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								},
+								{
+									"name": "id field wrong type",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9901bb85-9e9c-4aff-a75f-f8d39d92a23a",
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message\", () => {\r",
+													"    pm.expect(pm.response.json()).to.include({error: '\"id\" must be a string'});\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "763c2ef2-164d-4f94-823b-6fdaae607c6b",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "83261832-0344-465f-9f64-7e625be54e2b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"listName\": \"list\",\n    \"id\": true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/deleteitem",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"deleteitem"
+											]
+										}
+									},
+									"response": [
+										{
+											"id": "cc153224-d24e-4368-b41e-a7d8d5eb1354",
+											"name": "Item deleted successfully",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"listName\": \"dolor dolore et in\",\n\t\"item\": {\n\t\t\"name\": \"minim\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/deleteitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"deleteitem"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"listName\": \"dolore sed reprehenderit aliqua\",\n\t\"deletedItem\": {\n\t\t\"name\": \"sint\"\n\t}\n}"
+										},
+										{
+											"id": "6685ba27-2a00-4221-83c1-e0a1b8bef738",
+											"name": "Bad request",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n\t\"listName\": \"dolor dolore et in\",\n\t\"item\": {\n\t\t\"name\": \"minim\"\n\t}\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{BASE_URL}}/deleteitem",
+													"host": [
+														"{{BASE_URL}}"
+													],
+													"path": [
+														"deleteitem"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
+										}
+									]
+								}
+							],
+							"id": "313cb8f6-b66d-45b2-ad1c-64c1916537d3"
+						}
+					],
+					"id": "2b9d3242-585c-489e-b45b-a5d2d823f28f"
+				},
+				{
 					"name": "Get items on load",
 					"event": [
 						{
@@ -1574,1269 +6267,6 @@
 				}
 			],
 			"id": "5fc6216e-3735-4008-a48a-e3b44247c478"
-		},
-		{
-			"name": "400",
-			"item": [
-				{
-					"name": "POST item",
-					"item": [
-						{
-							"name": "empty body value",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "ae326860-bd33-414f-b87a-4be608319a94",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"id": "45c6b300-592c-4304-aa26-84a93afdbd20",
-										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Error message\", () => {\r",
-											"    pm.expect(pm.response.json()).to.include({error: \"\\\"name\\\" is not allowed to be empty\"});\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "a67f4788-34fb-4f0a-9861-ee97b9d9c915",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"name\": \"\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/additem",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"additem"
-									]
-								}
-							},
-							"response": [
-								{
-									"id": "28c0abb9-e632-4e64-a182-181e88bf74ac",
-									"name": "Item added successfully",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/additem",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"additem"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"addedItem\": [\n\t\t{\n\t\t\t\"name\": \"do non \",\n\t\t\t\"id\": \"anim ipsum minim\",\n\t\t\t\"count\": 51703929.46214241,\n\t\t\t\"note\": \"labore qui ut\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"id minim\",\n\t\t\t\"id\": \"adipisicing et\",\n\t\t\t\"count\": -86202848.37290102,\n\t\t\t\"note\": \"sunt cupidatat Ut\"\n\t\t}\n\t]\n}"
-								},
-								{
-									"id": "bb7dda39-3b84-4241-bd0f-a3c71517a86e",
-									"name": "Bad request",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/additem",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"additem"
-											]
-										}
-									},
-									"status": "Bad Request",
-									"code": 400,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
-								}
-							]
-						},
-						{
-							"name": "wrong type",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "ae326860-bd33-414f-b87a-4be608319a94",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"id": "45c6b300-592c-4304-aa26-84a93afdbd20",
-										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Error message\", () => {\r",
-											"    pm.expect(pm.response.json()).to.include({error: \"\\\"name\\\" must be a string\"});\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "2a69b0b3-de69-414c-83bc-0990a48f0144",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"name\": 2\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/additem",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"additem"
-									]
-								}
-							},
-							"response": [
-								{
-									"id": "7be058f4-0105-45f3-aaf6-c466eb6eb1b6",
-									"name": "Item added successfully",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/additem",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"additem"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"addedItem\": [\n\t\t{\n\t\t\t\"name\": \"do non \",\n\t\t\t\"id\": \"anim ipsum minim\",\n\t\t\t\"count\": 51703929.46214241,\n\t\t\t\"note\": \"labore qui ut\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"id minim\",\n\t\t\t\"id\": \"adipisicing et\",\n\t\t\t\"count\": -86202848.37290102,\n\t\t\t\"note\": \"sunt cupidatat Ut\"\n\t\t}\n\t]\n}"
-								},
-								{
-									"id": "a228b775-f27b-476f-b17e-63b257cbdd58",
-									"name": "Bad request",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/additem",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"additem"
-											]
-										}
-									},
-									"status": "Bad Request",
-									"code": 400,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
-								}
-							]
-						},
-						{
-							"name": "field required",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"id": "ae326860-bd33-414f-b87a-4be608319a94",
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"id": "45c6b300-592c-4304-aa26-84a93afdbd20",
-										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Error message\", () => {\r",
-											"    pm.expect(pm.response.json()).to.include({error: \"\\\"name\\\" is required\"});\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "19d3c5e3-c863-4d95-9066-ea5c434acfdd",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/additem",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"additem"
-									]
-								}
-							},
-							"response": [
-								{
-									"id": "95b85b3c-bc25-4d05-aa52-8b4989a264a7",
-									"name": "Item added successfully",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/additem",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"additem"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"addedItem\": [\n\t\t{\n\t\t\t\"name\": \"do non \",\n\t\t\t\"id\": \"anim ipsum minim\",\n\t\t\t\"count\": 51703929.46214241,\n\t\t\t\"note\": \"labore qui ut\"\n\t\t},\n\t\t{\n\t\t\t\"name\": \"id minim\",\n\t\t\t\"id\": \"adipisicing et\",\n\t\t\t\"count\": -86202848.37290102,\n\t\t\t\"note\": \"sunt cupidatat Ut\"\n\t\t}\n\t]\n}"
-								},
-								{
-									"id": "d4a3bde3-3518-4396-ad43-df20425da16d",
-									"name": "Bad request",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"name\": \"nulla laboris\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/additem",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"additem"
-											]
-										}
-									},
-									"status": "Bad Request",
-									"code": 400,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
-								}
-							]
-						}
-					],
-					"id": "f52d2ea3-cc0a-4a35-acb6-45b44d912698"
-				},
-				{
-					"name": "PUT store category",
-					"item": [
-						{
-							"name": "itemName field required",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "cd325772-52cf-4f36-b07e-634c5440b7bc",
-										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Error message\", () => {\r",
-											"    pm.expect(pm.response.json()).to.include({error: \"\\\"itemName\\\" is required\"});\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "849848df-0d7b-400b-8eef-a8c7865c8545",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Kroger Frandor\",\n\t\t\t\"category\": \"Produce\"\n\t\t}\n\t]\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/updatestorecategories",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"updatestorecategories"
-									]
-								}
-							},
-							"response": [
-								{
-									"id": "e37c5068-81f1-4d35-8b41-1b0c8ffeca7e",
-									"name": "Item recovered successfully",
-									"originalRequest": {
-										"method": "PUT",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/updatestorecategories",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"updatestorecategories"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"updatedModel\": {\n\t\t\"id\": 94118617.32989845,\n\t\t\"name\": \"eiusmod\",\n\t\t\"categories\": [\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"veniam\",\n\t\t\t\t\t\"esse ea commodo\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"mollit veniam\",\n\t\t\t\t\"storeOrder\": -75131724.2335631\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"dolore laboris\",\n\t\t\t\t\t\"exercitation in labore\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"in id\",\n\t\t\t\t\"storeOrder\": 16308232.592923447\n\t\t\t}\n\t\t]\n\t}\n}"
-								},
-								{
-									"id": "7232de59-073b-4648-9d9c-aa65b6364b92",
-									"name": "Bad request",
-									"originalRequest": {
-										"method": "PUT",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/updatestorecategories",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"updatestorecategories"
-											]
-										}
-									},
-									"status": "Bad Request",
-									"code": 400,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
-								}
-							]
-						},
-						{
-							"name": "stores field required",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "cd325772-52cf-4f36-b07e-634c5440b7bc",
-										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Error message\", () => {\r",
-											"    pm.expect(pm.response.json()).to.include({error: \"\\\"stores\\\" is required\"});\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "59506bf0-5bff-4fca-a502-61666b47251d",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"itemName\": \"sdf\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/updatestorecategories",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"updatestorecategories"
-									]
-								}
-							},
-							"response": [
-								{
-									"id": "beed501a-ec06-4fa2-9f76-df00c2e5e4ff",
-									"name": "Item recovered successfully",
-									"originalRequest": {
-										"method": "PUT",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/updatestorecategories",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"updatestorecategories"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"updatedModel\": {\n\t\t\"id\": 94118617.32989845,\n\t\t\"name\": \"eiusmod\",\n\t\t\"categories\": [\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"veniam\",\n\t\t\t\t\t\"esse ea commodo\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"mollit veniam\",\n\t\t\t\t\"storeOrder\": -75131724.2335631\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"dolore laboris\",\n\t\t\t\t\t\"exercitation in labore\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"in id\",\n\t\t\t\t\"storeOrder\": 16308232.592923447\n\t\t\t}\n\t\t]\n\t}\n}"
-								},
-								{
-									"id": "60d46b58-bc5f-4059-ab8b-4c1bf1190889",
-									"name": "Bad request",
-									"originalRequest": {
-										"method": "PUT",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/updatestorecategories",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"updatestorecategories"
-											]
-										}
-									},
-									"status": "Bad Request",
-									"code": 400,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
-								}
-							]
-						},
-						{
-							"name": "itemName wrong type",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "cd325772-52cf-4f36-b07e-634c5440b7bc",
-										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Error message\", () => {\r",
-											"    pm.expect(pm.response.json()).to.include({error: \"\\\"itemName\\\" must be a string\"});\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "f7f93db1-7c56-4324-b4d8-d5aa45b744cd",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"itemName\": true,\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Kroger Frandor\",\n\t\t\t\"category\": \"Produce\"\n\t\t}\n\t]\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/updatestorecategories",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"updatestorecategories"
-									]
-								}
-							},
-							"response": [
-								{
-									"id": "7e807cb4-a4ab-48aa-92c1-14e5dd09a0fa",
-									"name": "Item recovered successfully",
-									"originalRequest": {
-										"method": "PUT",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/updatestorecategories",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"updatestorecategories"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"updatedModel\": {\n\t\t\"id\": 94118617.32989845,\n\t\t\"name\": \"eiusmod\",\n\t\t\"categories\": [\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"veniam\",\n\t\t\t\t\t\"esse ea commodo\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"mollit veniam\",\n\t\t\t\t\"storeOrder\": -75131724.2335631\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"dolore laboris\",\n\t\t\t\t\t\"exercitation in labore\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"in id\",\n\t\t\t\t\"storeOrder\": 16308232.592923447\n\t\t\t}\n\t\t]\n\t}\n}"
-								},
-								{
-									"id": "9f81f6f3-d753-454b-807d-bf0ea9549dc1",
-									"name": "Bad request",
-									"originalRequest": {
-										"method": "PUT",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/updatestorecategories",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"updatestorecategories"
-											]
-										}
-									},
-									"status": "Bad Request",
-									"code": 400,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
-								}
-							]
-						},
-						{
-							"name": "stores wrong type",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "cd325772-52cf-4f36-b07e-634c5440b7bc",
-										"exec": [
-											"pm.test(\"Status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response time is less than 200ms\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Error message\", () => {\r",
-											"    pm.expect(pm.response.json()).to.include({error: \"\\\"stores\\\" must be an array\"});\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"id": "5d52b308-1403-42b2-91db-6cda8374cde0",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									},
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"itemName\": \"asdf\",\n\t\"stores\": true\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/updatestorecategories",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"updatestorecategories"
-									]
-								}
-							},
-							"response": [
-								{
-									"id": "3041972c-68c9-472e-8153-3b2315ec7aad",
-									"name": "Item recovered successfully",
-									"originalRequest": {
-										"method": "PUT",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/updatestorecategories",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"updatestorecategories"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"updatedModel\": {\n\t\t\"id\": 94118617.32989845,\n\t\t\"name\": \"eiusmod\",\n\t\t\"categories\": [\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"veniam\",\n\t\t\t\t\t\"esse ea commodo\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"mollit veniam\",\n\t\t\t\t\"storeOrder\": -75131724.2335631\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"items\": [\n\t\t\t\t\t\"dolore laboris\",\n\t\t\t\t\t\"exercitation in labore\"\n\t\t\t\t],\n\t\t\t\t\"category\": \"in id\",\n\t\t\t\t\"storeOrder\": 16308232.592923447\n\t\t\t}\n\t\t]\n\t}\n}"
-								},
-								{
-									"id": "672e902e-b956-48ba-bd4b-4f5ae8db8909",
-									"name": "Bad request",
-									"originalRequest": {
-										"method": "PUT",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n\t\"itemName\": \"laboris\",\n\t\"stores\": [\n\t\t{\n\t\t\t\"storeName\": \"Lor\",\n\t\t\t\"category\": \"aliquip dolore\"\n\t\t},\n\t\t{\n\t\t\t\"storeName\": \"sed\",\n\t\t\t\"category\": \"commodo cillum non\"\n\t\t}\n\t]\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{BASE_URL}}/updatestorecategories",
-											"host": [
-												"{{BASE_URL}}"
-											],
-											"path": [
-												"updatestorecategories"
-											]
-										}
-									},
-									"status": "Bad Request",
-									"code": 400,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										}
-									],
-									"cookie": [],
-									"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
-								}
-							]
-						}
-					],
-					"id": "5169088e-5452-4b43-8246-35b7d65e2b17"
-				},
-				{
-					"name": "PUT item",
-					"item": [],
-					"id": "85cd9c09-e769-4d58-b089-c2db8b9d563a"
-				},
-				{
-					"name": "Update an item Copy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "ec646117-7996-4292-84cc-4e87bebf0e98",
-								"exec": [
-									"console.log('update an item test');\r",
-									"const schema = utils.getSchema('updateItemResponseSchema');\r",
-									"\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response time is less than 200ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Has JSON body\", () => {\r",
-									"   pm.response.to.have.jsonBody;\r",
-									"});\r",
-									"\r",
-									"pm.test(\"schema is valid\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema)\r",
-									"});\r",
-									"\r",
-									"pm.test(\"updated object reflects changes\", () => {\r",
-									"    pm.expect(pm.response.json().updatedItem[0].note).to.equal('a new note was added');\r",
-									"    pm.expect(pm.response.json().updatedItem[0].count).to.equal(3);\r",
-									"    pm.expect(JSON.stringify(pm.response.json().updatedItem[0].id)).to.equal(pm.collectionVariables.get('addedItem0.id'));\r",
-									"    pm.expect(JSON.stringify(pm.response.json().updatedItem[0].name)).to.equal(pm.collectionVariables.get('addedItem0.name'));\r",
-									"});\r",
-									"\r",
-									"pm.test('Check items in grocery list', () => {\r",
-									"    pm.sendRequest(utils.getItemsRequest(), (err, res) => {\r",
-									"        const response = res.json();\r",
-									"        pm.test('item has been updated in database', () => {\r",
-									"            pm.expect(response.items.find(i => JSON.stringify(i.id) === pm.collectionVariables.get('addedItem0.id')).count).to.equal(3)\r",
-									"            pm.expect(response.items.find(i => JSON.stringify(i.id) === pm.collectionVariables.get('addedItem0.id')).note).to.equal('a new note was added');\r",
-									"        });\r",
-									"    });\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "8a7ba8cb-5974-47a2-a52d-144c968945db",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"id": "e4abc383-d0ec-437a-8f21-f2c0bd7fced9",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"id\": {{addedItem0.id}},\n\t\"count\": 3,\n\t\"note\": \"a new note was added\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BASE_URL}}/updateitem",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"updateitem"
-							]
-						}
-					},
-					"response": [
-						{
-							"id": "ba159c84-9934-4686-8004-1636dab549c8",
-							"name": "Item recovered successfully",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"id\": \"reprehenderit et sit ex\",\n\t\"count\": 41335124.41065371,\n\t\"note\": \"id et\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/updateitem",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"updateitem"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n\t\"updatedItem\": {\n\t\t\"name\": \"officia laborum aliquip nostrud\",\n\t\t\"id\": \"dolore\",\n\t\t\"count\": -20231064.542687133,\n\t\t\"note\": \"dolore consectetur consequat\"\n\t}\n}"
-						},
-						{
-							"id": "d9d89745-805c-4799-bdca-64e7b7400526",
-							"name": "Bad request",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"id\": \"reprehenderit et sit ex\",\n\t\"count\": 41335124.41065371,\n\t\"note\": \"id et\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{BASE_URL}}/updateitem",
-									"host": [
-										"{{BASE_URL}}"
-									],
-									"path": [
-										"updateitem"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n\t\"error\": \"culpa\",\n\t\"statusCode\": 46176524.43310639\n}"
-						}
-					]
-				}
-			],
-			"id": "2b9d3242-585c-489e-b45b-a5d2d823f28f"
 		}
 	],
 	"event": [
