@@ -116,3 +116,7 @@ Import the collection into Postman in order to run the tests either manually or 
 
 ## License
 All rights reserved.
+
+## If I had more time...
+* **Add authentication** to protect the API
+* **Health check** endpoint
