@@ -119,5 +119,7 @@ Import the collection into Postman in order to run the tests either manually or 
 All rights reserved.
 
 ## If I had more time...
+* Granular **error responses**
 * **Add authentication** to protect the API
 * **Health check** endpoint
+* **Secure endpoints with input validation** 

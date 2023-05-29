@@ -1,6 +1,6 @@
 # Project Goals
 - CHANGELOG file for proper versioning
-- Input validation on endpoints
+- Basic input validation on endpoints
 - CI/CD pipeline including:
 	- Snyk security scan
 	- Lint checks
