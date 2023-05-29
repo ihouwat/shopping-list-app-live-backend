@@ -93,9 +93,9 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/",
+									"raw": "{{BASE_URL}}/",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										""
@@ -126,9 +126,9 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/",
+									"raw": "{{BASE_URL}}/",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										""
@@ -272,9 +272,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/additem",
+									"raw": "{{BASE_URL}}/additem",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"additem"
@@ -314,9 +314,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/additem",
+									"raw": "{{BASE_URL}}/additem",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"additem"
@@ -483,9 +483,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/updatestorecategories",
+									"raw": "{{BASE_URL}}/updatestorecategories",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"updatestorecategories"
@@ -622,9 +622,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/updateitem",
+									"raw": "{{BASE_URL}}/updateitem",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"updateitem"
@@ -664,9 +664,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/updateitem",
+									"raw": "{{BASE_URL}}/updateitem",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"updateitem"
@@ -802,9 +802,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/completeitem",
+									"raw": "{{BASE_URL}}/completeitem",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"completeitem"
@@ -844,9 +844,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/completeitem",
+									"raw": "{{BASE_URL}}/completeitem",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"completeitem"
@@ -968,9 +968,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/recoveritem",
+									"raw": "{{BASE_URL}}/recoveritem",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"recoveritem"
@@ -1010,9 +1010,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/recoveritem",
+									"raw": "{{BASE_URL}}/recoveritem",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"recoveritem"
@@ -1153,9 +1153,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/deleteitem",
+									"raw": "{{BASE_URL}}/deleteitem",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"deleteitem"
@@ -1195,9 +1195,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/deleteitem",
+									"raw": "{{BASE_URL}}/deleteitem",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"deleteitem"
@@ -1336,9 +1336,9 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/recoverallcompleted",
+									"raw": "{{BASE_URL}}/recoverallcompleted",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"recoverallcompleted"
@@ -1369,9 +1369,9 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/recoverallcompleted",
+									"raw": "{{BASE_URL}}/recoverallcompleted",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"recoverallcompleted"
@@ -1516,9 +1516,9 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/deleteallcompleted",
+									"raw": "{{BASE_URL}}/deleteallcompleted",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"deleteallcompleted"
@@ -1549,9 +1549,9 @@
 									}
 								],
 								"url": {
-									"raw": "{{baseUrl}}/deleteallcompleted",
+									"raw": "{{BASE_URL}}/deleteallcompleted",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"deleteallcompleted"
@@ -1673,9 +1673,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/additem",
+											"raw": "{{BASE_URL}}/additem",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"additem"
@@ -1715,9 +1715,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/additem",
+											"raw": "{{BASE_URL}}/additem",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"additem"
@@ -1830,9 +1830,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/additem",
+											"raw": "{{BASE_URL}}/additem",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"additem"
@@ -1872,9 +1872,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/additem",
+											"raw": "{{BASE_URL}}/additem",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"additem"
@@ -1987,9 +1987,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/additem",
+											"raw": "{{BASE_URL}}/additem",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"additem"
@@ -2029,9 +2029,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/additem",
+											"raw": "{{BASE_URL}}/additem",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"additem"
@@ -2140,9 +2140,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/updatestorecategories",
+											"raw": "{{BASE_URL}}/updatestorecategories",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"updatestorecategories"
@@ -2182,9 +2182,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/updatestorecategories",
+											"raw": "{{BASE_URL}}/updatestorecategories",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"updatestorecategories"
@@ -2287,9 +2287,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/updatestorecategories",
+											"raw": "{{BASE_URL}}/updatestorecategories",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"updatestorecategories"
@@ -2329,9 +2329,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/updatestorecategories",
+											"raw": "{{BASE_URL}}/updatestorecategories",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"updatestorecategories"
@@ -2434,9 +2434,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/updatestorecategories",
+											"raw": "{{BASE_URL}}/updatestorecategories",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"updatestorecategories"
@@ -2476,9 +2476,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/updatestorecategories",
+											"raw": "{{BASE_URL}}/updatestorecategories",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"updatestorecategories"
@@ -2581,9 +2581,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/updatestorecategories",
+											"raw": "{{BASE_URL}}/updatestorecategories",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"updatestorecategories"
@@ -2623,9 +2623,9 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/updatestorecategories",
+											"raw": "{{BASE_URL}}/updatestorecategories",
 											"host": [
-												"{{baseUrl}}"
+												"{{BASE_URL}}"
 											],
 											"path": [
 												"updatestorecategories"
@@ -2812,9 +2812,9 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/updateitem",
+									"raw": "{{BASE_URL}}/updateitem",
 									"host": [
-										"{{baseUrl}}"
+										"{{BASE_URL}}"
 									],
 									"path": [
 										"updateitem"
