@@ -1610,7 +1610,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\t\"id\": {{addedItem0.id}},\n\t\"count\": true,\n\t\"note\": \"a new note was added\"\n}",
+											"raw": "{\n\t\"id\": \"id\",\n\t\"count\": true,\n\t\"note\": \"a new note was added\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1767,7 +1767,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\t\"id\": {{addedItem0.id}},\n\t\"count\": 3,\n\t\"note\": true\n}",
+											"raw": "{\n\t\"id\": \"id\",\n\t\"count\": 3,\n\t\"note\": true\n}",
 											"options": {
 												"raw": {
 													"language": "json"
