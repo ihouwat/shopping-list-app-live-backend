@@ -1929,7 +1929,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\t\"item\": {\n        \"name\": \"name\",\n        \"id\": \"id\",\n        \"note\": \"note\",\n        \"count\": 3\n\t}\n}",
+											"raw": "{\n\t\"item\": {\n        \"id\": \"id\",\n        \"note\": \"note\",\n        \"count\": 3\n\t}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
