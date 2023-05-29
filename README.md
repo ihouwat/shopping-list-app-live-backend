@@ -5,8 +5,6 @@ This project is a live app I use personally, and I use it as a sandbox for pract
 
 Check out API docs with `/api-docs` endpoint.
 
-***
-
 ## Setup
 
 ### Database
@@ -49,8 +47,6 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 * `HEROKU_EMAIL`: for deployment
 * `POSTMAN_API_KEY`: for functional testing
 
-***
-
 ## Project folder structure
 * `.github`: contains CI/CD workflows
 * `config`: contains configuration files for knex, swagger, and winston
@@ -58,8 +54,6 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 * `postman`: contains postman collection and schemas for functional testing
 * `src`: contains app code
 * `test`: contains unit tests
-
-***
 
 ## Commands
 ### Start the server
@@ -76,8 +70,6 @@ Create a PostgreSQL database called 'quickshopper' on your local machine (see db
 ### Remote debugging
 Port is exposed through the Procfile. To forward the port, run:
 `heroku ps:forward 9090 -a {{app_name}}`
-
-***
 
 ## CI/CD pipeline
 The CD pipeline consists of development, staging, and production environments. Each push to master will trigger a GitHub action that will run the following:
@@ -96,8 +88,6 @@ Once all checks pass, the app is deployed automatically to production.
 	* Snyk static scan monitoring
 	* Github Dependabot for dependency security alerts and updates
 
-***
-
 ## Functional testing
 Functional tests are run with Postman CLI. Schemas and collections are in the `postman` folder. 
 ### Set environment variables
@@ -109,8 +99,6 @@ Functional tests are run with Postman CLI. Schemas and collections are in the `p
 
 ### Run tests
 Import the collection into Postman in order to run the tests either manually or with the Postman CLI.
-
-***
 
 ## Technologies Used 
 * [body-parser](https://www.npmjs.com/package/body-parser): Node.js body parsing middleware
