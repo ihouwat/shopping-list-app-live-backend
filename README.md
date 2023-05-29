@@ -84,9 +84,7 @@ The CD pipeline consists of development, staging, and production environments. E
 
 Once all checks pass, the app is deployed automatically to production.
 
-> Note: In addition to the pipeline above, the following **security checks are run on a weekly basis**:
-	* Snyk static scan monitoring
-	* Github Dependabot for dependency security alerts and updates
+> Note: In addition to the pipeline above, the following **security checks are run on a weekly basis**: Snyk static scan monitoring and Github Dependabot for dependency security alerts and updates.
 
 ## Functional testing
 Functional tests are run with Postman CLI. Schemas and collections are in the `postman` folder. 
