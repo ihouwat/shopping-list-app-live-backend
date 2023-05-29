@@ -1,12 +1,13 @@
 # Project Goals
 - CHANGELOG file for proper versioning
-- Input validation
+- Input validation on endpoints
 - CI/CD pipeline including:
-	- Lint checks
 	- Snyk security scan
-	- UI tests
+	- Lint checks
 	- Unit tests for all controllers, including mock DB and integration-like tests with mock-knex tracker
+	- Visual regression tests with Rainforest QA
+	- Functional testing with Postman
+	- Deploying to staging and production environments
 - Snyk static scan monitoring and alerts
 - Github Dependabot for dependency security alerts and updates
 - API documentation with Swagger
-- Functional testing with Postman
