@@ -4745,7 +4745,24 @@
 							"script": {
 								"id": "9ee30752-3aa5-4563-aba6-b3289aa2e95b",
 								"exec": [
-									""
+									"console.log(\"Cleaning DB before starting functional tests\");\r",
+									"\r",
+									"if(pm.environment.get('ENVIRONMENT') !== 'production')  {\r",
+									"    console.log(`cleaning up items list in ${pm.environment.get('ENVIRONMENT')} environment`);\r",
+									"    pm.sendRequest(utils.getItemsRequest(), (err, res) => {\r",
+									"        const response = res.json();\r",
+									"        response.items.forEach(i => {\r",
+									"            console.log(\"cleaning up the items list. deleting: \" + i)\r",
+									"            pm.sendRequest(utils.deleteItemRequest(i.id, 'items'))\r",
+									"        });\r",
+									"    });\r",
+									"\r",
+									"    console.log(`cleaning up completed items list in ${pm.environment.get('ENVIRONMENT')} environment`);\r",
+									"    pm.sendRequest(utils.deleteAllCompletedItemsRequest(), (err, res) => {\r",
+									"        console.log('Cleaned up completed items list: ');\r",
+									"        console.log(res.json());\r",
+									"    });\r",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -5456,7 +5473,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"item\": {\n        \"name\": {{addedItem0.name}},\n        \"id\": {{addedItem0.id}},\n        \"note\": {{addedItem0.note}},\n        \"count\": {{addedItem1.count}}\n\t}\n}",
+							"raw": "{\n\t\"item\": {\n        \"name\": {{addedItem0.name}},\n        \"id\": {{addedItem0.id}},\n        \"note\": {{addedItem0.note}},\n        \"count\": {{addedItem0.count}}\n\t}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5622,7 +5639,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"item\": {\n        \"name\": {{addedItem0.name}},\n        \"id\": {{addedItem0.id}},\n        \"note\": {{addedItem0.note}},\n        \"count\": {{addedItem1.count}}\n\t}\n}",
+							"raw": "{\n\t\"item\": {\n        \"name\": {{addedItem0.name}},\n        \"id\": {{addedItem0.id}},\n        \"note\": {{addedItem0.note}},\n        \"count\": {{addedItem0.count}}\n\t}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5947,7 +5964,6 @@
 									"            });\r",
 									"        })\r",
 									"    });\r",
-									"\r",
 									"});\r",
 									""
 								],
@@ -6089,46 +6105,9 @@
 					"name": "Delete all completed items from grocery list",
 					"event": [
 						{
-							"listen": "prerequest",
-							"script": {
-								"id": "7c6a9199-9226-42f3-9d46-4c708b9bcf61",
-								"exec": [
-									"const name = JSON.parse(pm.collectionVariables.get('addedItem1.name'));\r",
-									"const id = JSON.parse(pm.collectionVariables.get('addedItem1.id'));\r",
-									"const note = JSON.parse(pm.collectionVariables.get('addedItem1.note'));\r",
-									"const count = JSON.parse(pm.collectionVariables.get('addedItem1.count'));\r",
-									"\r",
-									"pm.test(\"Checking desired item is still in items list\", () => {\r",
-									"    pm.sendRequest(utils.getItemsRequest(), (err, res) => {\r",
-									"    const response = res.json();\r",
-									"        pm.test('items still in grocery list', () => {\r",
-									"            pm.expect(response.items.filter(i => JSON.stringify(i.id) === pm.collectionVariables.get('addedItem1.id')).length).to.equal(1);\r",
-									"            pm.test(\"Completing second item before running test on deleteallcompleted endpoint\", () => {\r",
-									"                pm.sendRequest(utils.completeItemRequest(name, id, note, count), (err, res) => {\r",
-									"                    const completedItemId = JSON.stringify(res.json().completedItemId);\r",
-									"                    pm.expect(completedItemId).to.equal(pm.collectionVariables.get('addedItem1.id'));\r",
-									"\r",
-									"                    pm.test('checking items list does not include that completed item', () => {\r",
-									"                        pm.sendRequest(utils.getItemsRequest(), (err, res) => {\r",
-									"                        const response = res.json();\r",
-									"                            pm.test('item no longer in grocery list', () => {\r",
-									"                                pm.expect(response.items.filter(i => JSON.stringify(i.id) === pm.collectionVariables.get('addedItem1.id')).length).to.equal(0);\r",
-									"                            });\r",
-									"                        });\r",
-									"                    });\r",
-									"                });\r",
-									"            });\r",
-									"        })\r",
-									"    });\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
 							"listen": "test",
 							"script": {
-								"id": "35c21a07-7010-4609-9d03-709996c29076",
+								"id": "b8bb908e-c199-45f4-b425-12dd44ff4e0e",
 								"exec": [
 									"console.log('delete all completed items test');\r",
 									"const schema = utils.getSchema('deleteAllItemsResponseSchema');\r",
@@ -6161,14 +6140,54 @@
 									"console.log('cleaning up transient collection variables for next run')\r",
 									"const valuesToKeep = [pm.collectionVariables.get('itemName'), pm.collectionVariables.get('schema')];\r",
 									"pm.collectionVariables.values.filter(i => !valuesToKeep.includes(i.value)).forEach(item => pm.collectionVariables.unset(item.key));\r",
-									"if(pm.environment.get('ENVIRONMENT') !== 'production')  {\r",
 									"\r",
-									"console.log(`cleaning up items list in ${pm.environment.get('ENVIRONMENT')} environment`);\r",
-									"pm.sendRequest(utils.getItemsRequest(), (err, res) => {\r",
+									"if(pm.environment.get('ENVIRONMENT') !== 'production')  {\r",
+									"    console.log(`cleaning up items list in ${pm.environment.get('ENVIRONMENT')} environment`);\r",
+									"    pm.sendRequest(utils.getItemsRequest(), (err, res) => {\r",
 									"        const response = res.json();\r",
-									"        response.items.forEach(i => pm.sendRequest(utils.deleteItemRequest(i.id, 'items')));\r",
+									"        response.items.forEach(i => {\r",
+									"            console.log(\"cleaning up the items list. deleting: \" + i)\r",
+									"            pm.sendRequest(utils.deleteItemRequest(i.id, 'items'))\r",
+									"        });\r",
 									"    });\r",
 									"}"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b571f3dc-fc94-484a-8624-ef82faecae74",
+								"exec": [
+									"const name = JSON.parse(pm.collectionVariables.get('addedItem1.name'));\r",
+									"const id = JSON.parse(pm.collectionVariables.get('addedItem1.id'));\r",
+									"const note = JSON.parse(pm.collectionVariables.get('addedItem1.note'));\r",
+									"const count = JSON.parse(pm.collectionVariables.get('addedItem1.count'));\r",
+									"\r",
+									"pm.test(\"Checking desired item is still in items list\", () => {\r",
+									"    pm.sendRequest(utils.getItemsRequest(), (err, res) => {\r",
+									"    const response = res.json();\r",
+									"        pm.test('items still in grocery list', () => {\r",
+									"            pm.expect(response.items.filter(i => JSON.stringify(i.id) === pm.collectionVariables.get('addedItem1.id')).length).to.equal(1);\r",
+									"            pm.test(\"Completing second item before running test on deleteallcompleted endpoint\", () => {\r",
+									"                pm.sendRequest(utils.completeItemRequest(name, id, note, count), (err, res) => {\r",
+									"                    const completedItemId = JSON.stringify(res.json().completedItemId);\r",
+									"                    pm.expect(completedItemId).to.equal(pm.collectionVariables.get('addedItem1.id'));\r",
+									"\r",
+									"                    pm.test('checking items list does not include that completed item', () => {\r",
+									"                        pm.sendRequest(utils.getItemsRequest(), (err, res) => {\r",
+									"                        const response = res.json();\r",
+									"                            pm.test('item no longer in grocery list', () => {\r",
+									"                                pm.expect(response.items.filter(i => JSON.stringify(i.id) === pm.collectionVariables.get('addedItem1.id')).length).to.equal(0);\r",
+									"                            });\r",
+									"                        });\r",
+									"                    });\r",
+									"                });\r",
+									"            });\r",
+									"        })\r",
+									"    });\r",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -6273,7 +6292,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "8169da17-0b6e-4170-9eb8-2ce902d0d83a",
+				"id": "ac5e575d-7f87-4e04-bffd-ab6939a054f5",
 				"type": "text/javascript",
 				"exec": [
 					"utils = {",
@@ -6328,7 +6347,16 @@
 					"                }",
 					"            }",
 					"        }",
-					"    }",
+					"    },",
+					"    deleteAllCompletedItemsRequest() {",
+					"        return {",
+					"            url: pm.environment.get('BASE_URL') + '/deleteallcompleted',",
+					"            method: 'DELETE',",
+					"            header: {",
+					"                \"Content-Type\": \"application/json\"",
+					"            }",
+					"        }",
+					"    },",
 					"}"
 				]
 			}
@@ -6336,7 +6364,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "e6ce5cca-8967-43c9-9c2a-036e67791b34",
+				"id": "8fd70a06-3ff3-494d-995f-77bc0d5dce32",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -6346,36 +6374,16 @@
 	],
 	"variable": [
 		{
-			"id": "0b235459-3604-4ba8-a51c-ceb209635c6a",
+			"id": "17df678a-4710-47e6-8dc7-60a875546a48",
 			"key": "schema",
 			"value": "{\n    \"openapi\": \"3.1.0\",\n    \"info\": {\n        \"title\": \"Shopping App\",\n        \"version\": \"1.0.0\",\n        \"description\": \"Shopping list app backend API\",\n        \"license\": {\n            \"name\": \"All Rights Reserved\"\n        }\n    },\n    \"components\": {\n        \"schemas\": {\n            \"itemNameSchema\": {\n                \"required\": [\n                    \"name\"\n                ],\n                \"type\": \"object\",\n                \"properties\": {\n                    \"name\": {\n                        \"type\": \"string\"\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"itemSchema\": {\n                \"required\": [\n                    \"item\"\n                ],\n                \"type\": \"object\",\n                \"properties\": {\n                    \"item\": {\n                        \"required\": [\n                            \"name\",\n                            \"id\",\n                            \"count\"\n                        ],\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"name\": {\n                                \"type\": \"string\"\n                            },\n                            \"id\": {\n                                \"type\": \"string\"\n                            },\n                            \"note\": {\n                                \"type\": \"string\"\n                            },\n                            \"count\": {\n                                \"type\": \"number\"\n                            }\n                        },\n                        \"additionalProperties\": false\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"deleteItemSchema\": {\n                \"required\": [\n                    \"listName\",\n                    \"id\"\n                ],\n                \"type\": \"object\",\n                \"properties\": {\n                    \"listName\": {\n                        \"type\": \"string\"\n                    },\n                    \"id\": {\n                        \"type\": \"string\"\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"updateItemSchema\": {\n                \"required\": [\n                    \"id\",\n                    \"count\"\n                ],\n                \"type\": \"object\",\n                \"properties\": {\n                    \"id\": {\n                        \"type\": \"string\"\n                    },\n                    \"note\": {\n                        \"type\": \"string\"\n                    },\n                    \"count\": {\n                        \"type\": \"number\"\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"updateStoreCategoriesSchema\": {\n                \"required\": [\n                    \"itemName\",\n                    \"stores\"\n                ],\n                \"type\": \"object\",\n                \"properties\": {\n                    \"itemName\": {\n                        \"type\": \"string\"\n                    },\n                    \"stores\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"required\": [\n                                \"storeName\",\n                                \"category\"\n                            ],\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"storeName\": {\n                                    \"type\": \"string\"\n                                },\n                                \"category\": {\n                                    \"type\": \"string\"\n                                }\n                            },\n                            \"additionalProperties\": false\n                        }\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"addItemResponseSchema\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"addedItem\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"required\": [\n                                \"name\",\n                                \"id\",\n                                \"count\"\n                            ],\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"name\": {\n                                    \"type\": \"string\"\n                                },\n                                \"id\": {\n                                    \"type\": \"string\"\n                                },\n                                \"note\": {\n                                    \"type\": \"string\"\n                                },\n                                \"count\": {\n                                    \"type\": \"number\"\n                                }\n                            },\n                            \"additionalProperties\": false\n                        }\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"getItemResponseSchema\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"items\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"required\": [\n                                \"name\",\n                                \"id\",\n                                \"count\"\n                            ],\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"name\": {\n                                    \"type\": \"string\"\n                                },\n                                \"id\": {\n                                    \"type\": \"string\"\n                                },\n                                \"note\": {\n                                    \"type\": \"string\"\n                                },\n                                \"count\": {\n                                    \"type\": \"number\"\n                                }\n                            },\n                            \"additionalProperties\": false\n                        }\n                    },\n                    \"completedItems\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"required\": [\n                                \"name\",\n                                \"id\",\n                                \"count\"\n                            ],\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"name\": {\n                                    \"type\": \"string\"\n                                },\n                                \"id\": {\n                                    \"type\": \"string\"\n                                },\n                                \"note\": {\n                                    \"type\": \"string\"\n                                },\n                                \"count\": {\n                                    \"type\": \"number\"\n                                }\n                            },\n                            \"additionalProperties\": false\n                        }\n                    },\n                    \"favoriteItems\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"name\": {\n                                    \"type\": \"string\"\n                                },\n                                \"isChecked\": {\n                                    \"type\": \"boolean\"\n                                }\n                            },\n                            \"additionalProperties\": false\n                        }\n                    },\n                    \"groceriesTemplate\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"name\": {\n                                    \"type\": \"string\"\n                                }\n                            },\n                            \"additionalProperties\": false\n                        }\n                    },\n                    \"groceryStoreModel\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"id\": {\n                                    \"type\": \"number\"\n                                },\n                                \"name\": {\n                                    \"type\": \"string\"\n                                },\n                                \"categories\": {\n                                    \"oneOf\": [\n                                        {\n                                            \"type\": \"array\",\n                                            \"items\": {\n                                                \"type\": \"object\",\n                                                \"properties\": {\n                                                    \"items\": {\n                                                        \"type\": \"array\",\n                                                        \"items\": {\n                                                            \"type\": \"string\"\n                                                        }\n                                                    },\n                                                    \"category\": {\n                                                        \"type\": \"string\"\n                                                    },\n                                                    \"storeOrder\": {\n                                                        \"type\": \"number\"\n                                                    }\n                                                },\n                                                \"additionalProperties\": false\n                                            }\n                                        },\n                                        {\n                                            \"type\": \"null\"\n                                        }\n                                    ]\n                                }\n                            },\n                            \"additionalProperties\": false\n                        }\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"completeItemResponseSchema\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"completedItemId\": {\n                        \"type\": \"string\"\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"deleteItemResponseSchema\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"listName\": {\n                        \"type\": \"string\"\n                    },\n                    \"deletedItem\": {\n                        \"required\": [\n                            \"name\",\n                            \"id\",\n                            \"count\"\n                        ],\n                        \"type\": \"object\",\n                        \"properties\": {\n                            \"name\": {\n                                \"type\": \"string\"\n                            },\n                            \"id\": {\n                                \"type\": \"string\"\n                            },\n                            \"note\": {\n                                \"type\": \"string\"\n                            },\n                            \"count\": {\n                                \"type\": \"number\"\n                            }\n                        },\n                        \"additionalProperties\": false\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"recoveredItemResponseSchema\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"recoveredItem\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"required\": [\n                                \"name\",\n                                \"id\",\n                                \"count\"\n                            ],\n                            \"properties\": {\n                                \"name\": {\n                                    \"type\": \"string\"\n                                },\n                                \"id\": {\n                                    \"type\": \"string\"\n                                },\n                                \"note\": {\n                                    \"type\": \"string\"\n                                },\n                                \"count\": {\n                                    \"type\": \"number\"\n                                }\n                            },\n                            \"additionalProperties\": false\n                        }\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"deleteAllItemsResponseSchema\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"completeditems\": {\n                        \"maxItems\": 0,\n                        \"minItems\": 0,\n                        \"type\": \"array\",\n                        \"items\": {}\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"updateItemResponseSchema\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"updatedItem\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"name\": {\n                                    \"type\": \"string\"\n                                },\n                                \"id\": {\n                                    \"type\": \"string\"\n                                },\n                                \"note\": {\n                                    \"type\": \"string\"\n                                },\n                                \"count\": {\n                                    \"type\": \"number\"\n                                }\n                            },\n                            \"required\": [\n                                \"name\",\n                                \"id\",\n                                \"count\"\n                            ],\n                            \"additionalProperties\": false\n                        }\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"updateStoreCategoriesResponseSchema\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"updatedModel\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"id\": {\n                                    \"type\": \"number\"\n                                },\n                                \"name\": {\n                                    \"type\": \"string\"\n                                },\n                                \"categories\": {\n                                    \"oneOf\": [\n                                        {\n                                            \"type\": \"array\",\n                                            \"items\": {\n                                                \"type\": \"object\",\n                                                \"properties\": {\n                                                    \"items\": {\n                                                        \"type\": \"array\",\n                                                        \"items\": {\n                                                            \"type\": \"string\"\n                                                        }\n                                                    },\n                                                    \"category\": {\n                                                        \"type\": \"string\"\n                                                    },\n                                                    \"storeOrder\": {\n                                                        \"type\": \"number\"\n                                                    }\n                                                },\n                                                \"additionalProperties\": false\n                                            }\n                                        },\n                                        {\n                                            \"type\": \"null\"\n                                        }\n                                    ]\n                                }\n                            },\n                            \"additionalProperties\": false\n                        }\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"recoverAllCompletedResponseSchema\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"items\": {\n                        \"type\": \"array\",\n                        \"items\": {\n                            \"required\": [\n                                \"name\",\n                                \"id\",\n                                \"count\"\n                            ],\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"name\": {\n                                    \"type\": \"string\"\n                                },\n                                \"id\": {\n                                    \"type\": \"string\"\n                                },\n                                \"note\": {\n                                    \"type\": \"string\"\n                                },\n                                \"count\": {\n                                    \"type\": \"number\"\n                                }\n                            },\n                            \"additionalProperties\": false\n                        }\n                    },\n                    \"completedItems\": {\n                        \"maxItems\": 0,\n                        \"minItems\": 0,\n                        \"type\": \"array\",\n                        \"items\": {}\n                    }\n                },\n                \"additionalProperties\": false\n            },\n            \"errorResponseSchema\": {\n                \"type\": \"object\",\n                \"properties\": {\n                    \"error\": {\n                        \"type\": \"string\"\n                    },\n                    \"statusCode\": {\n                        \"type\": \"number\"\n                    }\n                },\n                \"additionalProperties\": false\n            }\n        }\n    },\n    \"servers\": [\n        {\n            \"url\": \"http://localhost:3000\",\n            \"description\": \"Development server\"\n        },\n        {\n            \"url\": \"http://.....\",\n            \"description\": \"Production server\"\n        }\n    ],\n    \"paths\": {\n        \"/additem\": {\n            \"post\": {\n                \"summary\": \"Add item to grocery list\",\n                \"tags\": [\n                    \"Items\"\n                ],\n                \"requestBody\": {\n                    \"required\": true,\n                    \"content\": {\n                        \"application/json\": {\n                            \"schema\": {\n                                \"$ref\": \"#/components/schemas/itemNameSchema\"\n                            }\n                        }\n                    }\n                },\n                \"responses\": {\n                    \"200\": {\n                        \"description\": \"Item added successfully\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/addItemResponseSchema\"\n                                }\n                            }\n                        }\n                    },\n                    \"400\": {\n                        \"description\": \"Bad request\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        },\n        \"/completeitem\": {\n            \"put\": {\n                \"summary\": \"Complete item from grocery list\",\n                \"tags\": [\n                    \"Items\"\n                ],\n                \"requestBody\": {\n                    \"required\": true,\n                    \"content\": {\n                        \"application/json\": {\n                            \"schema\": {\n                                \"$ref\": \"#/components/schemas/itemSchema\"\n                            }\n                        }\n                    }\n                },\n                \"responses\": {\n                    \"200\": {\n                        \"description\": \"Item completed successfully\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/completeItemResponseSchema\"\n                                }\n                            }\n                        }\n                    },\n                    \"400\": {\n                        \"description\": \"Bad request\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        },\n        \"/deleteallcompleted\": {\n            \"delete\": {\n                \"summary\": \"Delete all completed items from grocery list\",\n                \"tags\": [\n                    \"Items\"\n                ],\n                \"responses\": {\n                    \"200\": {\n                        \"description\": \"Items deleted successfully\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/deleteAllItemsResponseSchema\"\n                                }\n                            }\n                        }\n                    },\n                    \"400\": {\n                        \"description\": \"Bad request\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        },\n        \"/deleteitem\": {\n            \"delete\": {\n                \"summary\": \"Delete an item from either the grocery list or the completed list\",\n                \"tags\": [\n                    \"Items\"\n                ],\n                \"requestBody\": {\n                    \"required\": true,\n                    \"content\": {\n                        \"application/json\": {\n                            \"schema\": {\n                                \"$ref\": \"#/components/schemas/deleteItemSchema\"\n                            }\n                        }\n                    }\n                },\n                \"responses\": {\n                    \"200\": {\n                        \"description\": \"Item deleted successfully\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/deleteItemResponseSchema\"\n                                }\n                            }\n                        }\n                    },\n                    \"400\": {\n                        \"description\": \"Bad request\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        },\n        \"/\": {\n            \"get\": {\n                \"summary\": \"Get items on load\",\n                \"tags\": [\n                    \"Items\"\n                ],\n                \"responses\": {\n                    \"200\": {\n                        \"description\": \"App metadata and items retrieved successfully\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/getItemResponseSchema\"\n                                }\n                            }\n                        }\n                    },\n                    \"400\": {\n                        \"description\": \"Bad request\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        },\n        \"/recoverallcompleted\": {\n            \"put\": {\n                \"summary\": \"Recover all completed items to main grocery list\",\n                \"tags\": [\n                    \"Items\"\n                ],\n                \"responses\": {\n                    \"200\": {\n                        \"description\": \"Items recovered successfully\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/recoverAllCompletedResponseSchema\"\n                                }\n                            }\n                        }\n                    },\n                    \"400\": {\n                        \"description\": \"Bad request\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        },\n        \"/recoveritem\": {\n            \"put\": {\n                \"summary\": \"Recover one completed items to main grocery list\",\n                \"tags\": [\n                    \"Items\"\n                ],\n                \"requestBody\": {\n                    \"required\": true,\n                    \"content\": {\n                        \"application/json\": {\n                            \"schema\": {\n                                \"$ref\": \"#/components/schemas/itemSchema\"\n                            }\n                        }\n                    }\n                },\n                \"responses\": {\n                    \"200\": {\n                        \"description\": \"Item recovered successfully\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/recoveredItemResponseSchema\"\n                                }\n                            }\n                        }\n                    },\n                    \"400\": {\n                        \"description\": \"Bad request\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        },\n        \"/updateitem\": {\n            \"put\": {\n                \"summary\": \"Update an item\",\n                \"tags\": [\n                    \"Items\"\n                ],\n                \"requestBody\": {\n                    \"required\": true,\n                    \"content\": {\n                        \"application/json\": {\n                            \"schema\": {\n                                \"$ref\": \"#/components/schemas/updateItemSchema\"\n                            }\n                        }\n                    }\n                },\n                \"responses\": {\n                    \"200\": {\n                        \"description\": \"Item recovered successfully\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/updateItemResponseSchema\"\n                                }\n                            }\n                        }\n                    },\n                    \"400\": {\n                        \"description\": \"Bad request\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        },\n        \"/updatestorecategories\": {\n            \"put\": {\n                \"summary\": \"Update store category\",\n                \"tags\": [\n                    \"Items\"\n                ],\n                \"requestBody\": {\n                    \"required\": true,\n                    \"content\": {\n                        \"application/json\": {\n                            \"schema\": {\n                                \"$ref\": \"#/components/schemas/updateStoreCategoriesSchema\"\n                            }\n                        }\n                    }\n                },\n                \"responses\": {\n                    \"200\": {\n                        \"description\": \"Item recovered successfully\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/updateStoreCategoriesResponseSchema\"\n                                }\n                            }\n                        }\n                    },\n                    \"400\": {\n                        \"description\": \"Bad request\",\n                        \"content\": {\n                            \"application/json\": {\n                                \"schema\": {\n                                    \"$ref\": \"#/components/schemas/errorResponseSchema\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    },\n    \"tags\": []\n}",
 			"type": "string"
 		},
 		{
-			"id": "8673c031-d3c9-4b73-a0e9-6c295af39fe2",
+			"id": "9d8b3cad-722e-4ca7-962d-0550e6cb7fee",
 			"key": "itemName",
 			"value": "{{$randomProduct}}{{$randomInt}}{{$randomInt}}",
 			"type": "string"
-		},
-		{
-			"id": "85943a77-c78a-4919-b42d-608aee1dedb7",
-			"key": "addedItem0.name",
-			"value": ""
-		},
-		{
-			"id": "46b3d7c2-e057-4bd6-8690-d2ba7d1d0a1f",
-			"key": "addedItem0.id",
-			"value": ""
-		},
-		{
-			"id": "e86d8081-5cfa-4e74-abe1-3690a8503d0a",
-			"key": "addedItem0.note",
-			"value": ""
-		},
-		{
-			"id": "f9d05e9e-d015-4a64-a69c-3b76cfa9fedc",
-			"key": "addedItem0.count",
-			"value": ""
 		}
 	]
 }
