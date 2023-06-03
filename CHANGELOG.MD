@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 - Github action to label pull requests
 - Cleaned up Postman tests
+- Automated dependency updates from Snyk
 
 ## [0.1.10] - 2023-05-29
 ### Added
