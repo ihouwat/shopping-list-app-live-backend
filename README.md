@@ -83,11 +83,11 @@ The CD pipeline consists of development, staging, and production environments. E
 4. **Functional tests**
 5. **Visual regression tests**
 
-Once all checks pass, the app is deployed automatically to production.
+Email reports are sent for all CI runs, regardless of the status of the run. Once all checks pass, the app is deployed automatically to production.
 
 > Note: In addition to the pipeline above, the following **security checks are run on a weekly basis**: Snyk static scan monitoring and Github Dependabot for dependency security alerts and updates.
 
-> Note: There is a Dockerfile for the app which can be used in the pipeline if desired.
+> Note: There is a Dockerfile to containerize the app, if desired.
 
 ## Functional testing
 Functional tests are run with Postman CLI. Schemas and collections are in the `postman` folder. 
@@ -122,4 +122,7 @@ All rights reserved.
 * Granular **error responses**
 * **Add authentication** to protect the API
 * **Health check** endpoint
-* **Secure endpoints with input validation** 
+* **Secure endpoints with input validation** (protect against malicious requests)
+* **Automate DB migrations** (ex: Liquibase)
+
+> Note: The CI/CD pipeline adopts an automated **zero downtime deployment** approach. I realize some enterprises require manual intervention when deploying to higher environments, for example when needing approvals at different stages of the pipeline.
