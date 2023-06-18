@@ -10,22 +10,18 @@ on:
     branches: [ "master" ]
 
 jobs:
-  mask-secrets:
-    # it seems secrets are being masked, but, just in case...
+  security:
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      # Secrets seem to be masked in logs, but this is an extra step just in case...
+      - name: Mask secrets
+        run: |
           echo "::add-mask::${{ secrets.SNYK_TOKEN }}"
           echo "::add-mask::${{ secrets.HEROKU_API_KEY }}"
           echo "::add-mask::${{ secrets.HEROKU_APP_NAME }}"
           echo "::add-mask::${{ secrets.HEROKU_EMAIL }}"
           echo "::add-mask::${{ secrets.POSTMAN_API_KEY }}"
           echo "::add-mask::${{ secrets.RAINFOREST_API_TOKEN }}"
-
-  security:
-    runs-on: ubuntu-latest
-    needs: mask-secrets
-    steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
