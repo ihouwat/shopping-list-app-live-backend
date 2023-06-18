@@ -9,11 +9,9 @@ on:
   pull_request:
     branches: [ "master" ]
 
-env:
-  ACTIONS_RUNNER_DEBUG: true
-
 jobs:
   mask-secrets:
+    # it seems secrets are being masked, but, just in case...
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -26,6 +24,7 @@ jobs:
 
   security:
     runs-on: ubuntu-latest
+    needs: mask-secrets
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
@@ -91,3 +90,5 @@ jobs:
         with:
           token: ${{ secrets.RAINFOREST_API_TOKEN }}
           run_group_id: 14268
+          automation_max_retries: 0
+          conflict: cancel
