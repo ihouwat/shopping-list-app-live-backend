@@ -17,7 +17,7 @@ app.set('trust proxy', 1); // Trust first proxy	for rate limiter
 const PORT = process.env.PORT || 3000;
 const limiter = rateLimit({
 	windowMs: 1 * 60 * 1000, // 1 minutes
-	max: 1, // Limit each IP to 120 requests per `window`
+	max: 120, // Limit each IP to 120 requests per `window`
 	message: 'Too many requests from this IP',
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
