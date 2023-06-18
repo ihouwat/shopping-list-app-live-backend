@@ -22,7 +22,7 @@ jobs:
           echo "::add-mask::${{ secrets.HEROKU_APP_NAME }}"
           echo "::add-mask::${{ secrets.HEROKU_EMAIL }}"
           echo "::add-mask::${{ secrets.POSTMAN_API_KEY }}"
-          echo "::add-mask::${{ secrets.RAINFOREST_API_TOKEN }}" 
+          echo "::add-mask::${{ secrets.RAINFOREST_API_TOKEN }}"
 
   security:
     runs-on: ubuntu-latest
