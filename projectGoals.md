@@ -1,6 +1,5 @@
 # Project Goals
 - CHANGELOG file for proper versioning
-- Basic input validation on endpoints
 - CI/CD pipeline including:
 	- Snyk security scan
 	- Lint checks
@@ -8,6 +7,10 @@
 	- Visual regression tests with Rainforest QA
 	- Functional testing with Postman
 	- Deploying to staging and production environments
-- Snyk static scan monitoring and alerts, including automated PRs for security-related dependency updates
-- Github Dependabot for dependency security alerts and updates
+- Security:
+	- Basic input validation on endpoints
+	- Rate limiting
+	- Snyk static scan monitoring and alerts, including automated PRs for security-related dependency updates
+	- Github Dependabot for dependency security alerts and updates
+	- Github CodeQL for static analysis and security alerts
 - API documentation with Swagger
