@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 - Update swaggerFile apis path to match new folder structure
 
+### Added
+- Rate limiting to prevent DOS attacks
+
 ## [0.1.11] - 2023-06-03
 ### Added
 - Github action to label pull requests
