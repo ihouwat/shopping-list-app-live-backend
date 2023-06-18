@@ -9,7 +9,21 @@ on:
   pull_request:
     branches: [ "master" ]
 
+env:
+  ACTIONS_RUNNER_DEBUG: true
+
 jobs:
+  mask-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "::add-mask::${{ secrets.SNYK_TOKEN }}"
+          echo "::add-mask::${{ secrets.HEROKU_API_KEY }}"
+          echo "::add-mask::${{ secrets.HEROKU_APP_NAME }}"
+          echo "::add-mask::${{ secrets.HEROKU_EMAIL }}"
+          echo "::add-mask::${{ secrets.POSTMAN_API_KEY }}"
+          echo "::add-mask::${{ secrets.RAINFOREST_API_TOKEN }}"
+
   security:
     runs-on: ubuntu-latest
     steps:
@@ -71,7 +85,6 @@ jobs:
   visual-regression-test:
     needs: automated-api-tests
     runs-on: ubuntu-latest
-    name: Run Rainforest
     steps:
       - name: Rainforest
         uses: rainforestapp/github-action@master
