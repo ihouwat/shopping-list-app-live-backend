@@ -37,7 +37,7 @@ const swaggerDefinition = {
 		},
 		{
 			url: 'http://.....',
-			description: 'Production server',
+			description: 'Staging server',
 		},
 	],
 };
@@ -45,7 +45,7 @@ const swaggerDefinition = {
 
 const options = {
 	swaggerDefinition,
-	apis: ['./routes/*.js']
+	apis: ['./src/routes/*.js']
 };
 
 
