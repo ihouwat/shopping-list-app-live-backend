@@ -79,14 +79,15 @@ jobs:
         run: |
           postman collection run "${{ github.workspace }}/postman/collections/Shopping App_e8e8ded3-d3ed-4834-a6b2-7b49dd0d3f7c.json" -e "10202594-2bc64fdd-8320-4cd3-bb64-0e727e1441f4"
 
-  visual-regression-test:
-    needs: automated-api-tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Rainforest
-        uses: rainforestapp/github-action@master
-        with:
-          token: ${{ secrets.RAINFOREST_API_TOKEN }}
-          run_group_id: 14268
-          automation_max_retries: 0
-          conflict: cancel
+  # Note: Rainforest QA is no longer free for small projects, so this step is skipped for now.
+  # visual-regression-test:
+  #   needs: automated-api-tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Rainforest
+  #       uses: rainforestapp/github-action@master
+  #       with:
+  #         token: ${{ secrets.RAINFOREST_API_TOKEN }}
+  #         run_group_id: 14268
+  #         automation_max_retries: 0
+  #         conflict: cancel
