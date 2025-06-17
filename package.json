@@ -5,7 +5,7 @@
   "author": "Igor Houwat",
   "private": true,
   "dependencies": {
-    "body-parser": "^1.20.1",
+    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "express-rate-limit": "^6.7.0",
